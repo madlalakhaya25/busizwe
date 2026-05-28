@@ -155,7 +155,7 @@ export default function HeroSection() {
               <motion.div
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute -top-6 -right-6 bg-[#C89B3C] text-white rounded-2xl px-5 py-4 shadow-xl"
+                className="absolute -top-5 -right-3 bg-[#C89B3C] text-white rounded-2xl px-5 py-4 shadow-xl"
               >
                 <p className="text-2xl font-bold">5,000+</p>
                 <p className="text-xs text-white/80">Families Covered</p>

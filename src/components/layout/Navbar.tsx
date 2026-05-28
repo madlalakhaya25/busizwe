@@ -11,10 +11,10 @@ import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
 const NAV_LINKS = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
+  { label: 'Home',     href: '/'        },
+  { label: 'About',   href: '/about'   },
   { label: 'Products', href: '/products' },
-  { label: 'FAQ', href: '/faq' },
+  { label: 'FAQ',     href: '/faq'     },
   { label: 'Contact', href: '/contact' },
 ]
 
@@ -30,14 +30,10 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  useEffect(() => {
-    setIsOpen(false)
-  }, [pathname])
+  useEffect(() => { setIsOpen(false) }, [pathname])
 
-  const isActive = (href: string) => {
-    if (href === '/') return pathname === '/'
-    return pathname.startsWith(href)
-  }
+  const isActive = (href: string) =>
+    href === '/' ? pathname === '/' : pathname.startsWith(href)
 
   return (
     <>
@@ -54,10 +50,11 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
+
             {/* Logo */}
             <Logo size="sm" variant="full" />
 
-            {/* Desktop Navigation */}
+            {/* Desktop nav links */}
             <nav className="hidden lg:flex items-center gap-1" aria-label="Main navigation">
               {NAV_LINKS.map((link) => (
                 <Link
@@ -65,9 +62,13 @@ export default function Navbar() {
                   href={link.href}
                   className={cn(
                     'relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200',
-                    isActive(link.href)
-                      ? 'text-[#014D4E] bg-[#014D4E]/8'
-                      : 'text-[#1C1C1C] hover:text-[#014D4E] hover:bg-[#014D4E]/5'
+                    scrolled
+                      ? isActive(link.href)
+                        ? 'text-[#014D4E] bg-[#014D4E]/8'
+                        : 'text-[#1C1C1C] hover:text-[#014D4E] hover:bg-[#014D4E]/5'
+                      : isActive(link.href)
+                        ? 'text-white bg-white/15'
+                        : 'text-white/85 hover:text-white hover:bg-white/10'
                   )}
                 >
                   {link.label}
@@ -85,7 +86,10 @@ export default function Navbar() {
             <div className="hidden lg:flex items-center gap-3">
               <a
                 href="tel:+27800000000"
-                className="flex items-center gap-2 text-sm text-[#6b6b6b] hover:text-[#014D4E] transition-colors"
+                className={cn(
+                  'flex items-center gap-2 text-sm transition-colors',
+                  scrolled ? 'text-[#6b6b6b] hover:text-[#014D4E]' : 'text-white/80 hover:text-white'
+                )}
               >
                 <Phone className="w-4 h-4 text-[#C89B3C]" />
                 <span className="font-medium">0800 000 000</span>
@@ -93,40 +97,51 @@ export default function Navbar() {
 
               {isSignedIn ? (
                 <>
-                  <Button variant="outline" size="sm" asChild>
+                  <Button
+                    variant={scrolled ? 'outline' : 'ghost'}
+                    size="sm"
+                    asChild
+                    className={!scrolled ? 'text-white border-white/30 hover:bg-white/10 hover:text-white' : ''}
+                  >
                     <Link href="/dashboard">Dashboard</Link>
                   </Button>
                   <UserButton
                     appearance={{
-                      elements: {
-                        avatarBox: 'w-9 h-9 ring-2 ring-[#C89B3C] ring-offset-1',
-                      },
+                      elements: { avatarBox: 'w-9 h-9 ring-2 ring-[#C89B3C] ring-offset-1' },
                     }}
                   />
                 </>
               ) : (
                 <>
-                  <Button variant="ghost" size="sm" asChild>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    asChild
+                    className={!scrolled ? 'text-white hover:text-white hover:bg-white/10' : ''}
+                  >
                     <Link href="/sign-in">Sign In</Link>
                   </Button>
                   <Button variant="gold" size="sm" asChild>
                     <Link href="/sign-up">
-                      Apply Now
-                      <ChevronRight className="w-4 h-4" />
+                      Apply Now <ChevronRight className="w-4 h-4" />
                     </Link>
                   </Button>
                 </>
               )}
             </div>
 
-            {/* Mobile menu button */}
+            {/* Mobile hamburger */}
             <button
-              className="lg:hidden p-2 rounded-lg text-[#1C1C1C] hover:bg-[#014D4E]/10 transition-colors"
+              className={cn(
+                'lg:hidden p-2 rounded-lg transition-colors',
+                scrolled ? 'text-[#1C1C1C] hover:bg-[#014D4E]/10' : 'text-white hover:bg-white/10'
+              )}
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle menu"
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
+
           </div>
         </div>
       </motion.header>

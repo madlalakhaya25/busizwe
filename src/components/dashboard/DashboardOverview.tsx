@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button'
 import { formatCurrency, formatDate, getStatusColor } from '@/lib/utils'
 
 interface Props {
-  user: { profile?: { firstName: string; lastName: string } | null } | null
+  displayName: string
   stats: {
     totalPolicies: number
     activePolicies: number
@@ -64,8 +64,8 @@ const QUICK_ACTIONS = [
   { icon: CreditCard, label: 'Payments',    href: '/dashboard/payments',   desc: 'Track premium history' },
 ]
 
-export default function DashboardOverview({ user, stats, recentPolicies, recentPayments }: Props) {
-  const name = user?.profile ? `${user.profile.firstName}` : 'Member'
+export default function DashboardOverview({ displayName, stats, recentPolicies, recentPayments }: Props) {
+  const name = displayName
 
   return (
     <div className="space-y-6 lg:space-y-8">

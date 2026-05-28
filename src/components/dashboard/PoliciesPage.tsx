@@ -37,14 +37,16 @@ export default function PoliciesPage({ policies }: { policies: unknown[] }) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <div>
-          <p className="text-[#6b6b6b] text-sm mt-1">{typedPolicies.length} {typedPolicies.length === 1 ? 'policy' : 'policies'} found</p>
-        </div>
-        <Button variant="gold" size="sm" asChild>
-          <Link href="/products">
-            Browse Plans <ArrowRight className="w-4 h-4" />
-          </Link>
-        </Button>
+        <p className="text-[#6b6b6b] text-sm">
+          {typedPolicies.length} {typedPolicies.length === 1 ? 'policy' : 'policies'} found
+        </p>
+        {typedPolicies.length > 0 && (
+          <Button variant="gold" size="sm" asChild>
+            <Link href="/products">
+              Browse Plans <ArrowRight className="w-4 h-4" />
+            </Link>
+          </Button>
+        )}
       </div>
 
       {typedPolicies.length === 0 ? (

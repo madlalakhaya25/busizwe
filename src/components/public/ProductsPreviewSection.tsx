@@ -107,7 +107,7 @@ export default function ProductsPreviewSection() {
                 </CardHeader>
                 <CardContent className="flex flex-col flex-1 justify-end gap-4">
                   <div>
-                    <p className="text-xs text-[#6b6b6b] mb-1">From per month</p>
+                    <p className="text-xs text-[#6b6b6b] mb-1">From / month</p>
                     <p className="text-3xl font-bold text-[#014D4E]" style={{ fontFamily: 'Georgia, serif' }}>
                       {formatCurrency(product.startFrom)}
                     </p>

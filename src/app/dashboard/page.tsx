@@ -1,4 +1,4 @@
-import { auth } from '@clerk/nextjs/server'
+import { auth, currentUser } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import DashboardOverview from '@/components/dashboard/DashboardOverview'
@@ -12,6 +12,9 @@ export const metadata: Metadata = {
 export default async function DashboardPage() {
   const { userId } = await auth()
   if (!userId) redirect('/sign-in')
+
+  // Get name from Clerk directly (always available, no DB needed)
+  const clerkUser = await currentUser()
 
   let user = null
   let policies: {id: string; status: string; monthlyPremium: unknown; coverAmount: unknown; policyNumber: string; product: {name: string}}[] = []
@@ -43,8 +46,15 @@ export default async function DashboardPage() {
       })
     }
   } catch {
-    // Database not configured yet – show empty state
+    // Database not yet configured — show empty state
   }
+
+  // Resolve display name: DB profile → Clerk → fallback
+  const displayName =
+    user?.profile?.firstName ??
+    clerkUser?.firstName ??
+    clerkUser?.emailAddresses?.[0]?.emailAddress?.split('@')[0] ??
+    'Member'
 
   const stats = {
     totalPolicies: policies.length,
@@ -57,7 +67,7 @@ export default async function DashboardPage() {
 
   return (
     <DashboardOverview
-      user={user}
+      displayName={displayName}
       stats={stats}
       recentPolicies={policies}
       recentPayments={payments}
