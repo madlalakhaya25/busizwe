@@ -15,11 +15,15 @@ interface LogoProps {
 }
 
 const sizes = {
-  sm: { w: 80,  text: 'text-sm',  sub: 'text-[8px]'  },
-  md: { w: 110, text: 'text-base', sub: 'text-[10px]' },
-  lg: { w: 140, text: 'text-lg',  sub: 'text-xs'     },
-  xl: { w: 200, text: 'text-2xl', sub: 'text-sm'     },
+  sm: { w: 80  },
+  md: { w: 110 },
+  lg: { w: 140 },
+  xl: { w: 200 },
 }
+
+// Fixed icon width — must fit inside the 40px slot of the collapsed sidebar
+const ICON_W = 36
+const ICON_H = Math.round(ICON_W / LOGO_RATIO)
 
 export function LogoSVG({ size = 'md' }: { size?: LogoProps['size'] }) {
   const w = sizes[size ?? 'md'].w
@@ -38,17 +42,16 @@ export function LogoSVG({ size = 'md' }: { size?: LogoProps['size'] }) {
 }
 
 export default function Logo({ className, size = 'md', variant = 'full', href }: LogoProps) {
-  const { w } = sizes[size]
-  const h = Math.round(w / LOGO_RATIO)
+  const w = variant === 'icon' ? ICON_W : sizes[size].w
+  const h = variant === 'icon' ? ICON_H : Math.round(sizes[size].w / LOGO_RATIO)
 
-  // The real logo PNG already contains "Busizwe Burial Society" text
   const content = (
     <div className={cn('flex items-center select-none', className)}>
       <Image
         src={LOGO_SRC}
         alt="Busizwe Burial Society"
-        width={variant === 'icon' ? Math.round(w * 0.55) : w}
-        height={variant === 'icon' ? Math.round(h * 0.55) : h}
+        width={w}
+        height={h}
         className="object-contain"
         priority
       />

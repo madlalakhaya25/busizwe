@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { FileText, Users, FolderOpen, CreditCard, ArrowRight, AlertCircle, CheckCircle2, Clock } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { formatCurrency, formatDate, getStatusColor } from '@/lib/utils'
 
@@ -34,7 +33,7 @@ const STAT_CARDS = (stats: Props['stats']) => [
   },
   {
     icon: Clock,
-    label: 'Pending Policies',
+    label: 'Pending',
     value: stats.pendingPolicies,
     sub: 'Awaiting approval',
     color: '#C89B3C',
@@ -50,7 +49,7 @@ const STAT_CARDS = (stats: Props['stats']) => [
   },
   {
     icon: CreditCard,
-    label: 'Overdue Payments',
+    label: 'Overdue',
     value: stats.overduePayments,
     sub: stats.overduePayments > 0 ? 'Action required' : 'All up to date',
     color: stats.overduePayments > 0 ? '#dc2626' : '#16a34a',
@@ -59,31 +58,32 @@ const STAT_CARDS = (stats: Props['stats']) => [
 ]
 
 const QUICK_ACTIONS = [
-  { icon: FileText, label: 'View Policies', href: '/dashboard/policies', desc: 'Manage your cover plans' },
-  { icon: Users, label: 'Add Dependant', href: '/dashboard/dependants', desc: 'Add family members' },
-  { icon: FolderOpen, label: 'Upload Docs', href: '/dashboard/documents', desc: 'Submit required documents' },
-  { icon: CreditCard, label: 'View Payments', href: '/dashboard/payments', desc: 'Track premium history' },
+  { icon: FileText, label: 'View Policies',  href: '/dashboard/policies',   desc: 'Manage your cover plans' },
+  { icon: Users,    label: 'Add Dependant',  href: '/dashboard/dependants', desc: 'Add family members' },
+  { icon: FolderOpen, label: 'Upload Docs', href: '/dashboard/documents',  desc: 'Submit required documents' },
+  { icon: CreditCard, label: 'Payments',    href: '/dashboard/payments',   desc: 'Track premium history' },
 ]
 
 export default function DashboardOverview({ user, stats, recentPolicies, recentPayments }: Props) {
   const name = user?.profile ? `${user.profile.firstName}` : 'Member'
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 lg:space-y-8">
+
       {/* Welcome */}
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <h2 className="text-2xl font-bold text-[#1C1C1C]" style={{ fontFamily: 'Georgia, serif' }}>
+        <h2 className="text-xl sm:text-2xl font-bold text-[#1C1C1C]" style={{ fontFamily: 'Georgia, serif' }}>
           Welcome back, {name} 👋
         </h2>
-        <p className="text-[#6b6b6b] mt-1">Here&apos;s an overview of your Busizwe membership.</p>
+        <p className="text-sm text-[#6b6b6b] mt-1">Here&apos;s an overview of your Busizwe membership.</p>
       </motion.div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* Stat cards — 2 col on mobile, 4 on desktop */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {STAT_CARDS(stats).map((stat, i) => (
           <motion.div
             key={stat.label}
@@ -92,16 +92,15 @@ export default function DashboardOverview({ user, stats, recentPolicies, recentP
             transition={{ duration: 0.4, delay: i * 0.08 }}
           >
             <Link href={stat.href}>
-              <Card className="hover:shadow-[0_8px_24px_rgba(1,77,78,0.12)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer">
-                <CardContent className="p-5">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: `${stat.color}15` }}>
-                      <stat.icon className="w-5 h-5" style={{ color: stat.color }} />
-                    </div>
+              <Card className="hover:shadow-[0_8px_24px_rgba(1,77,78,0.12)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer h-full">
+                <CardContent className="p-4 sm:p-5">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center mb-3"
+                    style={{ background: `${stat.color}18` }}>
+                    <stat.icon className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: stat.color }} />
                   </div>
-                  <p className="text-3xl font-bold text-[#1C1C1C]">{stat.value}</p>
-                  <p className="text-sm font-medium text-[#1C1C1C] mt-0.5">{stat.label}</p>
-                  <p className="text-xs text-[#6b6b6b] mt-0.5">{stat.sub}</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-[#1C1C1C] leading-none">{stat.value}</p>
+                  <p className="text-xs sm:text-sm font-medium text-[#1C1C1C] mt-1.5">{stat.label}</p>
+                  <p className="text-xs text-[#6b6b6b] mt-0.5 leading-tight">{stat.sub}</p>
                 </CardContent>
               </Card>
             </Link>
@@ -110,7 +109,7 @@ export default function DashboardOverview({ user, stats, recentPolicies, recentP
       </div>
 
       {/* Quick actions */}
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         {QUICK_ACTIONS.map((action, i) => (
           <motion.div
             key={action.label}
@@ -119,13 +118,13 @@ export default function DashboardOverview({ user, stats, recentPolicies, recentP
             transition={{ duration: 0.4, delay: 0.32 + i * 0.06 }}
           >
             <Link href={action.href}>
-              <div className="flex items-center gap-3 p-4 bg-white rounded-xl border border-[#e0d9cc] hover:border-[#C89B3C]/50 hover:shadow-[0_4px_12px_rgba(200,155,60,0.12)] transition-all duration-200 group">
+              <div className="flex items-center gap-3 p-4 bg-white rounded-xl border border-[#e0d9cc] hover:border-[#C89B3C]/50 hover:shadow-[0_4px_12px_rgba(200,155,60,0.10)] transition-all duration-200 group">
                 <div className="w-9 h-9 rounded-lg bg-[#014D4E] flex items-center justify-center shrink-0">
                   <action.icon className="w-4 h-4 text-[#C89B3C]" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-[#014D4E]">{action.label}</p>
-                  <p className="text-xs text-[#6b6b6b]">{action.desc}</p>
+                  <p className="text-sm font-semibold text-[#014D4E] truncate">{action.label}</p>
+                  <p className="text-xs text-[#6b6b6b] truncate">{action.desc}</p>
                 </div>
                 <ArrowRight className="w-4 h-4 text-[#6b6b6b] group-hover:text-[#C89B3C] transition-colors shrink-0" />
               </div>
@@ -135,33 +134,36 @@ export default function DashboardOverview({ user, stats, recentPolicies, recentP
       </div>
 
       {/* Recent activity */}
-      <div className="grid lg:grid-cols-2 gap-6">
+      <div className="grid lg:grid-cols-2 gap-5">
+
         {/* Recent policies */}
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle className="text-base">Recent Policies</CardTitle>
-            <Button variant="ghost" size="sm" asChild>
-              <Link href="/dashboard/policies">View all <ArrowRight className="w-3 h-3" /></Link>
+          <CardHeader className="flex flex-row items-center justify-between pb-3">
+            <CardTitle className="text-sm font-semibold text-[#014D4E]">Recent Policies</CardTitle>
+            <Button variant="ghost" size="sm" asChild className="text-xs">
+              <Link href="/dashboard/policies" className="flex items-center gap-1">
+                View all <ArrowRight className="w-3 h-3" />
+              </Link>
             </Button>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-0">
             {recentPolicies.length === 0 ? (
               <div className="text-center py-8">
                 <FileText className="w-10 h-10 text-[#e0d9cc] mx-auto mb-3" />
-                <p className="text-sm text-[#6b6b6b] mb-3">No policies yet</p>
+                <p className="text-sm text-[#6b6b6b] mb-4">No policies yet</p>
                 <Button variant="default" size="sm" asChild>
                   <Link href="/products">Browse Plans</Link>
                 </Button>
               </div>
             ) : (
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {recentPolicies.map((policy) => (
-                  <div key={policy.id} className="flex items-center justify-between p-3 bg-[#F7F3EA] rounded-xl">
-                    <div>
-                      <p className="text-sm font-semibold text-[#1C1C1C]">{policy.product.name}</p>
+                  <div key={policy.id} className="flex items-center justify-between p-3 bg-[#F7F3EA] rounded-xl gap-3">
+                    <div className="min-w-0">
+                      <p className="text-sm font-semibold text-[#1C1C1C] truncate">{policy.product.name}</p>
                       <p className="text-xs text-[#6b6b6b]">{policy.policyNumber}</p>
                     </div>
-                    <div className="text-right">
+                    <div className="text-right shrink-0">
                       <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ${getStatusColor(policy.status)}`}>
                         {policy.status}
                       </span>
@@ -176,23 +178,25 @@ export default function DashboardOverview({ user, stats, recentPolicies, recentP
 
         {/* Recent payments */}
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle className="text-base">Recent Payments</CardTitle>
-            <Button variant="ghost" size="sm" asChild>
-              <Link href="/dashboard/payments">View all <ArrowRight className="w-3 h-3" /></Link>
+          <CardHeader className="flex flex-row items-center justify-between pb-3">
+            <CardTitle className="text-sm font-semibold text-[#014D4E]">Recent Payments</CardTitle>
+            <Button variant="ghost" size="sm" asChild className="text-xs">
+              <Link href="/dashboard/payments" className="flex items-center gap-1">
+                View all <ArrowRight className="w-3 h-3" />
+              </Link>
             </Button>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-0">
             {recentPayments.length === 0 ? (
               <div className="text-center py-8">
                 <CreditCard className="w-10 h-10 text-[#e0d9cc] mx-auto mb-3" />
                 <p className="text-sm text-[#6b6b6b]">No payment history</p>
               </div>
             ) : (
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {recentPayments.map((payment) => (
-                  <div key={payment.id} className="flex items-center justify-between p-3 bg-[#F7F3EA] rounded-xl">
-                    <div className="flex items-center gap-2">
+                  <div key={payment.id} className="flex items-center justify-between p-3 bg-[#F7F3EA] rounded-xl gap-3">
+                    <div className="flex items-center gap-2 min-w-0">
                       {payment.status === 'PAID' ? (
                         <CheckCircle2 className="w-4 h-4 text-green-600 shrink-0" />
                       ) : payment.status === 'OVERDUE' ? (
@@ -200,12 +204,12 @@ export default function DashboardOverview({ user, stats, recentPolicies, recentP
                       ) : (
                         <Clock className="w-4 h-4 text-amber-600 shrink-0" />
                       )}
-                      <div>
+                      <div className="min-w-0">
                         <p className="text-sm font-semibold text-[#1C1C1C]">{formatCurrency(Number(payment.amount))}</p>
                         <p className="text-xs text-[#6b6b6b]">Due {formatDate(payment.dueDate)}</p>
                       </div>
                     </div>
-                    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ${getStatusColor(payment.status)}`}>
+                    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border shrink-0 ${getStatusColor(payment.status)}`}>
                       {payment.status}
                     </span>
                   </div>
@@ -214,6 +218,7 @@ export default function DashboardOverview({ user, stats, recentPolicies, recentP
             )}
           </CardContent>
         </Card>
+
       </div>
     </div>
   )
