@@ -42,7 +42,7 @@ export default function AdminProductsPage({ products }: { products: unknown[] })
       {typedProducts.length === 0 ? (
         <div className="text-center py-20 bg-white rounded-2xl border border-[#e0d9cc]">
           <Package className="w-16 h-16 text-[#e0d9cc] mx-auto mb-4" />
-          <h3 className="text-xl font-bold text-[#014D4E] mb-2" style={{ fontFamily: 'Georgia, serif' }}>No Products</h3>
+          <h3 className="text-xl font-bold text-[#014D4E] mb-2 font-serif">No Products</h3>
           <p className="text-[#6b6b6b] text-sm mb-4">Run the database seed to populate products.</p>
           <code className="text-xs bg-[#F7F3EA] px-3 py-1.5 rounded-lg border border-[#e0d9cc]">
             npx prisma db seed

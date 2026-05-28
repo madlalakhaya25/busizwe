@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import PageHero from '@/components/public/PageHero'
 
 const CONTACT_INFO = [
   { icon: Phone, label: 'Phone', value: '0800 000 000', sub: 'Mon–Fri 8am–5pm', href: 'tel:+27800000000' },
@@ -29,36 +30,22 @@ export default function ContactPage() {
 
   return (
     <>
-      {/* Hero */}
-      <section className="bg-[#014D4E] pt-32 pb-20 relative overflow-hidden">
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="inline-block text-xs font-semibold text-[#C89B3C] uppercase tracking-widest mb-4 border border-[#C89B3C]/30 rounded-full px-4 py-1.5">
-            Contact
-          </span>
-          <h1 className="text-5xl font-bold text-white mb-6" style={{ fontFamily: 'Georgia, serif' }}>
-            Get in Touch
-          </h1>
-          <p className="text-xl text-white/70">
-            Our team is here to help. Reach out and we will respond within 24 hours.
-          </p>
-        </div>
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-            <path d="M0,30 C480,60 960,0 1440,30 L1440,60 L0,60 Z" fill="#F7F3EA" />
-          </svg>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Contact"
+        title="Get in Touch"
+        subtitle="Our team is here to help. Reach out and we will respond within 24 hours."
+      />
 
       {/* Content */}
-      <section className="py-16 bg-[#F7F3EA]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-3 gap-10">
+      <section className="py-24 bg-[#F7F3EA]">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+          <div className="grid lg:grid-cols-3 gap-10 lg:gap-12">
             {/* Contact info */}
             <div className="space-y-5">
-              <h2 className="text-2xl font-bold text-[#014D4E] mb-2" style={{ fontFamily: 'Georgia, serif' }}>
+              <h2 className="font-serif font-semibold text-2xl sm:text-3xl text-[#014D4E] mb-3">
                 Contact Information
               </h2>
-              <p className="text-[#6b6b6b] text-sm mb-6">
+              <p className="text-[#6b6b6b] mb-8">
                 We are here to help Monday through Friday. Our support team will get back to you as soon as possible.
               </p>
               {CONTACT_INFO.map((item) => (
@@ -87,8 +74,8 @@ export default function ContactPage() {
                     <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                       <CheckCircle2 className="w-8 h-8 text-green-600" />
                     </div>
-                    <h3 className="text-xl font-bold text-[#014D4E] mb-2" style={{ fontFamily: 'Georgia, serif' }}>
-                      Message Sent!
+                    <h3 className="font-serif font-semibold text-2xl text-[#014D4E] mb-2">
+                      Message Sent
                     </h3>
                     <p className="text-[#6b6b6b] text-sm">
                       Thank you for reaching out. Our team will respond within 24 hours.
@@ -96,7 +83,7 @@ export default function ContactPage() {
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-5">
-                    <h2 className="text-xl font-bold text-[#014D4E] mb-6" style={{ fontFamily: 'Georgia, serif' }}>
+                    <h2 className="font-serif font-semibold text-2xl text-[#014D4E] mb-6">
                       Send Us a Message
                     </h2>
                     <div className="grid sm:grid-cols-2 gap-5">

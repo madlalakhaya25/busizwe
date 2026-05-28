@@ -165,7 +165,7 @@ export default function AdminClaimsPage({ claims }: { claims: unknown[] }) {
       {filtered.length === 0 && (
         <div className="text-center py-20 bg-white rounded-2xl border border-[#e0d9cc]">
           <FileSearch className="w-16 h-16 text-[#e0d9cc] mx-auto mb-4" />
-          <h3 className="text-xl font-bold text-[#014D4E] mb-2" style={{ fontFamily: 'Georgia, serif' }}>
+          <h3 className="text-xl font-bold text-[#014D4E] mb-2 font-serif">
             No Claims
           </h3>
           <p className="text-[#6b6b6b] text-sm">

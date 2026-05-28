@@ -1,6 +1,7 @@
 import React from 'react'
 import { Metadata } from 'next'
 import CTASection from '@/components/public/CTASection'
+import PageHero from '@/components/public/PageHero'
 import { Shield, Heart, Users, CheckCircle2, Award, Clock } from 'lucide-react'
 
 export const metadata: Metadata = {
@@ -20,41 +21,21 @@ const TEAM_VALUES = [
 export default function AboutPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="bg-[#014D4E] pt-32 pb-20 relative overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-5 pointer-events-none"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23C89B3C' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E")`,
-          }}
-        />
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="inline-block text-xs font-semibold text-[#C89B3C] uppercase tracking-widest mb-4 border border-[#C89B3C]/30 rounded-full px-4 py-1.5">
-            About Us
-          </span>
-          <h1 className="text-5xl font-bold text-white mb-6" style={{ fontFamily: 'Georgia, serif' }}>
-            Our Story &amp; Mission
-          </h1>
-          <p className="text-xl text-white/70 leading-relaxed">
-            Busizwe Burial Society was founded to ensure every South African family can afford to give their loved ones the dignified farewell they deserve.
-          </p>
-        </div>
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-            <path d="M0,30 C480,60 960,0 1440,30 L1440,60 L0,60 Z" fill="#F7F3EA" />
-          </svg>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="About Us"
+        title="Our Story & Mission"
+        subtitle="Busizwe Burial Society was founded to ensure every South African family can afford to give their loved ones the dignified farewell they deserve."
+      />
 
       {/* Mission */}
-      <section className="py-20 bg-[#F7F3EA]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-3 gap-8 mb-16">
+      <section className="py-24 bg-[#F7F3EA]">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+          <div className="grid lg:grid-cols-3 gap-8 lg:gap-12 mb-20">
             <div className="lg:col-span-2">
-              <h2 className="text-3xl font-bold text-[#014D4E] mb-6" style={{ fontFamily: 'Georgia, serif' }}>
+              <h2 className="font-serif font-semibold text-3xl sm:text-4xl text-[#014D4E] mb-6">
                 Who We Are
               </h2>
-              <div className="space-y-4 text-[#6b6b6b] leading-relaxed">
+              <div className="space-y-5 text-[#6b6b6b] text-lg leading-relaxed">
                 <p>
                   Busizwe Burial Society is a South African burial society dedicated to providing affordable, dignified funeral cover to individuals and families across all provinces. Our name, Busizwe, means &ldquo;we build the nation&rdquo; — a reflection of our deep commitment to strengthening South African communities.
                 </p>
@@ -66,8 +47,8 @@ export default function AboutPage() {
                 </p>
               </div>
             </div>
-            <div className="bg-white rounded-2xl p-8 border border-[#e0d9cc] shadow-[0_4px_16px_rgba(1,77,78,0.06)]">
-              <h3 className="text-xl font-bold text-[#014D4E] mb-6" style={{ fontFamily: 'Georgia, serif' }}>
+            <div className="bg-white rounded-2xl p-8 border border-[#e0d9cc] shadow-[0_4px_24px_rgba(1,77,78,0.08)]">
+              <h3 className="font-serif font-semibold text-xl text-[#014D4E] mb-6">
                 Key Facts
               </h3>
               {[
@@ -87,16 +68,16 @@ export default function AboutPage() {
           </div>
 
           {/* Values */}
-          <h2 className="text-3xl font-bold text-[#014D4E] mb-8 text-center" style={{ fontFamily: 'Georgia, serif' }}>
+          <h2 className="font-serif font-semibold text-3xl sm:text-4xl text-[#014D4E] mb-10 text-center">
             Our Values
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {TEAM_VALUES.map((value) => (
-              <div key={value.title} className="bg-white rounded-2xl p-6 border border-[#e0d9cc] hover:border-[#C89B3C]/40 hover:shadow-[0_4px_16px_rgba(200,155,60,0.1)] transition-all duration-200">
-                <div className="w-12 h-12 rounded-xl bg-[#014D4E] flex items-center justify-center mb-4">
+              <div key={value.title} className="bg-white rounded-2xl p-7 border border-[#e0d9cc] hover:border-[#C89B3C]/40 hover:-translate-y-1 hover:shadow-[0_12px_28px_rgba(200,155,60,0.14)] transition-all duration-200">
+                <div className="w-12 h-12 rounded-2xl bg-[#014D4E] flex items-center justify-center mb-5">
                   <value.icon className="w-6 h-6 text-[#C89B3C]" />
                 </div>
-                <h3 className="font-bold text-[#014D4E] mb-2">{value.title}</h3>
+                <h3 className="font-serif font-semibold text-lg text-[#014D4E] mb-2">{value.title}</h3>
                 <p className="text-sm text-[#6b6b6b] leading-relaxed">{value.description}</p>
               </div>
             ))}

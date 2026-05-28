@@ -21,13 +21,8 @@ export default function CTASection() {
           <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-white/5 translate-y-1/2 -translate-x-1/2 pointer-events-none" />
 
           <div className="relative">
-            <span className="inline-block text-xs font-semibold text-[#C89B3C] uppercase tracking-widest mb-5 border border-[#C89B3C]/30 rounded-full px-4 py-1.5">
-              Get Started Today
-            </span>
-            <h2
-              className="text-3xl sm:text-4xl font-bold text-white mb-5"
-              style={{ fontFamily: 'Georgia, serif' }}
-            >
+            <span className="eyebrow mb-5">Get Started Today</span>
+            <h2 className="font-serif font-semibold text-white text-3xl sm:text-4xl lg:text-[2.75rem] leading-[1.1] mt-5 mb-5">
               Protect Your Family Today
             </h2>
             <p className="text-white/70 text-base sm:text-lg leading-relaxed mb-10 max-w-xl mx-auto">

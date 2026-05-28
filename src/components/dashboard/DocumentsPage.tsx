@@ -135,7 +135,7 @@ export default function DocumentsPage({ documents }: { documents: unknown[] }) {
       {typedDocs.length === 0 ? (
         <div className="text-center py-12 bg-white rounded-2xl border border-[#e0d9cc]">
           <FolderOpen className="w-16 h-16 text-[#e0d9cc] mx-auto mb-4" />
-          <h3 className="text-xl font-bold text-[#014D4E] mb-2" style={{ fontFamily: 'Georgia, serif' }}>No Documents Uploaded</h3>
+          <h3 className="text-xl font-bold text-[#014D4E] mb-2 font-serif">No Documents Uploaded</h3>
           <p className="text-[#6b6b6b] text-sm">Upload your ID document and proof of residence to activate your policy.</p>
         </div>
       ) : (

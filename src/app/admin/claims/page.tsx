@@ -46,7 +46,7 @@ export default async function AdminClaimsServerPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-[#014D4E]" style={{ fontFamily: 'Georgia, serif' }}>
+        <h1 className="text-2xl font-bold text-[#014D4E] font-serif">
           Claims
         </h1>
         <p className="text-[#6b6b6b] text-sm mt-1">Review and action member funeral cover claims</p>

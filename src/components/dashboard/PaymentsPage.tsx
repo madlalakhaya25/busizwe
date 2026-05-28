@@ -74,7 +74,7 @@ export default function PaymentsPage({ payments }: { payments: unknown[] }) {
           {typedPayments.length === 0 ? (
             <div className="text-center py-12">
               <CreditCard className="w-16 h-16 text-[#e0d9cc] mx-auto mb-4" />
-              <h3 className="text-lg font-bold text-[#014D4E] mb-2" style={{ fontFamily: 'Georgia, serif' }}>No Payments Yet</h3>
+              <h3 className="text-lg font-bold text-[#014D4E] mb-2 font-serif">No Payments Yet</h3>
               <p className="text-[#6b6b6b] text-sm">Your payment history will appear here once your policy is activated.</p>
             </div>
           ) : (
@@ -127,7 +127,7 @@ export default function PaymentsPage({ payments }: { payments: unknown[] }) {
 
       {/* Payment info */}
       <div className="bg-[#014D4E] rounded-2xl p-6 text-white">
-        <h3 className="font-bold mb-2 text-lg" style={{ fontFamily: 'Georgia, serif' }}>Payment Information</h3>
+        <h3 className="font-bold mb-2 text-lg font-serif">Payment Information</h3>
         <div className="grid sm:grid-cols-2 gap-4 text-sm text-white/80">
           <div>
             <p className="font-medium text-[#C89B3C] mb-1">Bank Details for EFT</p>

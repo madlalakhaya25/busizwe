@@ -196,7 +196,7 @@ export default function ClaimsPage({ claims, policies }: { claims: unknown[]; po
     return (
       <div className="text-center py-20 bg-white rounded-2xl border border-[#e0d9cc] px-6">
         <CheckCircle2 className="w-16 h-16 text-green-500 mx-auto mb-4" />
-        <h3 className="text-2xl font-bold text-[#014D4E] mb-2" style={{ fontFamily: 'Georgia, serif' }}>
+        <h3 className="text-2xl font-bold text-[#014D4E] mb-2 font-serif">
           Claim Submitted
         </h3>
         <p className="text-[#6b6b6b] text-sm max-w-sm mx-auto mb-2">
@@ -233,7 +233,7 @@ export default function ClaimsPage({ claims, policies }: { claims: unknown[]; po
       {typedClaims.length === 0 && (
         <div className="text-center py-20 bg-white rounded-2xl border border-[#e0d9cc]">
           <FileSearch className="w-16 h-16 text-[#e0d9cc] mx-auto mb-4" />
-          <h3 className="text-xl font-bold text-[#014D4E] mb-2" style={{ fontFamily: 'Georgia, serif' }}>
+          <h3 className="text-xl font-bold text-[#014D4E] mb-2 font-serif">
             No Claims Submitted
           </h3>
           <p className="text-[#6b6b6b] text-sm max-w-sm mx-auto mb-6">

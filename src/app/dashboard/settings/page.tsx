@@ -31,7 +31,7 @@ export default async function DashboardSettingsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-[#014D4E]" style={{ fontFamily: 'Georgia, serif' }}>
+        <h1 className="text-2xl font-bold text-[#014D4E] font-serif">
           Account Settings
         </h1>
         <p className="text-sm text-[#6b6b6b] mt-1">

@@ -92,8 +92,8 @@ export default async function MemorialPage({ params }: { params: Promise<{ token
         {/* Name & years */}
         <div className="text-center space-y-2">
           <h1
-            className="text-4xl font-bold text-amber-100"
-            style={{ fontFamily: 'Georgia, serif', textShadow: '0 2px 20px rgba(251,191,36,0.15)' }}
+            className="font-serif text-4xl font-bold text-amber-100"
+            style={{ textShadow: '0 2px 20px rgba(251,191,36,0.15)' }}
           >
             {fullName}
           </h1>
@@ -104,10 +104,7 @@ export default async function MemorialPage({ params }: { params: Promise<{ token
 
         {/* Tribute */}
         {memorial.tribute && (
-          <p
-            className="text-center text-amber-100/70 text-lg leading-relaxed max-w-sm"
-            style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic' }}
-          >
+          <p className="font-serif italic text-center text-amber-100/70 text-lg leading-relaxed max-w-sm">
             &ldquo;{memorial.tribute}&rdquo;
           </p>
         )}

@@ -27,7 +27,7 @@ export default function DashboardHeader() {
       </div>
 
       <div className="flex-1">
-        <h1 className="text-xl font-bold text-[#014D4E]" style={{ fontFamily: 'Georgia, serif' }}>
+        <h1 className="text-xl font-bold text-[#014D4E] font-serif">
           {title}
         </h1>
       </div>

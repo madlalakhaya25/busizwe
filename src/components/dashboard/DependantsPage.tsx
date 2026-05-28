@@ -139,7 +139,7 @@ export default function DependantsPage({ dependants, policies }: { dependants: u
       {typedDependants.length === 0 && !showForm ? (
         <div className="text-center py-20 bg-white rounded-2xl border border-[#e0d9cc]">
           <Users className="w-16 h-16 text-[#e0d9cc] mx-auto mb-4" />
-          <h3 className="text-xl font-bold text-[#014D4E] mb-2" style={{ fontFamily: 'Georgia, serif' }}>No Dependants Added</h3>
+          <h3 className="text-xl font-bold text-[#014D4E] mb-2 font-serif">No Dependants Added</h3>
           <p className="text-[#6b6b6b] mb-6 max-w-sm mx-auto">
             {typedPolicies.length === 0
               ? 'You need an active policy before adding dependants.'

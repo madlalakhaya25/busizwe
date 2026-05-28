@@ -21,7 +21,7 @@ export default function AdminHeader() {
       <div className="flex-1">
         <div className="flex items-center gap-2">
           <Shield className="w-4 h-4 text-[#C89B3C]" />
-          <h1 className="text-xl font-bold text-[#1C1C1C]" style={{ fontFamily: 'Georgia, serif' }}>{title}</h1>
+          <h1 className="text-xl font-bold text-[#1C1C1C] font-serif">{title}</h1>
         </div>
         <p className="text-xs text-[#6b6b6b]">Admin Control Panel</p>
       </div>

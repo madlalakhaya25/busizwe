@@ -2,8 +2,10 @@
 
 import React, { useState } from 'react'
 import Link from 'next/link'
-import { ChevronDown, ChevronUp, ArrowRight } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ChevronDown, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import PageHero from '@/components/public/PageHero'
 
 const FAQS = [
   {
@@ -91,23 +93,32 @@ const FAQS = [
 function FAQItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false)
   return (
-    <div className="border border-[#e0d9cc] rounded-xl overflow-hidden">
+    <div className={`border rounded-xl overflow-hidden transition-colors ${open ? 'border-[#C89B3C]/50 bg-white' : 'border-[#e0d9cc] bg-white'}`}>
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between p-5 text-left bg-white hover:bg-[#F7F3EA] transition-colors group"
+        className="w-full flex items-center justify-between gap-4 p-5 text-left hover:bg-[#F7F3EA]/60 transition-colors group"
+        aria-expanded={open}
       >
-        <span className="font-medium text-[#014D4E] pr-4">{q}</span>
-        {open ? (
-          <ChevronUp className="w-5 h-5 text-[#C89B3C] shrink-0" />
-        ) : (
-          <ChevronDown className="w-5 h-5 text-[#6b6b6b] group-hover:text-[#C89B3C] transition-colors shrink-0" />
-        )}
+        <span className="font-semibold text-[#014D4E]">{q}</span>
+        <motion.span animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.2 }} className="shrink-0">
+          <ChevronDown className={`w-5 h-5 ${open ? 'text-[#C89B3C]' : 'text-[#6b6b6b] group-hover:text-[#C89B3C]'} transition-colors`} />
+        </motion.span>
       </button>
-      {open && (
-        <div className="px-5 pb-5 bg-white text-sm text-[#6b6b6b] leading-relaxed border-t border-[#e0d9cc] pt-4">
-          {a}
-        </div>
-      )}
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: 'easeInOut' }}
+            className="overflow-hidden"
+          >
+            <div className="px-5 pb-5 text-[#6b6b6b] leading-relaxed border-t border-[#e0d9cc] pt-4">
+              {a}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
@@ -115,32 +126,18 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 export default function FAQPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="bg-[#014D4E] pt-32 pb-20 relative overflow-hidden">
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="inline-block text-xs font-semibold text-[#C89B3C] uppercase tracking-widest mb-4 border border-[#C89B3C]/30 rounded-full px-4 py-1.5">
-            FAQ
-          </span>
-          <h1 className="text-5xl font-bold text-white mb-6" style={{ fontFamily: 'Georgia, serif' }}>
-            Frequently Asked Questions
-          </h1>
-          <p className="text-xl text-white/70">
-            Everything you need to know about Busizwe Burial Society membership, premiums, and claims.
-          </p>
-        </div>
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-            <path d="M0,30 C480,60 960,0 1440,30 L1440,60 L0,60 Z" fill="#F7F3EA" />
-          </svg>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="FAQ"
+        title="Frequently Asked Questions"
+        subtitle="Everything you need to know about Busizwe Burial Society membership, premiums, and claims."
+      />
 
       {/* FAQ sections */}
-      <section className="py-16 bg-[#F7F3EA]">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <section className="py-24 bg-[#F7F3EA]">
+        <div className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12 space-y-14">
           {FAQS.map((section) => (
             <div key={section.category}>
-              <h2 className="text-xl font-bold text-[#014D4E] mb-5 pb-3 border-b-2 border-[#C89B3C]/30" style={{ fontFamily: 'Georgia, serif' }}>
+              <h2 className="font-serif font-semibold text-2xl text-[#014D4E] mb-6 pb-3 border-b-2 border-[#C89B3C]/30">
                 {section.category}
               </h2>
               <div className="space-y-3">
@@ -152,20 +149,21 @@ export default function FAQPage() {
           ))}
 
           {/* Still have questions */}
-          <div className="bg-[#014D4E] rounded-2xl p-8 text-center">
-            <h3 className="text-xl font-bold text-white mb-3" style={{ fontFamily: 'Georgia, serif' }}>
+          <div className="bg-[#014D4E] rounded-3xl p-10 text-center relative overflow-hidden">
+            <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full bg-[#C89B3C]/10 blur-2xl pointer-events-none" />
+            <h3 className="font-serif font-semibold text-2xl text-white mb-3 relative">
               Still Have Questions?
             </h3>
-            <p className="text-white/70 text-sm mb-6">
+            <p className="text-white/70 mb-7 relative max-w-md mx-auto">
               Our team is ready to help you find the right cover for your family.
             </p>
-            <div className="flex flex-wrap gap-3 justify-center">
-              <Button variant="gold" asChild>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center relative">
+              <Button variant="gold" asChild className="w-full sm:w-auto">
                 <Link href="/contact">
                   Contact Us <ArrowRight className="w-4 h-4" />
                 </Link>
               </Button>
-              <Button className="bg-white/10 text-white border border-white/20 hover:bg-white/20" asChild>
+              <Button className="w-full sm:w-auto bg-white/10 text-white border border-white/25 hover:bg-white/20" asChild>
                 <a href="tel:+27800000000">Call 0800 000 000</a>
               </Button>
             </div>

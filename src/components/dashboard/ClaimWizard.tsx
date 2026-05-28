@@ -447,7 +447,7 @@ export default function ClaimWizard({ policies, onCancel, onComplete }: Props) {
           transition={{ duration: 0.22, ease: 'easeOut' }}
         >
           <div className="mb-6">
-            <h2 className="text-2xl font-bold text-[#014D4E] mb-1" style={{ fontFamily: 'Georgia, serif' }}>
+            <h2 className="text-2xl font-bold text-[#014D4E] mb-1 font-serif">
               {HEADING[step]}
             </h2>
             <p className="text-sm text-[#6b6b6b]">{SUBTEXT[step]}</p>

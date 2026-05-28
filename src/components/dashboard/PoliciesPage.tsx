@@ -56,7 +56,7 @@ export default function PoliciesPage({ policies }: { policies: unknown[] }) {
           className="text-center py-20 bg-white rounded-2xl border border-[#e0d9cc]"
         >
           <FileText className="w-16 h-16 text-[#e0d9cc] mx-auto mb-4" />
-          <h3 className="text-xl font-bold text-[#014D4E] mb-2" style={{ fontFamily: 'Georgia, serif' }}>No Policies Yet</h3>
+          <h3 className="text-xl font-bold text-[#014D4E] mb-2 font-serif">No Policies Yet</h3>
           <p className="text-[#6b6b6b] mb-6 max-w-sm mx-auto">
             You have not applied for any funeral cover yet. Browse our plans and apply today.
           </p>

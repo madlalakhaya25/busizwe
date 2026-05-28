@@ -31,8 +31,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
             <div className="w-10 h-0.5 bg-[#C89B3C] mb-8" />
 
             <h2
-              className="text-4xl font-bold text-white leading-snug mb-4"
-              style={{ fontFamily: 'Georgia, serif' }}
+              className="text-4xl font-bold text-white leading-snug mb-4 font-serif"
             >
               Dignity in<br />
               <span className="text-[#C89B3C]">Every Farewell.</span>
@@ -62,7 +61,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
                 { value: 'Age 16–84', label: 'Eligible' },
               ].map((s) => (
                 <div key={s.label}>
-                  <p className="text-lg font-bold text-white" style={{ fontFamily: 'Georgia, serif' }}>
+                  <p className="text-lg font-bold text-white font-serif">
                     {s.value}
                   </p>
                   <p className="text-xs text-white/40 mt-0.5">{s.label}</p>

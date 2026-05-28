@@ -3,8 +3,8 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import { CheckCircle2, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import CTASection from '@/components/public/CTASection'
+import PageHero from '@/components/public/PageHero'
 import { formatCurrency } from '@/lib/utils'
 
 export const metadata: Metadata = {
@@ -64,29 +64,15 @@ const PRODUCTS = [
 export default function ProductsPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="bg-[#014D4E] pt-32 pb-20 relative overflow-hidden">
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="inline-block text-xs font-semibold text-[#C89B3C] uppercase tracking-widest mb-4 border border-[#C89B3C]/30 rounded-full px-4 py-1.5">
-            Products & Pricing
-          </span>
-          <h1 className="text-5xl font-bold text-white mb-6" style={{ fontFamily: 'Georgia, serif' }}>
-            Choose Your Cover Plan
-          </h1>
-          <p className="text-xl text-white/70">
-            Affordable funeral cover designed for every South African family. No medical exam required.
-          </p>
-        </div>
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-            <path d="M0,30 C480,60 960,0 1440,30 L1440,60 L0,60 Z" fill="#F7F3EA" />
-          </svg>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Products & Pricing"
+        title="Choose Your Cover Plan"
+        subtitle="Affordable funeral cover designed for every South African family. No medical examination required."
+      />
 
       {/* Pricing */}
-      <section className="py-16 bg-[#F7F3EA]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <section className="py-24 bg-[#F7F3EA]">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 space-y-12">
           {PRODUCTS.map((product) => (
             <div
               key={product.name}
@@ -103,10 +89,10 @@ export default function ProductsPage() {
                 <div className="grid lg:grid-cols-3 gap-8 items-start">
                   {/* Product info */}
                   <div>
-                    <h2 className="text-2xl font-bold text-[#014D4E] mb-2" style={{ fontFamily: 'Georgia, serif' }}>
+                    <h2 className="font-serif font-semibold text-2xl text-[#014D4E] mb-3">
                       {product.name}
                     </h2>
-                    <p className="text-[#6b6b6b] text-sm mb-6">{product.description}</p>
+                    <p className="text-[#6b6b6b] mb-6 leading-relaxed">{product.description}</p>
                     <ul className="space-y-2">
                       {product.features.map((f) => (
                         <li key={f} className="flex items-center gap-2 text-sm text-[#1C1C1C]">

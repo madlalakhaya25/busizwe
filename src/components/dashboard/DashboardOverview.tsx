@@ -76,7 +76,7 @@ export default function DashboardOverview({ displayName, stats, recentPolicies, 
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <h2 className="text-2xl sm:text-3xl font-bold text-[#1C1C1C]" style={{ fontFamily: 'Georgia, serif' }}>
+        <h2 className="text-2xl sm:text-3xl font-bold text-[#1C1C1C] font-serif">
           Welcome back, {name}
         </h2>
         <p className="text-base text-[#6b6b6b] mt-2">Here is an overview of your Busizwe Burial Society membership.</p>

@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import { ArrowRight, User, Users, Baby, UserPlus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
+import SectionHeading from '@/components/public/SectionHeading'
 import { formatCurrency } from '@/lib/utils'
 
 const PRODUCTS = [
@@ -50,29 +51,13 @@ const PRODUCTS = [
 export default function ProductsPreviewSection() {
   return (
     <section className="py-24 bg-[#F7F3EA]" id="products">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
-        >
-          <span className="inline-block text-xs font-semibold text-[#C89B3C] uppercase tracking-widest mb-4 border border-[#C89B3C]/30 rounded-full px-4 py-1.5">
-            Our Plans
-          </span>
-          <h2
-            className="text-4xl font-bold text-[#014D4E] mb-4"
-            style={{ fontFamily: 'Georgia, serif' }}
-          >
-            Choose Your Cover Plan
-          </h2>
-          <p className="text-[#6b6b6b] max-w-2xl mx-auto">
-            Flexible funeral cover options designed to protect every South African family, at every
-            stage of life. All plans include up to R10,000 cover.
-          </p>
-        </motion.div>
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <SectionHeading
+          eyebrow="Our Plans"
+          title="Choose Your Cover Plan"
+          subtitle="Flexible funeral cover designed to protect every South African family, at every stage of life. All plans include up to R10,000 cover."
+          className="mb-14"
+        />
 
         {/* Cards */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
@@ -108,7 +93,7 @@ export default function ProductsPreviewSection() {
                 <CardContent className="flex flex-col flex-1 justify-end gap-5 pt-2">
                   <div>
                     <p className="text-xs text-[#6b6b6b] mb-1.5">From per month</p>
-                    <p className="text-3xl font-bold text-[#014D4E]" style={{ fontFamily: 'Georgia, serif' }}>
+                    <p className="font-serif font-semibold text-3xl text-[#014D4E]">
                       {formatCurrency(product.startFrom)}
                     </p>
                   </div>
