@@ -3,7 +3,7 @@
 import React from 'react'
 import { usePathname } from 'next/navigation'
 import { UserButton } from '@clerk/nextjs'
-import { Bell, Menu } from 'lucide-react'
+import { Bell } from 'lucide-react'
 import Logo from '@/components/layout/Logo'
 
 const PAGE_TITLES: Record<string, string> = {
