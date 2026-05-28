@@ -8,13 +8,12 @@
 ## Vision
 
 Build the most trusted, accessible, and digitally-native burial society platform in South Africa —
-serving every family regardless of income, location, or digital literacy.
+serving every family regardless of income, location, or digital literacy. Not just insurance software,
+but a compassionate companion for South African families navigating loss.
 
 ---
 
-## Current State: MVP ✅
-
-The MVP is live on `main`. It covers the foundational layer:
+## Current State: Foundation ✅
 
 | Area | Status |
 |---|---|
@@ -30,152 +29,211 @@ The MVP is live on `main`. It covers the foundational layer:
 | Prisma schema + seed | ✅ Done |
 | Clerk webhook sync | ✅ Done |
 | Vercel-ready deployment | ✅ Done |
+| Claim submission (member) | ✅ Done |
+| Claim review dashboard (admin) | ✅ Done |
+| PDF policy certificate | ✅ Done |
+| PWA — installable + offline | ✅ Done |
 
 ---
 
 ## Phase 1 — Production-Ready (Month 1–2)
 
-> Goal: Get the platform live with real users, real data, and real money tracking.
+> Goal: Get the platform live with real users, real data, and real money moving.
 
 ### Infrastructure
 - [ ] Connect Supabase PostgreSQL (`DATABASE_URL`)
 - [ ] Configure Clerk production keys
 - [ ] Deploy to Vercel with all environment variables
-- [ ] Set up Clerk webhook in production
+- [ ] Set up Clerk webhook endpoint in production
 - [ ] Run `db:push` and `db:seed` on production database
 - [ ] Configure custom domain (`busizwe.co.za`)
 
 ### File Storage
 - [ ] Integrate Supabase Storage for document uploads
 - [ ] Enforce file type validation (PDF, JPG, PNG only)
-- [ ] Enforce 10MB file size limit server-side
+- [ ] Enforce 10 MB file size limit server-side
 - [ ] Generate signed URLs for secure document access
 - [ ] Admin document viewer (approve / reject with notes)
 
-### Email Notifications
-- [ ] Integrate Resend or SendGrid
-- [ ] Welcome email on sign-up
+### Transactional Emails
+- [ ] Integrate Resend (or SendGrid)
+- [ ] Welcome email on sign-up (warm, human tone — not corporate)
 - [ ] Policy application confirmation email
-- [ ] Policy approval / rejection email
+- [ ] Policy approval / rejection email with next steps
 - [ ] Payment due reminder (7 days before)
-- [ ] Payment overdue alert
+- [ ] Payment overdue alert (3-day, 7-day cadence)
+- [ ] Claim received acknowledgement email within minutes of submission
+- [ ] Claim status change emails at every stage
 
 ### Policy Application Flow
-- [ ] Member selects a product and pricing tier in-app
-- [ ] In-app policy application form (age, DOB, cover selection)
+- [ ] Member selects product and pricing tier in-app
 - [ ] Age validation against selected tier on submission
-- [ ] Policy number auto-generated and shown to member
-- [ ] Admin notified of new pending application
+- [ ] Policy number auto-generated and shown instantly
+- [ ] Admin notified of new pending applications via email
 
 ### Profile Completion
 - [ ] Profile completion prompt on first dashboard visit
 - [ ] Members can edit: name, phone, ID number, address
-- [ ] Profile completeness indicator (%)
-- [ ] Block policy application until profile is complete
+- [ ] Profile completeness percentage indicator
+- [ ] Block policy application until profile is 100% complete
 
 ---
 
-## Phase 2 — Payments & Claims (Month 3–4)
+## Phase 2 — Payments & Communications (Month 3–4)
 
-> Goal: Close the money loop. Enable real premium collection and formal claim submission.
+> Goal: Close the money loop and open real-time communication channels.
 
 ### Payment Integration
-- [ ] EFT payment confirmation upload by member
-- [ ] Admin EFT verification flow (match reference to policy)
-- [ ] Debit order mandate form (PDF generation)
+- [ ] **PayFast / Ozow** online EFT payment button on dashboard
+- [ ] EFT proof-of-payment upload by member (manual fallback)
+- [ ] Admin EFT verification flow (match reference → activate policy)
+- [ ] Debit order mandate form (PDF generation + digital signature)
 - [ ] Monthly premium schedule auto-generated on policy activation
-- [ ] Automated overdue flagging (cron job / Vercel cron)
-- [ ] Payment receipts emailed to members
+- [ ] Automated overdue flagging via Vercel cron
+- [ ] Branded payment receipts emailed on every payment recorded
 
-### Claims Management
-- [ ] Claim submission form (upload death certificate, ID of deceased)
-- [ ] Claim status tracking: Submitted → Under Review → Approved → Paid
-- [ ] Admin claim review dashboard
-- [ ] Claim approval / rejection with notes
-- [ ] Member claim status page with timeline
-- [ ] Claim email notifications at each stage
+### 🇿🇦 WhatsApp Integration *(innovative)*
+- [ ] Integrate WhatsApp Business API (Twilio or Meta direct)
+- [ ] Members receive claim status updates on WhatsApp
+- [ ] Payment reminders via WhatsApp (open rates 5× higher than email in SA)
+- [ ] Member can type "STATUS" to get their policy snapshot
+- [ ] Member can type "CLAIM" to start a guided claim submission flow
+- [ ] Admin broadcasts to member segments via WhatsApp
+
+### 🇿🇦 USSD Support *(innovative — for feature phone users)*
+- [ ] USSD menu via Africa's Talking (`*123#` shortcode)
+- [ ] Check policy status without a smartphone
+- [ ] View next payment due date
+- [ ] Report a claim via USSD (basic intake — agent follows up)
+- [ ] Register a new member via USSD with agent assistance
+- > *Reaches the 30%+ of South Africans without smartphones*
 
 ### SMS Notifications
-- [ ] Integrate Clickatell or BulkSMS (South African providers)
-- [ ] SMS on policy approval
+- [ ] Integrate Clickatell or BulkSMS
+- [ ] SMS on policy activation
 - [ ] SMS on payment due
 - [ ] SMS on claim status change
 - [ ] SMS on successful document upload
 
-### Reporting (Admin)
-- [ ] Monthly premium collection report (CSV export)
-- [ ] Active vs lapsed policies report
-- [ ] Pending documents report
-- [ ] Claims report with payout totals
-- [ ] Member growth chart (dashboard widget)
-
 ---
 
-## Phase 3 — Member Experience (Month 5–6)
+## Phase 3 — Human-Centred Claims Experience (Month 5–6)
 
-> Goal: Make members feel valued and keep them engaged between interactions.
+> Goal: Make the most painful moment in a member's life as frictionless as possible.
 
-### Digital Policy Certificate
-- [ ] Auto-generate PDF policy certificate on activation
-- [ ] Certificate includes: policy number, member name, cover amount, start date, BBS branding
-- [ ] Downloadable from member dashboard
-- [ ] Re-issued on policy changes
+### 🕊️ Guided Grief Claim Flow *(innovative)*
+- [ ] Step-by-step wizard for claim submission (one question per screen)
+- [ ] Plain language throughout — no insurance jargon
+- [ ] Progress saved automatically (resume later on any device)
+- [ ] "What you'll need" checklist sent to member before they start
+- [ ] Estimated payout date shown immediately on claim submission
+- [ ] Dedicated "Claim Support" phone number displayed throughout
+
+### 📸 AI-Assisted Document Verification *(innovative)*
+- [ ] OCR extraction from uploaded death certificates (Azure Document Intelligence / AWS Textract)
+- [ ] Auto-populate deceased name, ID, date of death from scanned document
+- [ ] Flag illegible or mismatched documents before admin review
+- [ ] Reduces claim processing time from days to hours
+
+### 🔔 Real-Time Claim Tracking
+- [ ] Live claim status page with visual timeline (no need to call in)
+- [ ] Push notification (PWA + WhatsApp) at every stage change
+- [ ] "Your claim is approved — payout within 24 hours" instant notification
+- [ ] Admin response SLA timer visible to both admin and member
 
 ### Beneficiary Management
 - [ ] Members can designate beneficiaries separate from dependants
-- [ ] Beneficiary: name, relationship, ID number, bank account
+- [ ] Beneficiary: name, relationship, ID number, bank account details
 - [ ] Admin can view beneficiaries per policy for claim processing
+- [ ] Beneficiary receives claim payout confirmation via SMS/email
+
+### 🌹 Memorial Page *(innovative — compassionate differentiator)*
+- [ ] On claim approval, member can create a private digital memorial
+- [ ] Upload a photo of the deceased, write a tribute
+- [ ] Share link with family (privately, no public indexing)
+- [ ] Busizwe sends a sympathy message with the page link
+- > *Builds emotional connection and word-of-mouth referrals*
+
+---
+
+## Phase 4 — Member Loyalty & Self-Service (Month 7–9)
+
+> Goal: Make members feel valued and reduce admin burden on BBS staff.
+
+### 🎖️ Loyalty & Rewards Programme *(innovative)*
+- [ ] Points earned per month of on-time premium payment
+- [ ] Milestone badges: "1 Year Loyal", "5 Years with Busizwe"
+- [ ] Points redeemable for: 1 month premium credit, partner vouchers
+- [ ] Streak counter: consecutive on-time payments (gamified)
+- [ ] Birthday message + bonus points each year
+- > *Reduces lapse rate by rewarding consistent behaviour*
+
+### 💡 Financial Wellness Hub *(innovative)*
+- [ ] In-dashboard articles: "How to plan a dignified funeral on any budget"
+- [ ] Premium affordability calculator (what can I cover at R150/month?)
+- [ ] Funeral cost estimator by province (sourced from real parlour data)
+- [ ] Links to reputable grief counselling resources (SADAG, FAMSA)
+- [ ] "Review your cover" annual prompt with upgrade suggestions
 
 ### Member Self-Service
 - [ ] Member can request policy cancellation (admin confirms)
 - [ ] Member can request cover upgrade (admin approves)
-- [ ] Member can update dependant details
-- [ ] Member can replace documents (upload new version)
+- [ ] Member can update dependant details with effective date
+- [ ] Member can replace documents (upload new version, old version archived)
+- [ ] Member can download all their documents and claim history as a ZIP
 
-### Referral Programme
-- [ ] Unique referral link per member
-- [ ] Referral tracking (how many people signed up via link)
-- [ ] Reward logic: 1 month premium discount after referee activates
-- [ ] Referral leaderboard (admin view)
+### 🔗 Referral Programme *(innovative)*
+- [ ] Unique referral link per member (shareable via WhatsApp in one tap)
+- [ ] Referral tracking with leaderboard
+- [ ] Reward: 1 month premium credit after referee activates
+- [ ] WhatsApp-friendly referral card (pre-written message + link)
+- [ ] Agent bonus: 2% of referred member's first year of premiums
 
-### Progressive Web App (PWA)
-- [ ] Add `manifest.json` and service worker
-- [ ] Installable on Android and iOS home screen
-- [ ] Offline-capable dashboard (cached data)
-- [ ] Push notifications for payment reminders
+### Voice-Guided Navigation *(innovative — for low-literacy users)*
+- [ ] Text-to-speech on key dashboard actions (opt-in)
+- [ ] Support for isiZulu, isiXhosa, Sesotho, Afrikaans alongside English
+- [ ] Simplified "Easy Mode" toggle: larger text, fewer options, step-by-step prompts
 
 ---
 
-## Phase 4 — Operations & Scale (Month 7–9)
+## Phase 5 — Operations at Scale (Month 10–12)
 
 > Goal: Give the BBS team the tools to run the business efficiently at scale.
 
 ### Agent / Broker Portal
 - [ ] New role: `AGENT`
-- [ ] Agents can register members on their behalf
-- [ ] Agent dashboard: their member list, commission tracker
-- [ ] Commission calculation: % of first premium per new activation
-- [ ] Agent performance reports (admin)
+- [ ] Agents register members on their behalf (in-person onboarding)
+- [ ] Agent dashboard: their member list, commission earned
+- [ ] Commission calculation: flat rate per activation + renewal bonus
+- [ ] Agent leaderboard and performance reports (admin view)
+- [ ] QR code per agent — member scans to link to agent on sign-up
 
 ### Advanced Admin Analytics
-- [ ] Revenue dashboard: monthly premiums, total collected, projected
+- [ ] Revenue dashboard: monthly premiums collected, projected, outstanding
 - [ ] Lapse rate tracking and trend charts
-- [ ] Geographic heatmap (province breakdown of members)
-- [ ] Document backlog tracker
-- [ ] Claims payout tracking vs premiums collected
+- [ ] Geographic heatmap — province and township breakdown of members
+- [ ] Claims payout tracking vs premiums collected (loss ratio)
+- [ ] Document backlog tracker with SLA warnings
+- [ ] Member growth and churn charts
+
+### 🤖 AI Admin Assistant *(innovative)*
+- [ ] Natural language query: "Show me all lapsed members in Gauteng with 3+ dependants"
+- [ ] Auto-draft rejection or approval emails from claim notes
+- [ ] Anomaly detection: flag unusual claim patterns for fraud review
+- [ ] Predictive lapse alert: "these 12 members are likely to lapse next month"
+
+### Bulk Operations
+- [ ] Bulk import members from CSV (with validation report)
+- [ ] Bulk generate monthly payment schedules
+- [ ] Bulk email / SMS to segments (overdue, new, anniversary)
+- [ ] Export any data table to CSV / Excel
+- [ ] Scheduled automated reports emailed to admin weekly
 
 ### Audit Logging
 - [ ] Every admin action logged (who, what, when)
-- [ ] Policy approval audit trail
-- [ ] Payment recording audit trail
-- [ ] Document status change audit trail
-- [ ] Admin-facing audit log viewer
-
-### Bulk Operations (Admin)
-- [ ] Bulk import members from CSV
-- [ ] Bulk generate monthly payment schedules
-- [ ] Bulk email / SMS to segments (e.g., all overdue members)
-- [ ] Export any data table to CSV / Excel
+- [ ] Policy, payment, document, and claim audit trails
+- [ ] Immutable log — entries cannot be edited or deleted
+- [ ] Admin-facing audit log viewer with filters
 
 ### Multi-Branch Support
 - [ ] Branch model in database (e.g., Johannesburg, Cape Town, Durban)
@@ -185,79 +243,91 @@ The MVP is live on `main`. It covers the foundational layer:
 
 ---
 
-## Phase 5 — Product Expansion (Month 10–12)
+## Phase 6 — Product Expansion (Month 13–18)
 
-> Goal: Grow the product offering and open new revenue streams.
+> Goal: Grow the product offering and open new revenue and partnership streams.
 
-### Extended Product Types
-- [ ] Tombstone cover add-on
-- [ ] Repatriation cover (transport of remains)
-- [ ] Group / employer scheme plans
-- [ ] Child-only cover plans
+### Extended Cover Types
+- [ ] Tombstone cover add-on (uplift after 12 months)
+- [ ] Repatriation cover (transport of remains — cross-border)
+- [ ] Group / employer scheme plans (HR-managed)
+- [ ] Child-only starter plan (R5/month, builds habits early)
+- [ ] Senior-only plan (65+) with adjusted waiting periods
+
+### 🏪 Funeral Services Marketplace *(innovative)*
+- [ ] Directory of vetted funeral parlours by province
+- [ ] Price comparison tool (caskets, cremation, embalming)
+- [ ] Member can pre-book a preferred parlour tied to their policy
+- [ ] Parlour sends confirmation on claim approval automatically
+- [ ] Partner revenue: referral fee per parlour booking
+- > *Removes the burden of finding a parlour during grief*
 
 ### Automated Underwriting
-- [ ] Age-based eligibility check on signup (enforce 16–84)
+- [ ] Age-based eligibility check on sign-up (enforce 16–84)
 - [ ] Automated policy activation on first payment confirmed
-- [ ] Waiting period enforcement (3 months for natural causes)
+- [ ] Waiting period enforcement (3 months natural cause, 0 for accident)
 - [ ] Flag high-risk applications for manual review
 
-### Member Mobile App
-- [ ] React Native app (iOS + Android)
-- [ ] Full parity with web dashboard
-- [ ] Biometric login
-- [ ] Push notifications
-- [ ] In-app document camera capture
+### 💳 Two-Pot Integration *(innovative — SA-specific)*
+- [ ] Members can link SA pension two-pot savings to fund premiums
+- [ ] One-click premium payment from savings component
+- [ ] Automated deduction request via partner API on overdue status
+- > *Solves the #1 reason members lapse — affordability shock*
 
 ### Third-Party Integrations
-- [ ] Accounting: Sage / Xero integration for premium income
-- [ ] Banking: Ozow or PayFast for online EFT payments
-- [ ] SASSA: partner integration for grant-linked debit orders
-- [ ] Credit bureau: validate ID numbers at registration
+- [ ] **Ozow / PayFast** — instant EFT payment gateway
+- [ ] **Sage / Xero** — accounting integration for premium income
+- [ ] **Home Affairs API** — ID number validation at registration
+- [ ] **Credit bureau** — verify ID numbers and check blacklisting
 
-### API & Partnerships
+### Public API & White-Label
 - [ ] Public REST API for partner integrations
 - [ ] API key management per partner
-- [ ] Webhook system for partners (policy events, claim events)
-- [ ] White-label option for other societies
+- [ ] Webhook system (policy activated, claim paid, member lapsed)
+- [ ] White-label option: other burial societies run on Busizwe infrastructure
 
 ---
 
-## Technical Debt & Quality (Ongoing)
+## Technical Quality (Ongoing)
 
-These run in parallel across all phases:
+Runs in parallel across all phases:
 
 - [ ] End-to-end test suite (Playwright)
-- [ ] Unit tests for API routes and utility functions
-- [ ] CI/CD pipeline (GitHub Actions)
+- [ ] Unit tests for API routes and utility functions (Vitest)
+- [ ] CI/CD pipeline (GitHub Actions — lint, test, build on every PR)
 - [ ] Error monitoring (Sentry)
 - [ ] Uptime monitoring (Better Uptime)
-- [ ] Rate limiting on all API routes
-- [ ] POPIA compliance audit
-- [ ] Accessibility audit (WCAG 2.1 AA)
-- [ ] Performance audit (Core Web Vitals)
+- [ ] Rate limiting on all public API routes
+- [ ] **POPIA compliance audit** — data retention, consent, deletion rights
+- [ ] Accessibility audit (WCAG 2.1 AA — screen readers, high contrast)
+- [ ] Performance audit (Core Web Vitals — critical for low-end Android)
 - [ ] Security penetration test before Phase 2 launch
+- [ ] Offline-first data sync (IndexedDB + sync on reconnect)
 
 ---
 
-## Milestones Summary
+## Milestones
 
-| Phase | Target | Key Deliverable |
-|---|---|---|
-| MVP | ✅ Done | Platform foundation |
-| Phase 1 | Month 2 | First real member live |
-| Phase 2 | Month 4 | First claim processed |
-| Phase 3 | Month 6 | 500 active members |
-| Phase 4 | Month 9 | Agent network active |
-| Phase 5 | Month 12 | 2,000+ members, API partners |
+| Phase | Target | Key Deliverable | Members |
+|---|---|---|---|
+| Foundation | ✅ Done | Platform live | — |
+| Phase 1 | Month 2 | First real member onboarded | 10 |
+| Phase 2 | Month 4 | First online payment + WhatsApp live | 100 |
+| Phase 3 | Month 6 | First claim processed end-to-end | 500 |
+| Phase 4 | Month 9 | Loyalty programme live | 1,500 |
+| Phase 5 | Month 12 | Agent network + AI admin | 5,000 |
+| Phase 6 | Month 18 | Marketplace + API partners | 15,000 |
 
 ---
 
 ## Prioritisation Principles
 
-1. **Member trust first** — anything that builds confidence (receipts, certificates, status updates) takes priority over internal tools
-2. **Admin efficiency second** — reduce manual work before automating member-facing features
-3. **Revenue security third** — close payment loop before expanding product range
-4. **Scale last** — only build multi-branch / API when the core is stable and tested
+1. **Dignity first** — every feature must feel compassionate, not transactional
+2. **Offline and low-data friendly** — many members are on prepaid mobile data
+3. **South African first** — WhatsApp, USSD, SASSA, ZAR, all 11 official languages
+4. **Member trust before scale** — build trust with 100 members before acquiring 10,000
+5. **Admin efficiency** — one BBS staff member should be able to manage 500 members
+6. **Revenue security** — close the payment loop before expanding the product range
 
 ---
 
