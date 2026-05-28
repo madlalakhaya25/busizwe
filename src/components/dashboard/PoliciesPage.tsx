@@ -91,38 +91,22 @@ export default function PoliciesPage({ policies }: { policies: unknown[] }) {
                     </Badge>
                   </div>
                 </CardHeader>
-                <CardContent className="pt-4">
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                    <div className="bg-[#F7F3EA] rounded-xl p-3">
-                      <div className="flex items-center gap-1.5 mb-1">
-                        <CreditCard className="w-3.5 h-3.5 text-[#C89B3C]" />
-                        <span className="text-xs text-[#6b6b6b]">Monthly Premium</span>
+                <CardContent className="pt-5">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+                    {[
+                      { icon: CreditCard, label: 'Premium / month', value: formatCurrency(Number(policy.monthlyPremium)) },
+                      { icon: Shield,     label: 'Cover Amount',    value: formatCurrency(Number(policy.coverAmount)) },
+                      { icon: Users,      label: 'Dependants',      value: String(policy.dependants.length) },
+                      { icon: Calendar,   label: 'Start Date',      value: policy.startDate ? formatDate(policy.startDate) : 'Pending' },
+                    ].map(({ icon: Icon, label, value }) => (
+                      <div key={label} className="bg-[#F7F3EA] rounded-xl p-3.5 min-w-0">
+                        <div className="flex items-center gap-1.5 mb-2">
+                          <Icon className="w-3.5 h-3.5 text-[#C89B3C] shrink-0" />
+                          <span className="text-xs text-[#6b6b6b] truncate">{label}</span>
+                        </div>
+                        <p className="font-bold text-[#014D4E] text-sm truncate">{value}</p>
                       </div>
-                      <p className="font-bold text-[#014D4E]">{formatCurrency(Number(policy.monthlyPremium))}</p>
-                    </div>
-                    <div className="bg-[#F7F3EA] rounded-xl p-3">
-                      <div className="flex items-center gap-1.5 mb-1">
-                        <Shield className="w-3.5 h-3.5 text-[#C89B3C]" />
-                        <span className="text-xs text-[#6b6b6b]">Cover Amount</span>
-                      </div>
-                      <p className="font-bold text-[#014D4E]">{formatCurrency(Number(policy.coverAmount))}</p>
-                    </div>
-                    <div className="bg-[#F7F3EA] rounded-xl p-3">
-                      <div className="flex items-center gap-1.5 mb-1">
-                        <Users className="w-3.5 h-3.5 text-[#C89B3C]" />
-                        <span className="text-xs text-[#6b6b6b]">Dependants</span>
-                      </div>
-                      <p className="font-bold text-[#014D4E]">{policy.dependants.length}</p>
-                    </div>
-                    <div className="bg-[#F7F3EA] rounded-xl p-3">
-                      <div className="flex items-center gap-1.5 mb-1">
-                        <Calendar className="w-3.5 h-3.5 text-[#C89B3C]" />
-                        <span className="text-xs text-[#6b6b6b]">Start Date</span>
-                      </div>
-                      <p className="font-bold text-[#014D4E] text-sm">
-                        {policy.startDate ? formatDate(policy.startDate) : 'Pending'}
-                      </p>
-                    </div>
+                    ))}
                   </div>
 
                   <div className="flex flex-wrap gap-2 mt-4">

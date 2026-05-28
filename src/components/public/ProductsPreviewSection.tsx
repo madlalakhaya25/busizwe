@@ -75,7 +75,7 @@ export default function ProductsPreviewSection() {
         </motion.div>
 
         {/* Cards */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {PRODUCTS.map((product, i) => (
             <motion.div
               key={product.title}
@@ -83,10 +83,10 @@ export default function ProductsPreviewSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="relative"
+              className="relative pt-3"
             >
               {product.popular && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10 bg-[#C89B3C] text-white text-xs font-bold px-4 py-1 rounded-full shadow-lg">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 z-10 bg-[#C89B3C] text-white text-xs font-bold px-4 py-1 rounded-full shadow-lg whitespace-nowrap">
                   Most Popular
                 </div>
               )}
@@ -95,24 +95,24 @@ export default function ProductsPreviewSection() {
                   product.popular ? 'border-[#C89B3C] ring-1 ring-[#C89B3C]' : ''
                 }`}
               >
-                <CardHeader>
+                <CardHeader className="pb-3">
                   <div
                     className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
                     style={{ background: `${product.color}15` }}
                   >
                     <product.icon className="w-6 h-6" style={{ color: product.color }} />
                   </div>
-                  <CardTitle className="text-lg">{product.title}</CardTitle>
-                  <CardDescription>{product.description}</CardDescription>
+                  <CardTitle className="text-base leading-snug">{product.title}</CardTitle>
+                  <CardDescription className="text-sm leading-relaxed mt-1">{product.description}</CardDescription>
                 </CardHeader>
-                <CardContent className="flex flex-col flex-1 justify-end gap-4">
+                <CardContent className="flex flex-col flex-1 justify-end gap-5 pt-2">
                   <div>
-                    <p className="text-xs text-[#6b6b6b] mb-1">From / month</p>
+                    <p className="text-xs text-[#6b6b6b] mb-1.5">From per month</p>
                     <p className="text-3xl font-bold text-[#014D4E]" style={{ fontFamily: 'Georgia, serif' }}>
                       {formatCurrency(product.startFrom)}
                     </p>
                   </div>
-                  <div className="text-sm text-[#6b6b6b]">
+                  <div className="text-sm text-[#6b6b6b] leading-relaxed">
                     Up to <strong className="text-[#1C1C1C]">{formatCurrency(product.maxCover)}</strong> cover
                   </div>
                   <Button

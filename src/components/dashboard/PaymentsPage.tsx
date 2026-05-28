@@ -52,13 +52,13 @@ export default function PaymentsPage({ payments }: { payments: unknown[] }) {
           >
             <Card>
               <CardContent className="p-5">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ background: `${stat.color}15` }}>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ background: `${stat.color}15` }}>
                     <stat.icon className="w-4 h-4" style={{ color: stat.color }} />
                   </div>
                 </div>
-                <p className="text-2xl font-bold text-[#1C1C1C]">{stat.value}</p>
-                <p className="text-xs text-[#6b6b6b] mt-0.5">{stat.label}</p>
+                <p className="text-2xl font-bold text-[#1C1C1C] truncate">{stat.value}</p>
+                <p className="text-sm text-[#6b6b6b] mt-1 truncate">{stat.label}</p>
               </CardContent>
             </Card>
           </motion.div>

@@ -48,51 +48,55 @@ export default function Navbar() {
             : 'bg-transparent'
         )}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
           <div className="flex items-center justify-between h-20">
 
             {/* Logo */}
             <Logo size="sm" variant="full" />
 
-            {/* Desktop nav links */}
+            {/* Desktop nav links — more spacing, gold underline active indicator below text */}
             <nav className="hidden lg:flex items-center gap-1" aria-label="Main navigation">
-              {NAV_LINKS.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={cn(
-                    'relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200',
-                    scrolled
-                      ? isActive(link.href)
-                        ? 'text-[#014D4E] bg-[#014D4E]/8'
-                        : 'text-[#1C1C1C] hover:text-[#014D4E] hover:bg-[#014D4E]/5'
-                      : isActive(link.href)
-                        ? 'text-white bg-white/15'
-                        : 'text-white/85 hover:text-white hover:bg-white/10'
-                  )}
-                >
-                  {link.label}
-                  {isActive(link.href) && (
-                    <motion.span
-                      layoutId="nav-indicator"
-                      className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-[#C89B3C] rounded-full"
-                    />
-                  )}
-                </Link>
-              ))}
+              {NAV_LINKS.map((link) => {
+                const active = isActive(link.href)
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={cn(
+                      'relative px-5 py-2.5 text-sm font-medium rounded-xl transition-all duration-200',
+                      scrolled
+                        ? active
+                          ? 'text-[#014D4E] bg-[#014D4E]/[0.07]'
+                          : 'text-[#4a4a4a] hover:text-[#014D4E] hover:bg-[#014D4E]/[0.05]'
+                        : active
+                          ? 'text-white bg-white/[0.15]'
+                          : 'text-white/85 hover:text-white hover:bg-white/[0.12]'
+                    )}
+                  >
+                    {link.label}
+                    {/* Gold underline beneath the label — inside padding so never clipped */}
+                    {active && (
+                      <motion.span
+                        layoutId="nav-underline"
+                        className="absolute bottom-1.5 left-1/2 -translate-x-1/2 h-0.5 w-5 bg-[#C89B3C] rounded-full"
+                      />
+                    )}
+                  </Link>
+                )
+              })}
             </nav>
 
             {/* Right side */}
-            <div className="hidden lg:flex items-center gap-3">
+            <div className="hidden lg:flex items-center gap-4">
               <a
                 href="tel:+27800000000"
                 className={cn(
-                  'flex items-center gap-2 text-sm transition-colors',
+                  'flex items-center gap-2 text-sm font-medium transition-colors',
                   scrolled ? 'text-[#6b6b6b] hover:text-[#014D4E]' : 'text-white/80 hover:text-white'
                 )}
               >
-                <Phone className="w-4 h-4 text-[#C89B3C]" />
-                <span className="font-medium">0800 000 000</span>
+                <Phone className="w-4 h-4 text-[#C89B3C] shrink-0" />
+                <span>0800 000 000</span>
               </a>
 
               {isSignedIn ? (
@@ -133,7 +137,7 @@ export default function Navbar() {
             {/* Mobile hamburger */}
             <button
               className={cn(
-                'lg:hidden p-2 rounded-lg transition-colors',
+                'lg:hidden p-2.5 rounded-xl transition-colors',
                 scrolled ? 'text-[#1C1C1C] hover:bg-[#014D4E]/10' : 'text-white hover:bg-white/10'
               )}
               onClick={() => setIsOpen(!isOpen)}
@@ -150,28 +154,31 @@ export default function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
+            exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
             className="fixed inset-x-0 top-20 z-40 bg-white border-b border-[#e0d9cc] shadow-xl lg:hidden"
           >
-            <div className="max-w-7xl mx-auto px-4 py-6 flex flex-col gap-2">
+            <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col gap-1">
               {NAV_LINKS.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    'px-4 py-3 rounded-lg text-sm font-medium transition-colors',
+                    'flex items-center px-4 py-3.5 rounded-xl text-sm font-medium transition-colors',
                     isActive(link.href)
                       ? 'text-white bg-[#014D4E]'
-                      : 'text-[#1C1C1C] hover:bg-[#014D4E]/10 hover:text-[#014D4E]'
+                      : 'text-[#1C1C1C] hover:bg-[#014D4E]/8 hover:text-[#014D4E]'
                   )}
                 >
+                  {isActive(link.href) && (
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#C89B3C] mr-2.5 shrink-0" />
+                  )}
                   {link.label}
                 </Link>
               ))}
-              <div className="pt-4 border-t border-[#e0d9cc] flex flex-col gap-2">
+              <div className="mt-4 pt-4 border-t border-[#e0d9cc] flex flex-col gap-3">
                 {isSignedIn ? (
                   <Button variant="default" asChild className="w-full">
                     <Link href="/dashboard">My Dashboard</Link>

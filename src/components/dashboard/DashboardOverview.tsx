@@ -68,7 +68,7 @@ export default function DashboardOverview({ displayName, stats, recentPolicies, 
   const name = displayName
 
   return (
-    <div className="space-y-6 lg:space-y-8">
+    <div className="space-y-8">
 
       {/* Welcome */}
       <motion.div
@@ -76,14 +76,14 @@ export default function DashboardOverview({ displayName, stats, recentPolicies, 
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <h2 className="text-xl sm:text-2xl font-bold text-[#1C1C1C]" style={{ fontFamily: 'Georgia, serif' }}>
-          Welcome back, {name} 👋
+        <h2 className="text-2xl sm:text-3xl font-bold text-[#1C1C1C]" style={{ fontFamily: 'Georgia, serif' }}>
+          Welcome back, {name}
         </h2>
-        <p className="text-sm text-[#6b6b6b] mt-1">Here&apos;s an overview of your Busizwe membership.</p>
+        <p className="text-base text-[#6b6b6b] mt-2">Here is an overview of your Busizwe Burial Society membership.</p>
       </motion.div>
 
-      {/* Stat cards — 2 col on mobile, 4 on desktop */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+      {/* Stat cards */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {STAT_CARDS(stats).map((stat, i) => (
           <motion.div
             key={stat.label}
@@ -93,14 +93,14 @@ export default function DashboardOverview({ displayName, stats, recentPolicies, 
           >
             <Link href={stat.href}>
               <Card className="hover:shadow-[0_8px_24px_rgba(1,77,78,0.12)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer h-full">
-                <CardContent className="p-4 sm:p-5">
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center mb-3"
+                <CardContent className="p-4 sm:p-6">
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center mb-4"
                     style={{ background: `${stat.color}18` }}>
                     <stat.icon className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: stat.color }} />
                   </div>
-                  <p className="text-2xl sm:text-3xl font-bold text-[#1C1C1C] leading-none">{stat.value}</p>
-                  <p className="text-xs sm:text-sm font-medium text-[#1C1C1C] mt-1.5">{stat.label}</p>
-                  <p className="text-xs text-[#6b6b6b] mt-0.5 leading-tight">{stat.sub}</p>
+                  <p className="text-3xl font-bold text-[#1C1C1C] leading-none">{stat.value}</p>
+                  <p className="text-sm font-semibold text-[#1C1C1C] mt-2 truncate">{stat.label}</p>
+                  <p className="text-xs text-[#6b6b6b] mt-0.5 truncate">{stat.sub}</p>
                 </CardContent>
               </Card>
             </Link>
@@ -109,7 +109,7 @@ export default function DashboardOverview({ displayName, stats, recentPolicies, 
       </div>
 
       {/* Quick actions */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {QUICK_ACTIONS.map((action, i) => (
           <motion.div
             key={action.label}
@@ -134,12 +134,12 @@ export default function DashboardOverview({ displayName, stats, recentPolicies, 
       </div>
 
       {/* Recent activity */}
-      <div className="grid lg:grid-cols-2 gap-5">
+      <div className="grid lg:grid-cols-2 gap-6">
 
         {/* Recent policies */}
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-3">
-            <CardTitle className="text-sm font-semibold text-[#014D4E]">Recent Policies</CardTitle>
+          <CardHeader className="flex flex-row items-center justify-between pb-4">
+            <CardTitle className="text-base font-semibold text-[#014D4E]">Recent Policies</CardTitle>
             <Button variant="ghost" size="sm" asChild className="text-xs">
               <Link href="/dashboard/policies" className="flex items-center gap-1">
                 View all <ArrowRight className="w-3 h-3" />
@@ -178,8 +178,8 @@ export default function DashboardOverview({ displayName, stats, recentPolicies, 
 
         {/* Recent payments */}
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-3">
-            <CardTitle className="text-sm font-semibold text-[#014D4E]">Recent Payments</CardTitle>
+          <CardHeader className="flex flex-row items-center justify-between pb-4">
+            <CardTitle className="text-base font-semibold text-[#014D4E]">Recent Payments</CardTitle>
             <Button variant="ghost" size="sm" asChild className="text-xs">
               <Link href="/dashboard/payments" className="flex items-center gap-1">
                 View all <ArrowRight className="w-3 h-3" />
