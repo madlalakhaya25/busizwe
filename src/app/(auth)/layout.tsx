@@ -22,17 +22,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         <div className="relative flex flex-col h-full px-12 py-10">
           {/* Logo at top */}
           <Link href="/" className="self-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C89B3C] rounded-lg">
-            <div className="flex items-center gap-3">
-              <LogoSVG size="md" />
-              <div className="flex flex-col leading-tight">
-                <span className="font-bold text-white text-base tracking-tight" style={{ fontFamily: 'Georgia, serif' }}>
-                  Busizwe
-                </span>
-                <span className="text-[10px] font-semibold text-[#C89B3C] tracking-widest uppercase" style={{ fontFamily: 'Georgia, serif' }}>
-                  Burial Society
-                </span>
-              </div>
-            </div>
+            <LogoSVG size="md" />
           </Link>
 
           {/* Hero content — centered vertically */}
