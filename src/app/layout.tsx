@@ -52,20 +52,20 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <ClerkProvider>
-      <html
-        lang="en-ZA"
-        className={`${geistSans.variable} ${geistMono.variable} h-full`}
-        suppressHydrationWarning
-      >
-        <head>
-          <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        </head>
-        <body className="min-h-full flex flex-col antialiased bg-[#F7F3EA] text-[#1C1C1C]">
+    <html
+      lang="en-ZA"
+      className={`${geistSans.variable} ${geistMono.variable} h-full`}
+      suppressHydrationWarning
+    >
+      <head>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+      </head>
+      <body className="min-h-full flex flex-col antialiased bg-[#F7F3EA] text-[#1C1C1C]">
+        <ClerkProvider>
           <PWARegister />
           {children}
-        </body>
-      </html>
-    </ClerkProvider>
+        </ClerkProvider>
+      </body>
+    </html>
   )
 }
