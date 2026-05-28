@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <!-- Background circle -->
+  <circle cx="24" cy="24" r="23" fill="#014D4E"/>
+  <!-- Gold ring -->
+  <circle cx="24" cy="24" r="23" fill="none" stroke="#C89B3C" stroke-width="2"/>
+  <!-- Cross -->
+  <rect x="21.5" y="8" width="5" height="16" rx="1.5" fill="#C89B3C"/>
+  <rect x="14" y="13" width="20" height="5" rx="1.5" fill="#C89B3C"/>
+  <!-- Letters BBS -->
+  <text x="24" y="38" text-anchor="middle" fill="white" font-family="Georgia, serif" font-size="10" font-weight="bold" letter-spacing="2">BBS</text>
+</svg>
