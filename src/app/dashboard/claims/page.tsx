@@ -20,6 +20,7 @@ export default async function DashboardClaimsPage() {
         where: { userId: user.id },
         include: {
           policy: { select: { policyNumber: true, coverAmount: true, product: { select: { name: true } } } },
+          memorial: { select: { token: true } },
         },
         orderBy: { createdAt: 'desc' },
       })

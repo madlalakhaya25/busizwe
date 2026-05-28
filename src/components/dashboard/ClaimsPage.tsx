@@ -3,16 +3,18 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
-  FileSearch, Plus, X, CheckCircle2, Clock, AlertCircle,
-  DollarSign, ChevronRight, Upload, Calendar,
+  FileSearch, Plus, CheckCircle2, Clock, AlertCircle,
+  DollarSign, ChevronRight, Heart, Share2, Loader2,
 } from 'lucide-react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { formatCurrency, formatDate, getStatusColor } from '@/lib/utils'
+import { formatCurrency, formatDate } from '@/lib/utils'
+import ClaimWizard from './ClaimWizard'
+
+interface Memorial {
+  token: string
+}
 
 interface Claim {
   id: string
@@ -29,6 +31,7 @@ interface Claim {
   rejectionReason: string | null
   approvedAt: Date | null
   paidAt: Date | null
+  memorial: Memorial | null
   policy: { policyNumber: string; coverAmount: unknown; product: { name: string } }
 }
 
@@ -46,13 +49,9 @@ const STATUS_STEPS = [
   { key: 'PAID', label: 'Paid Out', icon: DollarSign },
 ]
 
-const RELATIONSHIPS = ['Spouse', 'Child', 'Parent', 'Sibling', 'Grandparent', 'Grandchild', 'Other']
-
 function ClaimTimeline({ status }: { status: string }) {
   const steps = STATUS_STEPS
-  const currentIndex = status === 'REJECTED'
-    ? -1
-    : steps.findIndex((s) => s.key === status)
+  const currentIndex = status === 'REJECTED' ? -1 : steps.findIndex((s) => s.key === status)
 
   if (status === 'REJECTED') {
     return (
@@ -88,27 +87,134 @@ function ClaimTimeline({ status }: { status: string }) {
   )
 }
 
+function MemorialCreator({ claim, onCreated }: { claim: Claim; onCreated: (token: string) => void }) {
+  const [open, setOpen] = useState(false)
+  const [tribute, setTribute] = useState('')
+  const [birthYear, setBirthYear] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  const handleCreate = async () => {
+    setLoading(true)
+    try {
+      const res = await fetch('/api/memorial', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          claimId: claim.id,
+          tribute: tribute || undefined,
+          birthYear: birthYear ? parseInt(birthYear) : undefined,
+        }),
+      })
+      if (res.ok) {
+        const memorial = await res.json() as { token: string }
+        onCreated(memorial.token)
+      }
+    } catch { /* noop */ }
+    finally { setLoading(false) }
+  }
+
+  if (!open) {
+    return (
+      <Button variant="ghost" size="sm" onClick={() => setOpen(true)}>
+        <Heart className="w-3.5 h-3.5 text-rose-400" /> Create Memorial Page
+      </Button>
+    )
+  }
+
+  return (
+    <div className="mt-4 bg-[#F7F3EA] rounded-2xl p-4 border border-[#e0d9cc] space-y-3">
+      <p className="text-sm font-semibold text-[#014D4E]">
+        Create a memorial page for {claim.deceasedFirstName}
+      </p>
+      <div className="space-y-2">
+        <label className="text-xs text-[#6b6b6b]">Birth year (optional)</label>
+        <input
+          type="number"
+          min={1900}
+          max={2025}
+          value={birthYear}
+          onChange={(e) => setBirthYear(e.target.value)}
+          placeholder="e.g. 1952"
+          className="w-full rounded-xl border border-[#e0d9cc] px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#014D4E]/20"
+        />
+      </div>
+      <div className="space-y-2">
+        <label className="text-xs text-[#6b6b6b]">A tribute (optional)</label>
+        <Textarea
+          value={tribute}
+          onChange={(e) => setTribute(e.target.value)}
+          placeholder="A few words to remember them by…"
+          className="min-h-[72px] text-sm"
+          maxLength={2000}
+        />
+      </div>
+      <div className="flex gap-2">
+        <Button size="sm" variant="default" disabled={loading} onClick={handleCreate}>
+          {loading ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Creating…</> : <>Create Page</>}
+        </Button>
+        <Button size="sm" variant="ghost" onClick={() => setOpen(false)}>Cancel</Button>
+      </div>
+    </div>
+  )
+}
+
+type ViewState = 'list' | 'wizard' | 'success'
+
 export default function ClaimsPage({ claims, policies }: { claims: unknown[]; policies: unknown[] }) {
   const typedClaims = claims as Claim[]
   const typedPolicies = policies as Policy[]
-  const [showForm, setShowForm] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [view, setView] = useState<ViewState>('list')
+  const [submittedClaimNumber, setSubmittedClaimNumber] = useState('')
   const [expandedId, setExpandedId] = useState<string | null>(null)
+  const [memorialTokens, setMemorialTokens] = useState<Record<string, string>>(() => {
+    const map: Record<string, string> = {}
+    for (const c of typedClaims) {
+      if (c.memorial?.token) map[c.id] = c.memorial.token
+    }
+    return map
+  })
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setLoading(true)
-    const form = e.currentTarget
-    const data = Object.fromEntries(new FormData(form))
-    try {
-      const res = await fetch('/api/claims', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      })
-      if (res.ok) { setShowForm(false); window.location.reload() }
-    } catch { /* noop */ }
-    finally { setLoading(false) }
+  const APP_URL = typeof window !== 'undefined' ? window.location.origin : 'https://busizwe.co.za'
+
+  if (view === 'wizard') {
+    return (
+      <div className="bg-white rounded-2xl border border-[#e0d9cc] p-6 sm:p-8">
+        <ClaimWizard
+          policies={typedPolicies}
+          onCancel={() => setView('list')}
+          onComplete={(claimNumber) => {
+            setSubmittedClaimNumber(claimNumber)
+            setView('success')
+          }}
+        />
+      </div>
+    )
+  }
+
+  if (view === 'success') {
+    const waText = encodeURIComponent(`My funeral claim ${submittedClaimNumber} has been submitted to Busizwe Burial Society.`)
+    return (
+      <div className="text-center py-20 bg-white rounded-2xl border border-[#e0d9cc] px-6">
+        <CheckCircle2 className="w-16 h-16 text-green-500 mx-auto mb-4" />
+        <h3 className="text-2xl font-bold text-[#014D4E] mb-2" style={{ fontFamily: 'Georgia, serif' }}>
+          Claim Submitted
+        </h3>
+        <p className="text-[#6b6b6b] text-sm max-w-sm mx-auto mb-2">
+          We have received your claim. Our team will review it within 48 hours and reach out by phone and WhatsApp.
+        </p>
+        <p className="text-[#C89B3C] font-mono font-bold text-lg mb-8">{submittedClaimNumber}</p>
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <Button variant="default" onClick={() => { setView('list'); window.location.reload() }}>
+            View My Claims
+          </Button>
+          <Button variant="ghost" asChild>
+            <a href={`https://wa.me/?text=${waText}`} target="_blank" rel="noopener noreferrer">
+              <Share2 className="w-4 h-4" /> Share on WhatsApp
+            </a>
+          </Button>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -117,113 +223,14 @@ export default function ClaimsPage({ claims, policies }: { claims: unknown[]; po
         <p className="text-[#6b6b6b] text-sm">
           {typedClaims.length} claim{typedClaims.length !== 1 ? 's' : ''}
         </p>
-        {typedPolicies.length > 0 && !showForm && (
-          <Button variant="gold" size="sm" onClick={() => setShowForm(true)}>
+        {typedPolicies.length > 0 && (
+          <Button variant="gold" size="sm" onClick={() => setView('wizard')}>
             <Plus className="w-4 h-4" /> Submit Claim
           </Button>
         )}
       </div>
 
-      {/* Claim submission form */}
-      <AnimatePresence>
-        {showForm && (
-          <motion.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }}>
-            <Card className="border-[#C89B3C]/30">
-              <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <CardTitle className="text-base">Submit a New Claim</CardTitle>
-                <button onClick={() => setShowForm(false)} className="text-[#6b6b6b] hover:text-[#1C1C1C]">
-                  <X className="w-4 h-4" />
-                </button>
-              </CardHeader>
-              <CardContent>
-                <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 text-sm text-amber-800">
-                  <strong>Important:</strong> Only submit a claim for an active policy. You will need to upload
-                  supporting documents (death certificate, deceased&apos;s ID). Our team will contact you within
-                  48 hours to guide you through the process.
-                </div>
-                <form onSubmit={handleSubmit} className="grid sm:grid-cols-2 gap-4">
-                  <div className="sm:col-span-2 space-y-1.5">
-                    <Label>Policy</Label>
-                    <Select name="policyId" required>
-                      <SelectTrigger><SelectValue placeholder="Select active policy" /></SelectTrigger>
-                      <SelectContent>
-                        {typedPolicies.map((p) => (
-                          <SelectItem key={p.id} value={p.id}>
-                            {p.policyNumber} – {p.product.name} ({formatCurrency(Number(p.coverAmount))})
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <Label>Deceased First Name</Label>
-                    <Input name="deceasedFirstName" placeholder="First name" required />
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label>Deceased Last Name</Label>
-                    <Input name="deceasedLastName" placeholder="Last name" required />
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label>Deceased ID Number (optional)</Label>
-                    <Input name="deceasedIdNumber" placeholder="1234567890123" />
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label>Date of Death</Label>
-                    <Input name="deceasedDateOfDeath" type="date" required max={new Date().toISOString().split('T')[0]} />
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label>Your Relationship to Deceased</Label>
-                    <Select name="relationship" required>
-                      <SelectTrigger><SelectValue placeholder="Select relationship" /></SelectTrigger>
-                      <SelectContent>
-                        {RELATIONSHIPS.map((r) => <SelectItem key={r} value={r}>{r}</SelectItem>)}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label>Funeral Date (optional)</Label>
-                    <Input name="funeralDate" type="date" />
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label>Funeral Home (optional)</Label>
-                    <Input name="funeralHome" placeholder="Name of funeral parlour" />
-                  </div>
-                  <div className="sm:col-span-2 space-y-1.5">
-                    <Label>Additional Notes (optional)</Label>
-                    <Textarea name="notes" placeholder="Any additional information to support your claim..." className="min-h-[80px]" />
-                  </div>
-
-                  <div className="sm:col-span-2 bg-[#F7F3EA] rounded-xl p-4 border border-[#e0d9cc]">
-                    <p className="text-sm font-medium text-[#014D4E] mb-2 flex items-center gap-2">
-                      <Upload className="w-4 h-4 text-[#C89B3C]" /> Documents to Upload After Submission
-                    </p>
-                    <ul className="text-xs text-[#6b6b6b] space-y-1 ml-6">
-                      <li>• Original death certificate of the deceased</li>
-                      <li>• ID document of the deceased</li>
-                      <li>• Your ID document (claimant)</li>
-                      <li>• Bank account details for payout</li>
-                    </ul>
-                    <p className="text-xs text-[#6b6b6b] mt-3">
-                      Upload these via the <strong>Documents</strong> section after submitting this form.
-                    </p>
-                  </div>
-
-                  <div className="sm:col-span-2 flex gap-3">
-                    <Button type="submit" variant="default" disabled={loading}>
-                      {loading ? 'Submitting...' : 'Submit Claim'}
-                    </Button>
-                    <Button type="button" variant="secondary" onClick={() => setShowForm(false)}>Cancel</Button>
-                  </div>
-                </form>
-              </CardContent>
-            </Card>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* No claims */}
-      {typedClaims.length === 0 && !showForm && (
+      {typedClaims.length === 0 && (
         <div className="text-center py-20 bg-white rounded-2xl border border-[#e0d9cc]">
           <FileSearch className="w-16 h-16 text-[#e0d9cc] mx-auto mb-4" />
           <h3 className="text-xl font-bold text-[#014D4E] mb-2" style={{ fontFamily: 'Georgia, serif' }}>
@@ -235,14 +242,13 @@ export default function ClaimsPage({ claims, policies }: { claims: unknown[]; po
               : 'If you have experienced a loss, you can submit a claim against your active policy.'}
           </p>
           {typedPolicies.length > 0 && (
-            <Button variant="default" onClick={() => setShowForm(true)}>
+            <Button variant="default" onClick={() => setView('wizard')}>
               <Plus className="w-4 h-4" /> Submit a Claim
             </Button>
           )}
         </div>
       )}
 
-      {/* Claims list */}
       {typedClaims.length > 0 && (
         <div className="space-y-4">
           {typedClaims.map((claim, i) => (
@@ -328,6 +334,41 @@ export default function ClaimsPage({ claims, policies }: { claims: unknown[]; po
                               <p className="text-sm text-green-700">
                                 Payout processed on <strong>{formatDate(claim.paidAt)}</strong>
                               </p>
+                            </div>
+                          )}
+
+                          {/* Memorial section */}
+                          {['APPROVED', 'PAID'].includes(claim.status) && (
+                            <div className="pt-2">
+                              {memorialTokens[claim.id] ? (
+                                <div className="flex flex-wrap gap-3 items-center bg-[#0a0f1e]/5 rounded-xl p-3">
+                                  <Heart className="w-4 h-4 text-rose-400 shrink-0" />
+                                  <p className="text-sm text-[#1C1C1C] flex-1">Memorial page created</p>
+                                  <div className="flex gap-2">
+                                    <Button size="sm" variant="ghost" asChild>
+                                      <a href={`/memorial/${memorialTokens[claim.id]}`} target="_blank" rel="noopener noreferrer">
+                                        View
+                                      </a>
+                                    </Button>
+                                    <Button size="sm" variant="ghost" asChild>
+                                      <a
+                                        href={`https://wa.me/?text=${encodeURIComponent(`Please light a candle in memory of ${claim.deceasedFirstName} ${claim.deceasedLastName}: ${APP_URL}/memorial/${memorialTokens[claim.id]}`)}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                      >
+                                        <Share2 className="w-3.5 h-3.5" /> Share
+                                      </a>
+                                    </Button>
+                                  </div>
+                                </div>
+                              ) : (
+                                <MemorialCreator
+                                  claim={claim}
+                                  onCreated={(token) =>
+                                    setMemorialTokens((prev) => ({ ...prev, [claim.id]: token }))
+                                  }
+                                />
+                              )}
                             </div>
                           )}
                         </div>

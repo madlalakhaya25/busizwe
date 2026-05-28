@@ -2,6 +2,9 @@ import { auth } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
 import { prisma } from '@/lib/prisma'
+import { sendWhatsApp, claimStatusMessage } from '@/lib/whatsapp'
+
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://busizwe.co.za'
 
 const reviewSchema = z.object({
   action: z.enum(['APPROVE', 'REJECT', 'MARK_PAID', 'UNDER_REVIEW']),
@@ -43,6 +46,19 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
     updateData.rejectionReason = rejectionReason
   }
 
-  const claim = await prisma.claim.update({ where: { id }, data: updateData })
+  const claim = await prisma.claim.update({
+    where: { id },
+    data: updateData,
+    include: {
+      user: { include: { profile: { select: { phone: true } } } },
+    },
+  })
+
+  // Best-effort WhatsApp notification
+  const phone = claim.user.profile?.phone
+  if (phone && action !== 'UNDER_REVIEW' || action === 'UNDER_REVIEW') {
+    sendWhatsApp(phone ?? '', claimStatusMessage(claim.claimNumber, claim.status, APP_URL))
+  }
+
   return NextResponse.json(claim)
 }
