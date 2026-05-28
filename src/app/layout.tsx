@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { ClerkProvider } from '@clerk/nextjs'
+import PWARegister from '@/components/PWARegister'
 import './globals.css'
 
 const geistSans = Geist({
@@ -40,6 +41,7 @@ export const metadata: Metadata = {
     icon: '/favicon.svg',
     apple: '/apple-icon.svg',
   },
+  manifest: '/manifest.webmanifest',
 }
 
 export const viewport: Viewport = {
@@ -60,6 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         </head>
         <body className="min-h-full flex flex-col antialiased bg-[#F7F3EA] text-[#1C1C1C]">
+          <PWARegister />
           {children}
         </body>
       </html>
