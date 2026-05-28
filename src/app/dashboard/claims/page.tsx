@@ -29,8 +29,9 @@ export default async function DashboardClaimsPage() {
         select: { id: true, policyNumber: true, coverAmount: true, product: { select: { name: true } } },
       })
     }
-  } catch {
-    // DB not configured
+  } catch (e) {
+    if (!(e instanceof Error) || e.constructor.name !== 'PrismaClientInitializationError') throw e
+    // DB not yet configured — render empty state
   }
 
   return <ClaimsPage claims={claims} policies={policies} />

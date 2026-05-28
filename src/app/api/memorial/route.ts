@@ -6,7 +6,7 @@ import { prisma } from '@/lib/prisma'
 const createSchema = z.object({
   claimId: z.string().min(1),
   tribute: z.string().max(2000).optional(),
-  birthYear: z.number().int().min(1900).max(2025).optional(),
+  birthYear: z.number().int().min(1900).max(new Date().getFullYear()).optional(),
 })
 
 export async function POST(req: Request) {

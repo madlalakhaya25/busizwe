@@ -21,7 +21,6 @@ interface Policy {
   product: { name: string; category: string }
   pricingTier: { ageGroup: string }
   dependants: { id: string }[]
-  payments: { id: string; status: string; amount: unknown; dueDate: Date }[]
 }
 
 const STATUS_MAP: Record<string, string> = {

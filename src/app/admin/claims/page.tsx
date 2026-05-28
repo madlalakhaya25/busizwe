@@ -10,17 +10,20 @@ export default async function AdminClaimsServerPage() {
   const { userId } = await auth()
   if (!userId) redirect('/sign-in')
 
+  // Role check must be outside try/catch — redirect() throws a special error
+  // that would be silently swallowed by a bare catch block
+  const admin = await prisma.user.findUnique({
+    where: { clerkId: userId },
+    select: { role: true },
+  }).catch(() => null)
+
+  if (!admin || (admin.role !== 'ADMIN' && admin.role !== 'SUPER_ADMIN')) {
+    redirect('/dashboard')
+  }
+
   let claims: unknown[] = []
 
   try {
-    const admin = await prisma.user.findUnique({
-      where: { clerkId: userId },
-      select: { role: true },
-    })
-    if (!admin || (admin.role !== 'ADMIN' && admin.role !== 'SUPER_ADMIN')) {
-      redirect('/dashboard')
-    }
-
     claims = await prisma.claim.findMany({
       include: {
         user: {
@@ -35,8 +38,9 @@ export default async function AdminClaimsServerPage() {
       },
       orderBy: { createdAt: 'desc' },
     })
-  } catch {
-    // DB not configured
+  } catch (e) {
+    if (!(e instanceof Error) || e.constructor.name !== 'PrismaClientInitializationError') throw e
+    // DB not yet configured — render empty state
   }
 
   return (

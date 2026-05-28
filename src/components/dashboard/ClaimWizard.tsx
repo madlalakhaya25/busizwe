@@ -146,8 +146,13 @@ export default function ClaimWizard({ policies, onCancel, onComplete }: Props) {
     setOcrLoading(true)
     setOcrResult(null)
     try {
-      const buffer = await file.arrayBuffer()
-      const base64 = Buffer.from(buffer).toString('base64')
+      // Use FileReader — browser-native, no Node.js Buffer polyfill needed
+      const base64 = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader()
+        reader.onload = () => resolve((reader.result as string).split(',')[1])
+        reader.onerror = reject
+        reader.readAsDataURL(file)
+      })
       const res = await fetch('/api/claims/ocr', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

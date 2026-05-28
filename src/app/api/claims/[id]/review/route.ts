@@ -50,14 +50,14 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
     where: { id },
     data: updateData,
     include: {
-      user: { include: { profile: { select: { phone: true } } } },
+      user: { select: { profile: { select: { phone: true } } } },
     },
   })
 
-  // Best-effort WhatsApp notification
+  // Best-effort — only fires when phone is present (C-1 fix: removed operator precedence bug)
   const phone = claim.user.profile?.phone
-  if (phone && action !== 'UNDER_REVIEW' || action === 'UNDER_REVIEW') {
-    sendWhatsApp(phone ?? '', claimStatusMessage(claim.claimNumber, claim.status, APP_URL))
+  if (phone) {
+    sendWhatsApp(phone, claimStatusMessage(claim.claimNumber, claim.status, APP_URL))
   }
 
   return NextResponse.json(claim)

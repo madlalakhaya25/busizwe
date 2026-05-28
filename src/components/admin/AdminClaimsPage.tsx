@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import {
   FileSearch, CheckCircle2, Clock, AlertCircle, DollarSign,
@@ -57,6 +58,7 @@ function StatusBadge({ status }: { status: string }) {
 }
 
 function ReviewPanel({ claim, onDone }: { claim: Claim; onDone: () => void }) {
+  const router = useRouter()
   const [adminNotes, setAdminNotes] = useState(claim.adminNotes ?? '')
   const [rejectionReason, setRejectionReason] = useState(claim.rejectionReason ?? '')
   const [loading, setLoading] = useState<string | null>(null)
@@ -69,7 +71,7 @@ function ReviewPanel({ claim, onDone }: { claim: Claim; onDone: () => void }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action, adminNotes, rejectionReason }),
       })
-      if (res.ok) { onDone(); window.location.reload() }
+      if (res.ok) { onDone(); router.refresh() }
     } catch { /* noop */ }
     finally { setLoading(null) }
   }

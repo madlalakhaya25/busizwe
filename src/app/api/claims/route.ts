@@ -5,8 +5,8 @@ import { prisma } from '@/lib/prisma'
 
 function generateClaimNumber(): string {
   const year = new Date().getFullYear()
-  const random = Math.floor(Math.random() * 90000) + 10000
-  return `CLM-${year}-${random}`
+  const suffix = crypto.randomUUID().slice(0, 8).toUpperCase()
+  return `CLM-${year}-${suffix}`
 }
 
 const createSchema = z.object({

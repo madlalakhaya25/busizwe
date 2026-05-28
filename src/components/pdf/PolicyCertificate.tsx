@@ -1,7 +1,6 @@
 import React from 'react'
-import {
-  Document, Page, Text, View, StyleSheet, Font,
-} from '@react-pdf/renderer'
+import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer'
+import { formatDate, formatCurrency } from '@/lib/utils'
 
 const styles = StyleSheet.create({
   page: {
@@ -196,15 +195,6 @@ const styles = StyleSheet.create({
   },
 })
 
-function formatDate(d: Date | string | null | undefined): string {
-  if (!d) return '—'
-  return new Intl.DateTimeFormat('en-ZA', { day: '2-digit', month: 'long', year: 'numeric' }).format(new Date(d))
-}
-
-function formatCurrency(n: unknown): string {
-  return new Intl.NumberFormat('en-ZA', { style: 'currency', currency: 'ZAR' }).format(Number(n))
-}
-
 function capitalize(s: string) {
   return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()
 }
@@ -324,11 +314,11 @@ export function PolicyCertificatePDF({ policy, user }: Props) {
             <View style={styles.row}>
               <View style={styles.rowHalf}>
                 <Text style={styles.label}>Cover Amount</Text>
-                <Text style={styles.valueLg}>{formatCurrency(policy.coverAmount)}</Text>
+                <Text style={styles.valueLg}>{formatCurrency(Number(policy.coverAmount))}</Text>
               </View>
               <View style={styles.rowHalf}>
                 <Text style={styles.label}>Monthly Premium</Text>
-                <Text style={styles.valueLg}>{formatCurrency(policy.monthlyPremium)}</Text>
+                <Text style={styles.valueLg}>{formatCurrency(Number(policy.monthlyPremium))}</Text>
               </View>
             </View>
             <View style={styles.divider} />

@@ -6,15 +6,16 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function formatCurrency(amount: number | string): string {
-  const num = typeof amount === 'string' ? parseFloat(amount) : amount
   return new Intl.NumberFormat('en-ZA', {
     style: 'currency',
     currency: 'ZAR',
     minimumFractionDigits: 2,
-  }).format(num)
+  }).format(Number(amount))
 }
 
-export function formatDate(date: Date | string): string {
+// Accepts null/undefined so PDF and components share one implementation
+export function formatDate(date: Date | string | null | undefined): string {
+  if (!date) return '—'
   return new Intl.DateTimeFormat('en-ZA', {
     day: '2-digit',
     month: 'long',
@@ -22,19 +23,19 @@ export function formatDate(date: Date | string): string {
   }).format(new Date(date))
 }
 
+// Uses crypto.randomUUID to eliminate collision risk under concurrent submissions
 export function generatePolicyNumber(): string {
-  const prefix = 'BBS'
   const year = new Date().getFullYear()
-  const random = Math.floor(Math.random() * 9000) + 1000
-  return `${prefix}-${year}-${random}`
+  const suffix = crypto.randomUUID().slice(0, 8).toUpperCase()
+  return `BBS-${year}-${suffix}`
 }
 
 export function getAgeGroup(dateOfBirth: Date): string {
   const today = new Date()
   const age = today.getFullYear() - dateOfBirth.getFullYear()
   if (age >= 16 && age <= 64) return 'AGE_16_64'
-  if (age >= 65 && age <= 75) return 'AGE_65_75'
-  if (age >= 76 && age <= 84) return 'AGE_75_84'
+  if (age >= 65 && age <= 74) return 'AGE_65_75'
+  if (age >= 75 && age <= 84) return 'AGE_75_84' // was off-by-one: started at 76
   return 'INELIGIBLE'
 }
 
