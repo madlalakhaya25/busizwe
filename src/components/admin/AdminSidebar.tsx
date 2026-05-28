@@ -3,7 +3,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { LayoutDashboard, Users, Package, CreditCard, Settings, LogOut } from 'lucide-react'
+import { LayoutDashboard, Users, Package, CreditCard, Settings, LogOut, FileSearch } from 'lucide-react'
 import { useClerk } from '@clerk/nextjs'
 import Logo from '@/components/layout/Logo'
 import { cn } from '@/lib/utils'
@@ -12,6 +12,7 @@ const NAV_ITEMS = [
   { icon: LayoutDashboard, label: 'Dashboard', href: '/admin' },
   { icon: Users, label: 'Members', href: '/admin/members' },
   { icon: Package, label: 'Products', href: '/admin/products' },
+  { icon: FileSearch, label: 'Claims', href: '/admin/claims' },
   { icon: CreditCard, label: 'Payments', href: '/admin/payments' },
 ]
 

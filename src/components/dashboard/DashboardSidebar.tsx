@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   LayoutDashboard, FileText, Users, FolderOpen, CreditCard, Settings,
-  ChevronLeft, ChevronRight, LogOut, HelpCircle
+  ChevronLeft, ChevronRight, LogOut, HelpCircle, FileSearch
 } from 'lucide-react'
 import { useClerk } from '@clerk/nextjs'
 import Logo from '@/components/layout/Logo'
@@ -16,6 +16,7 @@ const NAV_ITEMS = [
   { icon: LayoutDashboard, label: 'Overview', href: '/dashboard' },
   { icon: FileText, label: 'My Policies', href: '/dashboard/policies' },
   { icon: Users, label: 'Dependants', href: '/dashboard/dependants' },
+  { icon: FileSearch, label: 'Claims', href: '/dashboard/claims' },
   { icon: FolderOpen, label: 'Documents', href: '/dashboard/documents' },
   { icon: CreditCard, label: 'Payments', href: '/dashboard/payments' },
 ]

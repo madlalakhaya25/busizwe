@@ -3,7 +3,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { FileText, ArrowRight, Calendar, Users, CreditCard, Shield } from 'lucide-react'
+import { FileText, ArrowRight, Calendar, Users, CreditCard, Shield, Download } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -21,7 +21,6 @@ interface Policy {
   product: { name: string; category: string }
   pricingTier: { ageGroup: string }
   dependants: { id: string }[]
-  payments: { id: string; status: string; amount: unknown; dueDate: Date }[]
 }
 
 const STATUS_MAP: Record<string, string> = {
@@ -124,7 +123,7 @@ export default function PoliciesPage({ policies }: { policies: unknown[] }) {
                     </div>
                   </div>
 
-                  <div className="flex gap-2 mt-4">
+                  <div className="flex flex-wrap gap-2 mt-4">
                     <Button variant="outline" size="sm" asChild>
                       <Link href={`/dashboard/dependants?policy=${policy.id}`}>
                         <Users className="w-3.5 h-3.5" /> Manage Dependants
@@ -135,6 +134,13 @@ export default function PoliciesPage({ policies }: { policies: unknown[] }) {
                         <CreditCard className="w-3.5 h-3.5" /> Payment History
                       </Link>
                     </Button>
+                    {policy.status === 'ACTIVE' && (
+                      <Button variant="ghost" size="sm" asChild>
+                        <a href={`/api/policies/${policy.id}/certificate`} download>
+                          <Download className="w-3.5 h-3.5" /> Certificate
+                        </a>
+                      </Button>
+                    )}
                   </div>
                 </CardContent>
               </Card>

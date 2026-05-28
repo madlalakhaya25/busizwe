@@ -72,6 +72,14 @@ enum ProductCategory {
   ADULT_DEPENDANT_ADDON
 }
 
+enum ClaimStatus {
+  SUBMITTED
+  UNDER_REVIEW
+  APPROVED
+  PAID
+  REJECTED
+}
+
 // ============================================================
 // MODELS
 // ============================================================
@@ -89,6 +97,8 @@ model User {
   policies  Policy[]
   documents Document[]
   payments  Payment[]
+  claims    Claim[]
+  memorials Memorial[]
 
   @@index([clerkId])
   @@index([email])
@@ -175,6 +185,7 @@ model Policy {
   pricingTier PricingTier @relation(fields: [pricingTierId], references: [id])
   dependants  Dependant[]
   payments    Payment[]
+  claims      Claim[]
 
   @@index([userId])
   @@index([status])
@@ -247,4 +258,62 @@ model Payment {
   @@index([status])
   @@index([dueDate])
   @@map("payments")
+}
+
+model Claim {
+  id                  String      @id @default(cuid())
+  userId              String
+  policyId            String
+  claimNumber         String      @unique
+  status              ClaimStatus @default(SUBMITTED)
+  deceasedFirstName   String
+  deceasedLastName    String
+  deceasedIdNumber    String?
+  deceasedDateOfDeath DateTime
+  relationship        String
+  funeralDate         DateTime?
+  funeralHome         String?
+  claimAmount         Decimal     @db.Decimal(10, 2)
+  notes               String?
+  adminNotes          String?
+  reviewedAt          DateTime?
+  reviewedBy          String?
+  approvedAt          DateTime?
+  paidAt              DateTime?
+  rejectedAt          DateTime?
+  rejectionReason     String?
+  deathCertUrl        String?
+  deceasedIdUrl       String?
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @updatedAt
+
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  policy   Policy    @relation(fields: [policyId], references: [id])
+  memorial Memorial?
+
+  @@index([userId])
+  @@index([policyId])
+  @@index([status])
+  @@map("claims")
+}
+
+model Memorial {
+  id          String   @id @default(cuid())
+  token       String   @unique @default(cuid())
+  claimId     String   @unique
+  userId      String
+  firstName   String
+  lastName    String
+  birthYear   Int?
+  deathYear   Int
+  tribute     String?
+  photoUrl    String?
+  candleCount Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  claim Claim @relation(fields: [claimId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("memorials")
 }
