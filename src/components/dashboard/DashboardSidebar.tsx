@@ -9,7 +9,6 @@ import {
   ChevronLeft, ChevronRight, LogOut, HelpCircle, FileSearch
 } from 'lucide-react'
 import { useClerk } from '@clerk/nextjs'
-import Image from 'next/image'
 import { cn } from '@/lib/utils'
 
 const NAV_ITEMS = [
@@ -67,13 +66,13 @@ export default function DashboardSidebar() {
           'h-[72px] flex items-center border-b border-white/10 shrink-0',
           collapsed ? 'justify-center px-2' : 'px-4'
         )}>
-          <Image
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             src="/busizwe-badge.png"
             alt="Busizwe Burial Society"
             width={collapsed ? 44 : 96}
             height={collapsed ? 28 : 61}
             className="object-contain transition-all duration-200"
-            placeholder="empty"
           />
         </Link>
 
