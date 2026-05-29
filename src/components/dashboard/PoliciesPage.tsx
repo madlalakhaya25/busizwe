@@ -60,9 +60,9 @@ export default function PoliciesPage({ policies }: { policies: unknown[] }) {
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center py-20 bg-white rounded-2xl border border-[#e0d9cc]"
+          className="text-center py-20 bg-white rounded-2xl border border-[#E5E7EB]"
         >
-          <div className="w-16 h-16 rounded-2xl bg-[#F7F3EA] flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 rounded-2xl bg-[#F9FAFB] flex items-center justify-center mx-auto mb-4">
             <FileText className="w-8 h-8 text-[#d0c9bc]" />
           </div>
           <h3 className="text-xl font-bold text-[#014D4E] mb-2 font-serif">No Policies Yet</h3>
@@ -112,7 +112,7 @@ export default function PoliciesPage({ policies }: { policies: unknown[] }) {
                     { icon: Users,      label: 'Dependants',    value: `${policy.dependants.length}` },
                     { icon: Calendar,   label: 'Start Date',    value: policy.startDate ? formatDate(policy.startDate) : 'Pending' },
                   ].map(({ icon: Icon, label, value }) => (
-                    <div key={label} className="bg-[#F7F3EA] rounded-xl p-3.5 min-w-0">
+                    <div key={label} className="bg-[#F9FAFB] rounded-xl p-3.5 min-w-0">
                       <div className="flex items-center gap-1.5 mb-2">
                         <Icon className="w-3.5 h-3.5 text-[#C89B3C] shrink-0" />
                         <span className="text-[10px] text-[#9a9a9a] font-medium truncate uppercase tracking-wide">{label}</span>

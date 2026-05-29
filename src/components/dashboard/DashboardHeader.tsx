@@ -21,7 +21,7 @@ export default function DashboardHeader() {
   const page = PAGE_TITLES[pathname] ?? { title: 'Dashboard' }
 
   return (
-    <header className="sticky top-0 z-20 bg-white/95 backdrop-blur-sm border-b border-[#e0d9cc] h-[68px] flex items-center px-4 sm:px-6 lg:px-8 gap-4">
+    <header className="sticky top-0 z-20 bg-white/95 backdrop-blur-sm border-b border-[#E5E7EB] h-[68px] flex items-center px-4 sm:px-6 lg:px-8 gap-4">
       {/* Mobile logo */}
       <div className="lg:hidden shrink-0">
         <Logo size="sm" variant="icon" href="/dashboard" />
@@ -45,7 +45,7 @@ export default function DashboardHeader() {
       {/* Right actions */}
       <div className="flex items-center gap-2 shrink-0">
         <button
-          className="relative p-2 rounded-xl hover:bg-[#F7F3EA] transition-colors text-[#9a9a9a] hover:text-[#014D4E]"
+          className="relative p-2 rounded-xl hover:bg-[#F9FAFB] transition-colors text-[#9a9a9a] hover:text-[#014D4E]"
           aria-label="Notifications"
         >
           <Bell className="w-[18px] h-[18px]" />

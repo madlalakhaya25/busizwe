@@ -9,7 +9,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
   if (!userId) redirect('/sign-in')
 
   return (
-    <div className="min-h-screen bg-[#F7F3EA] flex">
+    <div className="min-h-screen bg-[#F9FAFB] flex">
       <DashboardSidebar />
       <div className="flex-1 flex flex-col min-w-0">
         <DashboardHeader />

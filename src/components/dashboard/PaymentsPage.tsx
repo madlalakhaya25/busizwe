@@ -84,7 +84,7 @@ export default function PaymentsPage({ payments }: { payments: unknown[] }) {
         <CardContent className="pt-0">
           {typedPayments.length === 0 ? (
             <div className="text-center py-14">
-              <div className="w-16 h-16 rounded-2xl bg-[#F7F3EA] flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 rounded-2xl bg-[#F9FAFB] flex items-center justify-center mx-auto mb-4">
                 <CreditCard className="w-8 h-8 text-[#d0c9bc]" />
               </div>
               <h3 className="text-base font-bold text-[#014D4E] mb-2 font-serif">No Payments Yet</h3>
@@ -96,7 +96,7 @@ export default function PaymentsPage({ payments }: { payments: unknown[] }) {
             <div className="overflow-x-auto -mx-5">
               <table className="w-full text-sm min-w-[600px]">
                 <thead>
-                  <tr className="border-b border-[#F0EDE6]">
+                  <tr className="border-b border-[#E5E7EB]">
                     <th className="py-3 px-5 text-left text-[#9a9a9a] text-xs font-semibold uppercase tracking-wide">Policy</th>
                     <th className="py-3 px-3 text-left text-[#9a9a9a] text-xs font-semibold uppercase tracking-wide">Amount</th>
                     <th className="py-3 px-3 text-left text-[#9a9a9a] text-xs font-semibold uppercase tracking-wide">Due</th>
@@ -115,7 +115,7 @@ export default function PaymentsPage({ payments }: { payments: unknown[] }) {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: i * 0.04 }}
-                        className={`border-b border-[#F0EDE6] last:border-0 transition-colors ${payment.status === 'OVERDUE' ? 'bg-red-50/30' : 'hover:bg-[#F7F3EA]/60'}`}
+                        className={`border-b border-[#E5E7EB] last:border-0 transition-colors ${payment.status === 'OVERDUE' ? 'bg-red-50/30' : 'hover:bg-[#F9FAFB]/60'}`}
                       >
                         <td className="py-3.5 px-5">
                           <p className="font-semibold text-[#1C1C1C] truncate max-w-[140px]">{payment.policy.product.name}</p>

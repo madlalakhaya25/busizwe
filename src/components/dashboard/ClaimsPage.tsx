@@ -77,7 +77,7 @@ function ClaimTimeline({ status }: { status: string }) {
             <div className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
               active ? 'bg-[#014D4E] text-white shadow-sm' :
               done   ? 'bg-green-100 text-green-700' :
-                       'bg-[#F7F3EA] text-[#9a9a9a]'
+                       'bg-[#F9FAFB] text-[#9a9a9a]'
             }`}>
               <step.icon className="w-3 h-3 shrink-0" />
               <span className="hidden sm:block">{step.label}</span>
@@ -130,7 +130,7 @@ function MemorialCreator({ claim, onCreated }: { claim: Claim; onCreated: (token
     <motion.div
       initial={{ opacity: 0, y: -6 }}
       animate={{ opacity: 1, y: 0 }}
-      className="mt-3 bg-[#0a0f1e]/5 rounded-2xl p-4 border border-[#e0d9cc] space-y-3"
+      className="mt-3 bg-[#0a0f1e]/5 rounded-2xl p-4 border border-[#E5E7EB] space-y-3"
     >
       <p className="text-sm font-semibold text-[#014D4E]">
         Create a memorial page for {claim.deceasedFirstName}
@@ -145,7 +145,7 @@ function MemorialCreator({ claim, onCreated }: { claim: Claim; onCreated: (token
             value={birthYear}
             onChange={(e) => setBirthYear(e.target.value)}
             placeholder="e.g. 1952"
-            className="w-full h-10 rounded-lg border border-[#e0d9cc] px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#014D4E]/20 bg-white"
+            className="w-full h-10 rounded-lg border border-[#E5E7EB] px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#014D4E]/20 bg-white"
           />
         </div>
       </div>
@@ -190,7 +190,7 @@ export default function ClaimsPage({ claims, policies }: { claims: unknown[]; po
   if (view === 'wizard') {
     return (
       <div className="max-w-3xl">
-        <div className="bg-white rounded-2xl border border-[#e0d9cc] p-6 sm:p-8">
+        <div className="bg-white rounded-2xl border border-[#E5E7EB] p-6 sm:p-8">
           <ClaimWizard
             policies={typedPolicies}
             onCancel={() => setView('list')}
@@ -211,7 +211,7 @@ export default function ClaimsPage({ claims, policies }: { claims: unknown[]; po
         <motion.div
           initial={{ opacity: 0, scale: 0.97 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="text-center py-16 bg-white rounded-2xl border border-[#e0d9cc] px-6"
+          className="text-center py-16 bg-white rounded-2xl border border-[#E5E7EB] px-6"
         >
           <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-5">
             <CheckCircle2 className="w-8 h-8 text-green-600" />
@@ -254,8 +254,8 @@ export default function ClaimsPage({ claims, policies }: { claims: unknown[]; po
 
       {/* Empty */}
       {typedClaims.length === 0 && (
-        <div className="text-center py-16 bg-white rounded-2xl border border-[#e0d9cc]">
-          <div className="w-16 h-16 rounded-2xl bg-[#F7F3EA] flex items-center justify-center mx-auto mb-4">
+        <div className="text-center py-16 bg-white rounded-2xl border border-[#E5E7EB]">
+          <div className="w-16 h-16 rounded-2xl bg-[#F9FAFB] flex items-center justify-center mx-auto mb-4">
             <FileSearch className="w-8 h-8 text-[#d0c9bc]" />
           </div>
           <h3 className="text-lg font-bold text-[#014D4E] mb-2 font-serif">No Claims Submitted</h3>
@@ -340,7 +340,7 @@ export default function ClaimsPage({ claims, policies }: { claims: unknown[]; po
                         transition={{ duration: 0.2 }}
                         className="overflow-hidden"
                       >
-                        <div className="mt-4 pt-4 border-t border-[#F0EDE6] space-y-3">
+                        <div className="mt-4 pt-4 border-t border-[#E5E7EB] space-y-3">
                           {claim.notes && (
                             <div>
                               <p className="text-[10px] font-semibold text-[#9a9a9a] uppercase tracking-widest mb-2">Your Notes</p>

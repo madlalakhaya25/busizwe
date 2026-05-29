@@ -150,7 +150,7 @@ export default function DocumentsPage({ documents }: { documents: unknown[] }) {
                     ? 'border-[#C89B3C] bg-[#C89B3C]/5 scale-[1.01]'
                     : selectedFile
                     ? 'border-[#014D4E]/40 bg-[#014D4E]/5'
-                    : 'border-[#e0d9cc] hover:border-[#C89B3C]/50 hover:bg-[#F7F3EA]'
+                    : 'border-[#E5E7EB] hover:border-[#C89B3C]/50 hover:bg-[#F9FAFB]'
                 }`}
                 onClick={() => document.getElementById('file-input')?.click()}
                 onDragOver={(e) => { e.preventDefault(); setDragOver(true) }}
@@ -234,8 +234,8 @@ export default function DocumentsPage({ documents }: { documents: unknown[] }) {
 
       {/* Document list */}
       {typedDocs.length === 0 ? (
-        <div className="text-center py-16 bg-white rounded-2xl border border-[#e0d9cc]">
-          <div className="w-16 h-16 rounded-2xl bg-[#F7F3EA] flex items-center justify-center mx-auto mb-4">
+        <div className="text-center py-16 bg-white rounded-2xl border border-[#E5E7EB]">
+          <div className="w-16 h-16 rounded-2xl bg-[#F9FAFB] flex items-center justify-center mx-auto mb-4">
             <FolderOpen className="w-8 h-8 text-[#d0c9bc]" />
           </div>
           <h3 className="text-lg font-bold text-[#014D4E] mb-2 font-serif">No Documents Yet</h3>
@@ -274,7 +274,7 @@ export default function DocumentsPage({ documents }: { documents: unknown[] }) {
                       </div>
 
                       {/* Status badge */}
-                      <div className={`flex items-center gap-1.5 px-3 py-2 rounded-xl ${colors?.bg ?? 'bg-[#F7F3EA]'}`}>
+                      <div className={`flex items-center gap-1.5 px-3 py-2 rounded-xl ${colors?.bg ?? 'bg-[#F9FAFB]'}`}>
                         <StatusIcon className={`w-3.5 h-3.5 shrink-0 ${colors?.icon ?? 'text-[#9a9a9a]'}`} />
                         <span className={`text-xs font-semibold ${colors?.text ?? 'text-[#6b6b6b]'}`}>{doc.status}</span>
                         <span className="ml-auto text-[10px] text-[#9a9a9a]">{formatDate(doc.createdAt)}</span>

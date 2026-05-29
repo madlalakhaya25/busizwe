@@ -20,7 +20,7 @@ export default function MobileBottomNav() {
     href === '/dashboard' ? pathname === '/dashboard' : pathname.startsWith(href)
 
   return (
-    <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-30 bg-white/95 backdrop-blur-md border-t border-[#e0d9cc] safe-area-inset-bottom">
+    <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-30 bg-white/95 backdrop-blur-md border-t border-[#E5E7EB] safe-area-inset-bottom">
       <div className="flex items-stretch justify-around h-[60px]">
         {NAV_ITEMS.map(({ icon: Icon, label, href }) => {
           const active = isActive(href)

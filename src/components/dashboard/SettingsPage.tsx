@@ -110,7 +110,7 @@ export default function SettingsPage({ email, profile }: { email: string; profil
       {/* Account info (read-only) */}
       <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }}>
         <SectionCard icon={Mail} title="Account" subtitle="Your login credentials are managed securely via Clerk">
-          <div className="flex items-center gap-3 p-4 bg-[#F7F3EA] rounded-xl">
+          <div className="flex items-center gap-3 p-4 bg-[#F9FAFB] rounded-xl">
             <div className="w-9 h-9 rounded-xl bg-[#014D4E]/10 flex items-center justify-center shrink-0">
               <Mail className="w-4 h-4 text-[#014D4E]" />
             </div>
@@ -166,7 +166,7 @@ export default function SettingsPage({ email, profile }: { email: string; profil
                   <Input
                     value={profile.idNumber}
                     disabled
-                    className="h-11 bg-[#F7F3EA] text-[#9a9a9a] font-mono cursor-not-allowed"
+                    className="h-11 bg-[#F9FAFB] text-[#9a9a9a] font-mono cursor-not-allowed"
                   />
                   <p className="text-xs text-[#9a9a9a]">Contact support to correct your ID.</p>
                 </div>
@@ -174,7 +174,7 @@ export default function SettingsPage({ email, profile }: { email: string; profil
             </div>
 
             {/* Address section */}
-            <div className="pt-2 border-t border-[#F0EDE6]">
+            <div className="pt-2 border-t border-[#E5E7EB]">
               <div className="flex items-center gap-2 mb-4">
                 <MapPin className="w-4 h-4 text-[#C89B3C]" />
                 <p className="text-sm font-semibold text-[#1C1C1C]">Residential Address</p>

@@ -112,7 +112,7 @@ export default function DependantsPage({ dependants, policies }: { dependants: u
                   <button
                     type="button"
                     onClick={() => setShowForm(false)}
-                    className="p-1.5 rounded-lg text-[#9a9a9a] hover:text-[#1C1C1C] hover:bg-[#F7F3EA] transition-colors"
+                    className="p-1.5 rounded-lg text-[#9a9a9a] hover:text-[#1C1C1C] hover:bg-[#F9FAFB] transition-colors"
                   >
                     <X className="w-4 h-4" />
                   </button>
@@ -192,8 +192,8 @@ export default function DependantsPage({ dependants, policies }: { dependants: u
 
       {/* Empty state */}
       {typedDependants.length === 0 && !showForm && (
-        <div className="text-center py-16 bg-white rounded-2xl border border-[#e0d9cc]">
-          <div className="w-16 h-16 rounded-2xl bg-[#F7F3EA] flex items-center justify-center mx-auto mb-4">
+        <div className="text-center py-16 bg-white rounded-2xl border border-[#E5E7EB]">
+          <div className="w-16 h-16 rounded-2xl bg-[#F9FAFB] flex items-center justify-center mx-auto mb-4">
             <Users className="w-8 h-8 text-[#d0c9bc]" />
           </div>
           <h3 className="text-lg font-bold text-[#014D4E] mb-2 font-serif">No Dependants Added</h3>
@@ -249,7 +249,7 @@ export default function DependantsPage({ dependants, policies }: { dependants: u
                         <span>{dep.phone}</span>
                       </div>
                     )}
-                    <div className="pt-2 border-t border-[#F0EDE6]">
+                    <div className="pt-2 border-t border-[#E5E7EB]">
                       <p className="text-[10px] text-[#9a9a9a] uppercase tracking-wider mb-1">Policy</p>
                       <p className="text-xs font-semibold text-[#014D4E] font-mono truncate">{dep.policy.policyNumber}</p>
                     </div>

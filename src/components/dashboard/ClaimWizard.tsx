@@ -91,7 +91,7 @@ function ProgressDots({ current, total }: { current: number; total: number }) {
           className={`rounded-full transition-all duration-300 ${
             i < current ? 'w-2 h-2 bg-[#014D4E]' :
             i === current ? 'w-3 h-2 bg-[#C89B3C]' :
-            'w-2 h-2 bg-[#e0d9cc]'
+            'w-2 h-2 bg-[#E5E7EB]'
           }`}
         />
       ))}
@@ -217,7 +217,7 @@ export default function ClaimWizard({ policies, onCancel, onComplete }: Props) {
                 className={`w-full text-left rounded-2xl border-2 p-4 transition-all ${
                   data.policyId === p.id
                     ? 'border-[#014D4E] bg-[#014D4E]/5'
-                    : 'border-[#e0d9cc] hover:border-[#014D4E]/40'
+                    : 'border-[#E5E7EB] hover:border-[#014D4E]/40'
                 }`}
               >
                 <div className="flex items-center justify-between">
@@ -300,7 +300,7 @@ export default function ClaimWizard({ policies, onCancel, onComplete }: Props) {
                 className={`rounded-2xl border-2 p-4 text-sm font-medium transition-all text-center ${
                   data.relationship === r.value
                     ? 'border-[#014D4E] bg-[#014D4E] text-white'
-                    : 'border-[#e0d9cc] text-[#1C1C1C] hover:border-[#014D4E]/40'
+                    : 'border-[#E5E7EB] text-[#1C1C1C] hover:border-[#014D4E]/40'
                 }`}
               >
                 {r.label}
@@ -485,7 +485,7 @@ export default function ClaimWizard({ policies, onCancel, onComplete }: Props) {
 
 function ReviewRow({ icon: Icon, label, value }: { icon: React.ElementType; label: string; value: string }) {
   return (
-    <div className="flex items-start gap-3 py-2 border-b border-[#e0d9cc] last:border-0">
+    <div className="flex items-start gap-3 py-2 border-b border-[#E5E7EB] last:border-0">
       <Icon className="w-4 h-4 text-[#C89B3C] shrink-0 mt-0.5" />
       <div className="flex-1 min-w-0">
         <p className="text-xs text-[#6b6b6b] uppercase tracking-widest">{label}</p>

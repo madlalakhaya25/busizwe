@@ -95,7 +95,7 @@ export default function DashboardOverview({ displayName, stats, recentPolicies, 
     <div className="space-y-8 max-w-6xl">
 
       {/* Welcome banner */}
-      <motion.div {...fade(0)} className="relative overflow-hidden bg-[#014D4E] rounded-2xl px-6 py-7 sm:px-8">
+      <motion.div {...fade(0)} className="relative overflow-hidden bg-[#014D4E] rounded-2xl px-8 py-8 sm:px-10">
         {/* Subtle pattern */}
         <div
           className="absolute inset-0 opacity-[0.04] pointer-events-none"
@@ -114,7 +114,7 @@ export default function DashboardOverview({ displayName, stats, recentPolicies, 
             </p>
           </div>
           {stats.activePolicies === 0 && (
-            <Link href="/products" className="flex items-center justify-center h-9 px-4 rounded-lg text-sm font-semibold bg-[#C89B3C] text-white hover:bg-[#A8832A] shadow-sm hover:shadow-md transition-all duration-200 shrink-0 self-start sm:self-auto">
+            <Link href="/products" className="flex items-center justify-center gap-2 h-9 px-4 rounded-lg text-sm font-semibold bg-[#C89B3C] text-white hover:bg-[#A8832A] shadow-sm hover:shadow-md transition-all duration-200 shrink-0 self-start sm:self-auto">
               Browse Plans <ArrowRight className="w-4 h-4" />
             </Link>
           )}
@@ -151,7 +151,7 @@ export default function DashboardOverview({ displayName, stats, recentPolicies, 
           {QUICK_ACTIONS.map((action, i) => (
             <motion.div key={action.label} {...fade(0.28 + i * 0.05)}>
               <Link href={action.href}>
-                <div className="flex items-center gap-3 p-4 bg-white rounded-2xl border border-[#e0d9cc] hover:border-[#C89B3C]/50 hover:shadow-[0_4px_12px_rgba(200,155,60,0.10)] transition-all duration-200 group h-full">
+                <div className="flex items-center gap-3 p-4 bg-white rounded-2xl border border-[#E5E7EB] hover:border-[#C89B3C]/50 hover:shadow-[0_4px_12px_rgba(200,155,60,0.10)] transition-all duration-200 group h-full">
                   <div className="w-9 h-9 rounded-xl bg-[#014D4E] flex items-center justify-center shrink-0 transition-transform group-hover:scale-110">
                     <action.icon className="w-4 h-4 text-[#C89B3C]" />
                   </div>
@@ -187,7 +187,7 @@ export default function DashboardOverview({ displayName, stats, recentPolicies, 
             <CardContent className="pt-0 px-5 pb-5">
               {recentPolicies.length === 0 ? (
                 <div className="text-center py-10">
-                  <div className="w-12 h-12 rounded-2xl bg-[#F7F3EA] flex items-center justify-center mx-auto mb-3">
+                  <div className="w-12 h-12 rounded-2xl bg-[#F9FAFB] flex items-center justify-center mx-auto mb-3">
                     <FileText className="w-5 h-5 text-[#d0c9bc]" />
                   </div>
                   <p className="text-sm text-[#9a9a9a] mb-4">No policies yet</p>
@@ -198,7 +198,7 @@ export default function DashboardOverview({ displayName, stats, recentPolicies, 
                   {recentPolicies.map((policy) => (
                     <div
                       key={policy.id}
-                      className="flex items-center justify-between p-3.5 bg-[#F7F3EA] rounded-xl gap-3"
+                      className="flex items-center justify-between p-3.5 bg-[#F9FAFB] rounded-xl gap-3"
                     >
                       <div className="min-w-0 flex items-center gap-2.5">
                         <div className={`w-2 h-2 rounded-full shrink-0 ${policy.status === 'ACTIVE' ? 'bg-green-500' : policy.status === 'PENDING' ? 'bg-amber-400' : 'bg-gray-400'}`} />
@@ -238,7 +238,7 @@ export default function DashboardOverview({ displayName, stats, recentPolicies, 
             <CardContent className="pt-0 px-5 pb-5">
               {recentPayments.length === 0 ? (
                 <div className="text-center py-10">
-                  <div className="w-12 h-12 rounded-2xl bg-[#F7F3EA] flex items-center justify-center mx-auto mb-3">
+                  <div className="w-12 h-12 rounded-2xl bg-[#F9FAFB] flex items-center justify-center mx-auto mb-3">
                     <CreditCard className="w-5 h-5 text-[#d0c9bc]" />
                   </div>
                   <p className="text-sm text-[#9a9a9a]">No payment history</p>
@@ -248,7 +248,7 @@ export default function DashboardOverview({ displayName, stats, recentPolicies, 
                   {recentPayments.map((payment) => (
                     <div
                       key={payment.id}
-                      className="flex items-center justify-between p-3.5 bg-[#F7F3EA] rounded-xl gap-3"
+                      className="flex items-center justify-between p-3.5 bg-[#F9FAFB] rounded-xl gap-3"
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
                         <div className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${
