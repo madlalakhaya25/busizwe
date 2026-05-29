@@ -10,19 +10,19 @@ const VALUES = [
     icon: Heart,
     title: 'Family First',
     description:
-      'We understand that losing a loved one is painful. Our cover eases the financial burden so you can focus on what matters.',
+      'This started because of family. Every member is someone\'s parent, grandchild, or sibling. We do not forget that.',
   },
   {
     icon: Shield,
-    title: 'Trustworthy',
+    title: 'FSCA Authorised',
     description:
-      'As an FSCA-authorised burial society, we operate with full transparency and accountability to our members.',
+      'Fully registered and regulated. Your policy and your money are handled properly, always.',
   },
   {
     icon: Users,
-    title: 'Community Driven',
+    title: 'Community Built',
     description:
-      'Built for South African families, by people who understand the Ubuntu spirit of togetherness and support.',
+      'Not built in a boardroom. Started by someone who had seen enough families struggle and decided to do something about it.',
   },
 ]
 
@@ -51,19 +51,17 @@ export default function AboutSection() {
               About Busizwe
             </p>
             <h2 className="font-serif font-semibold text-[#014D4E] text-3xl sm:text-4xl leading-tight mb-6">
-              Serving South African Families with Dignity
+              There When It Matters Most
             </h2>
 
             <div className="space-y-6">
               <p className="text-[#6B7280] text-lg leading-relaxed">
-                Busizwe Burial Society was founded with a single mission: to ensure that every South
-                African family can give their loved ones the dignified farewell they deserve —
-                regardless of financial circumstances.
+                Busizwe was started because too many South African families were facing a funeral
+                bill on top of their grief. We exist to make sure that does not happen to yours.
               </p>
               <p className="text-[#6B7280] leading-relaxed">
-                We offer flexible funeral cover for individuals, families, and single-parent
-                households, with monthly premiums designed to fit every budget. Peace of mind should
-                never be a luxury.
+                We cover individuals, whole households, and single-parent families. Premiums from
+                R19.60 a month. No medical exam. No complicated forms.
               </p>
             </div>
 

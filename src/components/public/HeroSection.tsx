@@ -20,7 +20,7 @@ const BENEFITS = [
 ]
 
 const STATS = [
-  { value: '5,000+', label: 'Families covered' },
+  { value: '100+', label: 'Families covered' },
   { value: '48 hrs', label: 'Pay out time' },
   { value: 'R10k', label: 'Max cover' },
 ]
@@ -66,7 +66,7 @@ export default function HeroSection() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-lg text-white/75 leading-relaxed mb-8 max-w-lg"
             >
-              Affordable, dignified funeral cover for South African families — from as little as{' '}
+              Funeral cover for South African families, from as little as{' '}
               <span className="text-[#C89B3C] font-semibold">R19.60 per month</span>.
             </motion.p>
 

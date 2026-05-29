@@ -31,7 +31,7 @@ const PRODUCTS = [
   {
     icon: Baby,
     title: 'Single Parent Family',
-    description: 'Tailored cover for single parent households.',
+    description: 'Cover for single parent households with dependent children.',
     startFrom: 29.04,
     maxCover: 10000,
     popular: false,
@@ -57,7 +57,7 @@ export default function ProductsPreviewSection() {
         <SectionHeading
           eyebrow="Our Plans"
           title="Choose Your Cover Plan"
-          subtitle="Flexible funeral cover designed to protect every South African family, at every stage of life. All plans include up to R10,000 cover."
+          subtitle="Four plans to fit different households. All include up to R10,000 cover and no medical exam."
           className="mb-14"
         />
 

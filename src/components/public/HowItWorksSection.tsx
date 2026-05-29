@@ -43,7 +43,7 @@ export default function HowItWorksSection() {
         <SectionHeading
           eyebrow="How It Works"
           title="Getting Covered Is Simple"
-          subtitle="Join thousands of South African families who trust Busizwe. Four easy steps to peace of mind."
+          subtitle="Four steps and you are covered. Most people are done in under ten minutes."
           className="mb-16"
         />
 

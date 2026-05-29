@@ -24,12 +24,12 @@ export default function CTASection() {
           </div>
 
           <h2 className="font-serif font-semibold text-[#014D4E] text-4xl sm:text-5xl leading-tight mb-6">
-            Protect Your Family Today
+            Ready to Get Covered?
           </h2>
 
           <p className="text-[#6B7280] text-lg leading-relaxed mb-12 max-w-xl mx-auto">
-            Join over 5,000 South African families who trust Busizwe Burial Society.
-            Apply online in minutes — from as little as R19.60 per month.
+            Over 100 South African families trust Busizwe.
+            Apply online in minutes, from as little as R19.60 per month.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

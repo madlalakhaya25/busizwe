@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { Users, Shield, Clock, Star } from 'lucide-react'
 
 const STATS = [
-  { icon: Users, value: '5,000+', label: 'Members Covered', color: '#014D4E', bg: '#014D4E15' },
+  { icon: Users, value: '100+', label: 'Members Covered', color: '#014D4E', bg: '#014D4E15' },
   { icon: Shield, value: 'R10,000', label: 'Maximum Cover', color: '#C89B3C', bg: '#C89B3C15' },
   { icon: Clock, value: '48hrs', label: 'Claims Processing', color: '#014D4E', bg: '#014D4E15' },
   { icon: Star, value: '4.9/5', label: 'Member Rating', color: '#C89B3C', bg: '#C89B3C15' },
