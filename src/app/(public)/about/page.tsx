@@ -10,12 +10,12 @@ export const metadata: Metadata = {
 }
 
 const TEAM_VALUES = [
-  { icon: Shield, title: 'FSCA Authorised', description: 'Fully registered and authorised by the Financial Sector Conduct Authority.' },
-  { icon: Heart, title: 'Family Focused', description: 'Every decision we make is guided by what is best for our members and their families.' },
-  { icon: Users, title: 'Community Rooted', description: 'We are built from and for South African communities, with Ubuntu at our core.' },
-  { icon: Award, title: 'Excellence', description: 'We hold ourselves to the highest standards of service, transparency, and integrity.' },
-  { icon: Clock, title: 'Fast Claims', description: '48-hour claims processing so families can focus on saying goodbye, not paperwork.' },
-  { icon: CheckCircle2, title: 'No Exclusions', description: 'No medical examinations. Open to all South Africans aged 16 to 84.' },
+  { icon: Shield, title: 'FSCA Authorised', description: 'We are fully registered and authorised by the Financial Sector Conduct Authority.' },
+  { icon: Heart, title: 'Family First', description: 'We started this society because we know what it costs a family when they are not prepared. That drives everything we do.' },
+  { icon: Users, title: 'Community Built', description: 'Busizwe grew out of a Durban community. We understand the people we serve because we are part of the same communities.' },
+  { icon: Award, title: 'Honest and Simple', description: 'No hidden fees. No confusing terms. What you see on your policy is what you get.' },
+  { icon: Clock, title: 'Fast Claims', description: 'Claims are processed within 48 hours. Families should not be waiting on paperwork.' },
+  { icon: CheckCircle2, title: 'Open to All', description: 'No medical exam needed. Anyone aged 16 to 84 can join, regardless of health history.' },
 ]
 
 export default function AboutPage() {
@@ -24,7 +24,7 @@ export default function AboutPage() {
       <PageHero
         eyebrow="About Us"
         title="Our Story & Mission"
-        subtitle="Busizwe Burial Society was founded to ensure every South African family can afford to give their loved ones the dignified farewell they deserve."
+        subtitle="We started in Durban to make sure no South African family faces a funeral they cannot afford. Over 100 members trust us to be there when it matters most."
       />
 
       {/* Mission */}
@@ -43,13 +43,13 @@ export default function AboutPage() {
             <div className="lg:col-span-2">
               <div className="space-y-5 text-[#6B7280] text-lg leading-relaxed">
                 <p>
-                  Busizwe Burial Society is a South African burial society dedicated to providing affordable, dignified funeral cover to individuals and families across all provinces. Our name, Busizwe, means &ldquo;we build the nation&rdquo; — a reflection of our deep commitment to strengthening South African communities.
+                  Busizwe means <em>we build the nation</em>. That is not just a name. It is the reason this burial society exists. We were started to make sure that when a family loses someone, the cost of a funeral does not become another burden on top of the grief.
                 </p>
                 <p>
-                  We understand that losing a loved one is one of life&apos;s most difficult experiences. The last thing a grieving family should worry about is how to pay for a dignified funeral. That is why we have designed our products to be accessible, affordable, and straightforward.
+                  We are based in Durban and serve members across all nine provinces. Our cover starts at R19.60 a month and there are no medical examinations required. If you are between 16 and 84 years old, you qualify.
                 </p>
                 <p>
-                  Our burial society operates under full compliance with FSCA regulations, ensuring that every member&apos;s policy and contribution is managed with integrity, transparency, and care.
+                  We are fully registered and authorised by the FSCA. When a claim is submitted, we process it within 48 hours so families can focus on what matters.
                 </p>
               </div>
             </div>
@@ -59,7 +59,7 @@ export default function AboutPage() {
               </h3>
               {[
                 { label: 'Founded', value: '2024' },
-                { label: 'Members', value: '5,000+' },
+                { label: 'Members', value: '100+' },
                 { label: 'Provinces Served', value: 'All 9' },
                 { label: 'Minimum Premium', value: 'R19.60/month' },
                 { label: 'Max Cover', value: 'R10,000' },
