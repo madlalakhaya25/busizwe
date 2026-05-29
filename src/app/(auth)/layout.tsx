@@ -22,7 +22,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         <div className="relative flex flex-col h-full px-12 py-10">
           {/* Logo at top */}
           <Link href="/" className="self-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C89B3C] rounded-lg">
-            <Image src="/busizwe-badge.png" alt="Busizwe Burial Society" width={120} height={76} className="object-contain" />
+            <Image src="/busizwe-badge.png" alt="Busizwe Burial Society" width={120} height={76} className="object-contain" style={{ mixBlendMode: 'screen' }} />
           </Link>
 
           {/* Hero content — centered vertically */}
