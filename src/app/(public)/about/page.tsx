@@ -24,7 +24,7 @@ export default function AboutPage() {
       <PageHero
         eyebrow="About Us"
         title="Our Story & Mission"
-        subtitle="We started in Durban to make sure no South African family faces a funeral they cannot afford. Over 100 members trust us to be there when it matters most."
+        subtitle="A retirement idea turned into a legacy. Named after her grandson Busa, this society exists so that no family has to face the cost of a funeral alone."
       />
 
       {/* Mission */}
@@ -43,13 +43,13 @@ export default function AboutPage() {
             <div className="lg:col-span-2">
               <div className="space-y-5 text-[#6B7280] text-lg leading-relaxed">
                 <p>
-                  Busizwe means <em>we build the nation</em>. That is not just a name. It is the reason this burial society exists. We were started to make sure that when a family loses someone, the cost of a funeral does not become another burden on top of the grief.
+                  Busizwe started as an idea during retirement. With more time to sit and think, our founder began turning over something that had troubled her for years — families in our communities left scrambling to cover funeral costs at the very moment they should be grieving. She decided to do something about it.
                 </p>
                 <p>
-                  We are based in Durban and serve members across all nine provinces. Our cover starts at R19.60 a month and there are no medical examinations required. If you are between 16 and 84 years old, you qualify.
+                  She named the society after her grandson, Busa. Busizwe means <em>we build the nation</em>, and in giving it his name, she was building something she hopes will look after families like his for a long time to come.
                 </p>
                 <p>
-                  We are fully registered and authorised by the FSCA. When a claim is submitted, we process it within 48 hours so families can focus on what matters.
+                  We are not a large corporation. We are a small, community-rooted burial society based in Durban. We keep premiums low, the process simple, and our people easy to reach — because that is exactly what we would want for our own family.
                 </p>
               </div>
             </div>
