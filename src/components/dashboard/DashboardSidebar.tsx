@@ -9,7 +9,7 @@ import {
   ChevronLeft, ChevronRight, LogOut, HelpCircle, FileSearch
 } from 'lucide-react'
 import { useClerk } from '@clerk/nextjs'
-import Logo from '@/components/layout/Logo'
+import Image from 'next/image'
 import { cn } from '@/lib/utils'
 
 const NAV_ITEMS = [
@@ -63,12 +63,18 @@ export default function DashboardSidebar() {
       <div className="flex flex-col h-full overflow-hidden">
 
         {/* Logo */}
-        <div className={cn(
+        <Link href="/dashboard" className={cn(
           'h-[72px] flex items-center border-b border-white/10 shrink-0',
           collapsed ? 'justify-center px-2' : 'px-4'
         )}>
-          <Logo size="sm" variant={collapsed ? 'icon' : 'full'} href="/dashboard" />
-        </div>
+          <Image
+            src="/busizwe-badge.png"
+            alt="Busizwe Burial Society"
+            width={collapsed ? 44 : 96}
+            height={collapsed ? 28 : 61}
+            className="object-contain transition-all duration-200"
+          />
+        </Link>
 
         {/* Main nav */}
         <nav className="flex-1 py-3 px-2 space-y-0.5 overflow-y-auto">
