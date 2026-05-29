@@ -22,7 +22,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         <div className="relative flex flex-col h-full px-12 py-10">
           {/* Logo at top */}
           <Link href="/" className="self-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C89B3C] rounded-lg">
-            <Image src="/busizwe-badge.png" alt="Busizwe Burial Society" width={120} height={76} className="object-contain" />
+            <Image src="/busizwe-badge.png" alt="Busizwe Burial Society" width={120} height={76} className="object-contain" placeholder="empty" />
           </Link>
 
           {/* Hero content — centered vertically */}
@@ -83,7 +83,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           {/* Mobile logo */}
           <div className="lg:hidden mb-8 flex flex-col items-center gap-2">
             <Link href="/">
-              <Image src="/busizwe-badge.png" alt="Busizwe Burial Society" width={110} height={70} className="object-contain" />
+              <Image src="/busizwe-badge.png" alt="Busizwe Burial Society" width={110} height={70} className="object-contain" placeholder="empty" />
             </Link>
           </div>
 
