@@ -28,14 +28,20 @@ export default function AboutPage() {
       />
 
       {/* Mission */}
-      <section className="py-24 bg-[#F7F3EA]">
+      <section className="py-24 bg-[#F9FAFB]">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+
+          {/* Centred section intro */}
+          <div className="text-center max-w-2xl mx-auto mb-14">
+            <p className="text-xs font-semibold text-[#C89B3C] uppercase tracking-widest mb-3">Our Foundation</p>
+            <h2 className="font-serif font-semibold text-[#014D4E] text-3xl sm:text-4xl leading-tight">
+              Who We Are
+            </h2>
+          </div>
+
           <div className="grid lg:grid-cols-3 gap-8 lg:gap-12 mb-20">
             <div className="lg:col-span-2">
-              <h2 className="font-serif font-semibold text-3xl sm:text-4xl text-[#014D4E] mb-6">
-                Who We Are
-              </h2>
-              <div className="space-y-5 text-[#6b6b6b] text-lg leading-relaxed">
+              <div className="space-y-5 text-[#6B7280] text-lg leading-relaxed">
                 <p>
                   Busizwe Burial Society is a South African burial society dedicated to providing affordable, dignified funeral cover to individuals and families across all provinces. Our name, Busizwe, means &ldquo;we build the nation&rdquo; — a reflection of our deep commitment to strengthening South African communities.
                 </p>
@@ -47,7 +53,7 @@ export default function AboutPage() {
                 </p>
               </div>
             </div>
-            <div className="bg-white rounded-2xl p-8 border border-[#e0d9cc] shadow-[0_4px_24px_rgba(1,77,78,0.08)]">
+            <div className="bg-white rounded-2xl p-8 border border-[#E5E7EB] shadow-sm">
               <h3 className="font-serif font-semibold text-xl text-[#014D4E] mb-6">
                 Key Facts
               </h3>
@@ -59,8 +65,8 @@ export default function AboutPage() {
                 { label: 'Max Cover', value: 'R10,000' },
                 { label: 'Claims Timeline', value: '48 hours' },
               ].map((item) => (
-                <div key={item.label} className="flex justify-between items-center py-3 border-b border-[#e0d9cc] last:border-0">
-                  <span className="text-sm text-[#6b6b6b]">{item.label}</span>
+                <div key={item.label} className="flex justify-between items-center py-3 border-b border-[#E5E7EB] last:border-0">
+                  <span className="text-sm text-[#6B7280]">{item.label}</span>
                   <span className="text-sm font-bold text-[#014D4E]">{item.value}</span>
                 </div>
               ))}
@@ -68,17 +74,20 @@ export default function AboutPage() {
           </div>
 
           {/* Values */}
-          <h2 className="font-serif font-semibold text-3xl sm:text-4xl text-[#014D4E] mb-10 text-center">
-            Our Values
-          </h2>
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <p className="text-xs font-semibold text-[#C89B3C] uppercase tracking-widest mb-3">What Guides Us</p>
+            <h2 className="font-serif font-semibold text-[#014D4E] text-3xl sm:text-4xl leading-tight">
+              Our Values
+            </h2>
+          </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {TEAM_VALUES.map((value) => (
-              <div key={value.title} className="bg-white rounded-2xl p-7 border border-[#e0d9cc] hover:border-[#C89B3C]/40 hover:-translate-y-1 hover:shadow-[0_12px_28px_rgba(200,155,60,0.14)] transition-all duration-200">
+              <div key={value.title} className="bg-white rounded-2xl p-7 border border-[#E5E7EB] hover:border-[#C89B3C]/40 hover:-translate-y-1 hover:shadow-md transition-all duration-200">
                 <div className="w-12 h-12 rounded-2xl bg-[#014D4E] flex items-center justify-center mb-5">
                   <value.icon className="w-6 h-6 text-[#C89B3C]" />
                 </div>
                 <h3 className="font-serif font-semibold text-lg text-[#014D4E] mb-2">{value.title}</h3>
-                <p className="text-sm text-[#6b6b6b] leading-relaxed">{value.description}</p>
+                <p className="text-sm text-[#6B7280] leading-relaxed">{value.description}</p>
               </div>
             ))}
           </div>

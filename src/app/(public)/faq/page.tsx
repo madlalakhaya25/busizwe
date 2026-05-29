@@ -92,10 +92,10 @@ const FAQS = [
 function FAQItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false)
   return (
-    <div className={`border rounded-xl overflow-hidden transition-colors ${open ? 'border-[#C89B3C]/50 bg-white' : 'border-[#e0d9cc] bg-white'}`}>
+    <div className={`border rounded-xl overflow-hidden transition-colors ${open ? 'border-[#C89B3C]/50 bg-white' : 'border-[#E5E7EB] bg-white'}`}>
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between gap-4 p-5 text-left hover:bg-[#F7F3EA]/60 transition-colors group"
+        className="w-full flex items-center justify-between gap-4 p-5 text-left hover:bg-[#F9FAFB] transition-colors group"
         aria-expanded={open}
       >
         <span className="font-semibold text-[#014D4E]">{q}</span>
@@ -112,7 +112,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
             transition={{ duration: 0.25, ease: 'easeInOut' }}
             className="overflow-hidden"
           >
-            <div className="px-5 pb-5 text-[#6b6b6b] leading-relaxed border-t border-[#e0d9cc] pt-4">
+            <div className="px-5 pb-5 text-[#6b6b6b] leading-relaxed border-t border-[#E5E7EB] pt-4">
               {a}
             </div>
           </motion.div>
@@ -132,11 +132,11 @@ export default function FAQPage() {
       />
 
       {/* FAQ sections */}
-      <section className="py-24 bg-[#F7F3EA]">
+      <section className="py-24 bg-[#F9FAFB]">
         <div className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12 space-y-14">
           {FAQS.map((section) => (
             <div key={section.category}>
-              <h2 className="font-serif font-semibold text-2xl text-[#014D4E] mb-6 pb-3 border-b-2 border-[#C89B3C]/30">
+              <h2 className="font-semibold text-xs uppercase tracking-widest text-[#C89B3C] mb-5 pb-3 border-b border-[#E5E7EB]">
                 {section.category}
               </h2>
               <div className="space-y-3">

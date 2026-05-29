@@ -2,7 +2,6 @@ import React from 'react'
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { CheckCircle2, ArrowRight } from 'lucide-react'
-import CTASection from '@/components/public/CTASection'
 import PageHero from '@/components/public/PageHero'
 import { formatCurrency } from '@/lib/utils'
 
@@ -70,13 +69,13 @@ export default function ProductsPage() {
       />
 
       {/* Pricing */}
-      <section className="py-24 bg-[#F7F3EA]">
+      <section className="py-24 bg-[#F9FAFB]">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 space-y-12">
           {PRODUCTS.map((product) => (
             <div
               key={product.name}
               className={`bg-white rounded-3xl border overflow-hidden shadow-[0_4px_24px_rgba(1,77,78,0.08)] ${
-                product.popular ? 'border-[#C89B3C] ring-1 ring-[#C89B3C]' : 'border-[#e0d9cc]'
+                product.popular ? 'border-[#C89B3C] ring-1 ring-[#C89B3C]' : 'border-[#E5E7EB]'
               }`}
             >
               {product.popular && (
@@ -103,10 +102,10 @@ export default function ProductsPage() {
                     <div className="mt-6">
                       <Link
                         href="/sign-up"
-                        className={`flex items-center justify-center h-12 px-8 rounded-lg text-sm font-semibold shadow-sm hover:shadow-md transition-all duration-200 gap-2 ${
+                        className={`flex items-center justify-center h-12 px-8 rounded-lg text-sm font-semibold shadow-sm hover:shadow-md transition-all duration-200 gap-2 print:shadow-none print:border-2 ${
                           product.popular
-                            ? 'bg-[#C89B3C] text-white hover:bg-[#A8832A]'
-                            : 'bg-[#014D4E] text-white hover:bg-[#013638]'
+                            ? 'bg-[#C89B3C] text-white hover:bg-[#A8832A] print:border-[#C89B3C] print:text-[#C89B3C] print:bg-transparent'
+                            : 'bg-[#014D4E] text-white hover:bg-[#013638] print:border-[#014D4E] print:text-[#014D4E] print:bg-transparent'
                         }`}
                       >
                         Apply Now <ArrowRight className="w-4 h-4" />
@@ -119,7 +118,7 @@ export default function ProductsPage() {
                     <div className="overflow-x-auto">
                       <table className="w-full text-sm">
                         <thead>
-                          <tr className="border-b border-[#e0d9cc]">
+                          <tr className="border-b border-[#E5E7EB]">
                             <th className="py-3 text-left text-[#6b6b6b] font-medium">Age Group</th>
                             <th className="py-3 text-center">
                               <div className="font-bold text-[#014D4E]">R5,000 Cover</div>
@@ -133,7 +132,7 @@ export default function ProductsPage() {
                         </thead>
                         <tbody>
                           {product.tiers.map((tier) => (
-                            <tr key={tier.ages} className="border-b border-[#e0d9cc] last:border-0 hover:bg-[#F7F3EA] transition-colors">
+                            <tr key={tier.ages} className="border-b border-[#E5E7EB] last:border-0 hover:bg-[#F9FAFB] transition-colors">
                               <td className="py-4 font-medium text-[#1C1C1C]">{tier.ages}</td>
                               <td className="py-4 text-center">
                                 <span className="font-bold text-xl text-[#014D4E]">
@@ -161,17 +160,15 @@ export default function ProductsPage() {
       </section>
 
       {/* Joining ages note */}
-      <section className="py-10 bg-white border-t border-[#e0d9cc]">
+      <section className="py-10 bg-white border-t border-[#E5E7EB]">
         <div className="max-w-3xl mx-auto px-6 sm:px-8 text-center">
-          <p className="text-sm text-[#6b6b6b]">
+          <p className="text-sm text-[#6B7280]">
             <strong className="text-[#014D4E]">Joining ages:</strong> 16 to 84 years. All premiums are monthly.
             Policies are subject to Busizwe Burial Society terms and conditions.
             Regulated by FSCA. Membership subject to approval.
           </p>
         </div>
       </section>
-
-      <CTASection />
     </>
   )
 }
