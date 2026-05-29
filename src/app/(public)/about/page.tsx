@@ -24,7 +24,7 @@ export default function AboutPage() {
       <PageHero
         eyebrow="About Us"
         title="Our Story & Mission"
-        subtitle="A retirement idea turned into a legacy. Named after her grandson Busa, this society exists so that no family has to face the cost of a funeral alone."
+        subtitle="Named after her grandson Busa — a Zulu word meaning to govern or reign. A retirement idea carried by a name with real weight behind it."
       />
 
       {/* Mission */}
@@ -46,7 +46,7 @@ export default function AboutPage() {
                   Busizwe started as an idea during retirement. With more time to sit and think, our founder began turning over something that had troubled her for years — families in our communities left scrambling to cover funeral costs at the very moment they should be grieving. She decided to do something about it.
                 </p>
                 <p>
-                  She named the society after her grandson, Busa. Busizwe means <em>we build the nation</em>, and in giving it his name, she was building something she hopes will look after families like his for a long time to come.
+                  She named the society after her grandson, Busa. In Zulu and Xhosa, <em>busa</em> means to govern or to reign. Busizwe — to govern the nation. It is a name that carries weight, and she chose it deliberately. If a small burial society can bring order and dignity to one of the hardest moments a family faces, then it is doing exactly what its name says.
                 </p>
                 <p>
                   We are not a large corporation. We are a small, community-rooted burial society based in Durban. We keep premiums low, the process simple, and our people easy to reach — because that is exactly what we would want for our own family.
