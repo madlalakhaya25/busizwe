@@ -1,5 +1,5 @@
-import Logo, { LogoSVG } from '@/components/layout/Logo'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Shield, Heart, Clock } from 'lucide-react'
 
 const TRUST_POINTS = [
@@ -22,7 +22,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         <div className="relative flex flex-col h-full px-12 py-10">
           {/* Logo at top */}
           <Link href="/" className="self-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C89B3C] rounded-lg">
-            <LogoSVG size="md" />
+            <Image src="/busizwe-badge.png" alt="Busizwe Burial Society" width={120} height={76} className="object-contain" />
           </Link>
 
           {/* Hero content — centered vertically */}
@@ -56,7 +56,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
             {/* Stat row */}
             <div className="mt-10 pt-8 border-t border-white/10 grid grid-cols-3 gap-4">
               {[
-                { value: '5,000+', label: 'Members' },
+                { value: '100+', label: 'Members' },
                 { value: 'R19.60', label: 'From/month' },
                 { value: 'Age 16–84', label: 'Eligible' },
               ].map((s) => (
@@ -78,12 +78,13 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       </div>
 
       {/* Right panel — auth form */}
-      <div className="flex min-h-screen lg:min-h-0 items-center justify-center p-6 sm:p-10 bg-[#F7F3EA]">
+      <div className="flex min-h-screen lg:min-h-0 items-center justify-center p-6 sm:p-10 bg-[#F9FAFB]">
         <div className="w-full max-w-md">
           {/* Mobile logo */}
           <div className="lg:hidden mb-8 flex flex-col items-center gap-2">
-            <Logo size="lg" variant="full" href="/" />
-            <p className="text-xs text-[#6b6b6b] tracking-wide">Dignity in Every Farewell</p>
+            <Link href="/">
+              <Image src="/busizwe-badge.png" alt="Busizwe Burial Society" width={110} height={70} className="object-contain" />
+            </Link>
           </div>
 
           {children}
