@@ -1,8 +1,8 @@
 'use client'
 
 import React, { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Users, Plus, Trash2, Calendar, Phone } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Users, Plus, Calendar, Phone, X, CheckCircle2, Loader2 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -27,22 +27,33 @@ interface Policy {
   product: { name: string }
 }
 
-const RELATIONSHIPS = [
-  'SPOUSE', 'CHILD', 'PARENT', 'SIBLING', 'GRANDPARENT', 'GRANDCHILD', 'OTHER'
-]
+const RELATIONSHIPS = ['SPOUSE', 'CHILD', 'PARENT', 'SIBLING', 'GRANDPARENT', 'GRANDCHILD', 'OTHER']
+
+const RELATIONSHIP_COLORS: Record<string, string> = {
+  SPOUSE:      'bg-rose-100 text-rose-700',
+  CHILD:       'bg-blue-100 text-blue-700',
+  PARENT:      'bg-purple-100 text-purple-700',
+  SIBLING:     'bg-amber-100 text-amber-700',
+  GRANDPARENT: 'bg-teal-100 text-teal-700',
+  GRANDCHILD:  'bg-indigo-100 text-indigo-700',
+  OTHER:       'bg-gray-100 text-gray-700',
+}
+
+function initials(first: string, last: string) {
+  return `${first[0] ?? ''}${last[0] ?? ''}`.toUpperCase()
+}
 
 export default function DependantsPage({ dependants, policies }: { dependants: unknown[]; policies: unknown[] }) {
   const typedDependants = dependants as Dependant[]
-  const typedPolicies = policies as Policy[]
+  const typedPolicies  = policies as Policy[]
   const [showForm, setShowForm] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [success, setSuccess] = useState(false)
+  const [loading,  setLoading]  = useState(false)
+  const [saved,    setSaved]    = useState(false)
 
   const handleAdd = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setLoading(true)
-    const form = e.currentTarget
-    const data = Object.fromEntries(new FormData(form))
+    const data = Object.fromEntries(new FormData(e.currentTarget))
 
     try {
       const res = await fetch('/api/dependants', {
@@ -51,9 +62,8 @@ export default function DependantsPage({ dependants, policies }: { dependants: u
         body: JSON.stringify(data),
       })
       if (res.ok) {
-        setSuccess(true)
-        setShowForm(false)
-        window.location.reload()
+        setSaved(true)
+        setTimeout(() => window.location.reload(), 900)
       }
     } catch {
       //
@@ -63,10 +73,15 @@ export default function DependantsPage({ dependants, policies }: { dependants: u
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <p className="text-[#6b6b6b] text-sm">{typedDependants.length} dependant{typedDependants.length !== 1 ? 's' : ''} registered</p>
-        {typedPolicies.length > 0 && (
+    <div className="space-y-6 max-w-5xl">
+
+      {/* Header row */}
+      <div className="flex items-center justify-between gap-4">
+        <p className="text-sm text-[#9a9a9a]">
+          <span className="font-bold text-[#1C1C1C]">{typedDependants.length}</span>{' '}
+          dependant{typedDependants.length !== 1 ? 's' : ''} registered
+        </p>
+        {typedPolicies.length > 0 && !showForm && (
           <Button variant="gold" size="sm" onClick={() => setShowForm(true)}>
             <Plus className="w-4 h-4" /> Add Dependant
           </Button>
@@ -74,73 +89,115 @@ export default function DependantsPage({ dependants, policies }: { dependants: u
       </div>
 
       {/* Add form */}
-      {showForm && (
-        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-base">Add New Dependant</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleAdd} className="grid sm:grid-cols-2 gap-4">
-                <div className="space-y-1.5">
-                  <Label htmlFor="policyId">Policy</Label>
-                  <Select name="policyId" required>
-                    <SelectTrigger><SelectValue placeholder="Select policy" /></SelectTrigger>
-                    <SelectContent>
-                      {typedPolicies.map((p) => (
-                        <SelectItem key={p.id} value={p.id}>{p.policyNumber} – {p.product.name}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+      <AnimatePresence>
+        {showForm && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2 }}
+          >
+            <Card>
+              <CardHeader className="pb-4">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-xl bg-[#014D4E] flex items-center justify-center shrink-0">
+                      <Users className="w-4 h-4 text-[#C89B3C]" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-base">Add New Dependant</CardTitle>
+                      <p className="text-xs text-[#9a9a9a] mt-0.5">Add a family member to your policy</p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setShowForm(false)}
+                    className="p-1.5 rounded-lg text-[#9a9a9a] hover:text-[#1C1C1C] hover:bg-[#F7F3EA] transition-colors"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
                 </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="relationship">Relationship</Label>
-                  <Select name="relationship" required>
-                    <SelectTrigger><SelectValue placeholder="Select relationship" /></SelectTrigger>
-                    <SelectContent>
-                      {RELATIONSHIPS.map((r) => (
-                        <SelectItem key={r} value={r}>{r.charAt(0) + r.slice(1).toLowerCase()}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="firstName">First Name</Label>
-                  <Input id="firstName" name="firstName" placeholder="John" required />
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="lastName">Last Name</Label>
-                  <Input id="lastName" name="lastName" placeholder="Doe" required />
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="dateOfBirth">Date of Birth</Label>
-                  <Input id="dateOfBirth" name="dateOfBirth" type="date" required />
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="idNumber">ID Number (optional)</Label>
-                  <Input id="idNumber" name="idNumber" placeholder="1234567890123" />
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="phone">Phone (optional)</Label>
-                  <Input id="phone" name="phone" type="tel" placeholder="0821234567" />
-                </div>
-                <div className="sm:col-span-2 flex gap-3 pt-2">
-                  <Button type="submit" variant="default" disabled={loading}>
-                    {loading ? 'Saving...' : 'Save Dependant'}
-                  </Button>
-                  <Button type="button" variant="secondary" onClick={() => setShowForm(false)}>Cancel</Button>
-                </div>
-              </form>
-            </CardContent>
-          </Card>
-        </motion.div>
-      )}
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleAdd} className="space-y-5">
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label>Policy</Label>
+                      <Select name="policyId" required>
+                        <SelectTrigger className="h-11"><SelectValue placeholder="Select policy" /></SelectTrigger>
+                        <SelectContent>
+                          {typedPolicies.map((p) => (
+                            <SelectItem key={p.id} value={p.id}>
+                              {p.policyNumber} – {p.product.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Relationship</Label>
+                      <Select name="relationship" required>
+                        <SelectTrigger className="h-11"><SelectValue placeholder="Select relationship" /></SelectTrigger>
+                        <SelectContent>
+                          {RELATIONSHIPS.map((r) => (
+                            <SelectItem key={r} value={r}>
+                              {r.charAt(0) + r.slice(1).toLowerCase()}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="firstName">First Name</Label>
+                      <Input id="firstName" name="firstName" placeholder="e.g. Nomvula" required className="h-11" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="lastName">Last Name</Label>
+                      <Input id="lastName" name="lastName" placeholder="e.g. Dlamini" required className="h-11" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="dateOfBirth">Date of Birth</Label>
+                      <Input id="dateOfBirth" name="dateOfBirth" type="date" required className="h-11" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="idNumber">SA ID Number <span className="text-[#9a9a9a] font-normal">(optional)</span></Label>
+                      <Input id="idNumber" name="idNumber" placeholder="1234567890123" className="h-11 font-mono" />
+                    </div>
+                    <div className="space-y-2 sm:col-span-2">
+                      <Label htmlFor="phone">Phone Number <span className="text-[#9a9a9a] font-normal">(optional)</span></Label>
+                      <Input id="phone" name="phone" type="tel" placeholder="0821234567" className="h-11" />
+                    </div>
+                  </div>
 
-      {typedDependants.length === 0 && !showForm ? (
-        <div className="text-center py-20 bg-white rounded-2xl border border-[#e0d9cc]">
-          <Users className="w-16 h-16 text-[#e0d9cc] mx-auto mb-4" />
-          <h3 className="text-xl font-bold text-[#014D4E] mb-2 font-serif">No Dependants Added</h3>
-          <p className="text-[#6b6b6b] mb-6 max-w-sm mx-auto">
+                  <div className="flex items-center gap-3 pt-1">
+                    <Button type="submit" variant="default" disabled={loading || saved} className="min-w-[140px]">
+                      {saved ? (
+                        <><CheckCircle2 className="w-4 h-4" /> Saved!</>
+                      ) : loading ? (
+                        <><Loader2 className="w-4 h-4 animate-spin" /> Saving…</>
+                      ) : (
+                        'Save Dependant'
+                      )}
+                    </Button>
+                    <Button type="button" variant="ghost" onClick={() => setShowForm(false)} disabled={loading}>
+                      Cancel
+                    </Button>
+                  </div>
+                </form>
+              </CardContent>
+            </Card>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Empty state */}
+      {typedDependants.length === 0 && !showForm && (
+        <div className="text-center py-16 bg-white rounded-2xl border border-[#e0d9cc]">
+          <div className="w-16 h-16 rounded-2xl bg-[#F7F3EA] flex items-center justify-center mx-auto mb-4">
+            <Users className="w-8 h-8 text-[#d0c9bc]" />
+          </div>
+          <h3 className="text-lg font-bold text-[#014D4E] mb-2 font-serif">No Dependants Added</h3>
+          <p className="text-[#9a9a9a] text-sm max-w-xs mx-auto mb-6">
             {typedPolicies.length === 0
               ? 'You need an active policy before adding dependants.'
               : 'Add family members to include them in your funeral cover.'}
@@ -151,40 +208,50 @@ export default function DependantsPage({ dependants, policies }: { dependants: u
             </Button>
           )}
         </div>
-      ) : (
+      )}
+
+      {/* Dependant cards */}
+      {typedDependants.length > 0 && (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {typedDependants.map((dep, i) => (
             <motion.div
               key={dep.id}
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
+              transition={{ duration: 0.35, delay: i * 0.06 }}
             >
-              <Card className="hover:shadow-[0_4px_16px_rgba(1,77,78,0.1)] transition-all duration-200">
+              <Card className="hover:shadow-[0_4px_16px_rgba(1,77,78,0.1)] transition-all duration-200 h-full">
                 <CardContent className="p-5">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="w-10 h-10 rounded-full bg-[#014D4E] flex items-center justify-center text-white font-bold text-sm">
-                      {dep.firstName[0]}{dep.lastName[0]}
+                  {/* Avatar + name */}
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-11 h-11 rounded-full bg-[#014D4E] flex items-center justify-center text-white font-bold text-sm shrink-0">
+                      {initials(dep.firstName, dep.lastName)}
                     </div>
-                    <span className="text-xs bg-[#014D4E]/10 text-[#014D4E] rounded-full px-2 py-0.5 font-medium">
-                      {dep.relationship.charAt(0) + dep.relationship.slice(1).toLowerCase()}
-                    </span>
+                    <div className="min-w-0">
+                      <p className="font-bold text-[#1C1C1C] leading-snug truncate">
+                        {dep.firstName} {dep.lastName}
+                      </p>
+                      <span className={`inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full mt-1 ${RELATIONSHIP_COLORS[dep.relationship] ?? 'bg-gray-100 text-gray-700'}`}>
+                        {dep.relationship.charAt(0) + dep.relationship.slice(1).toLowerCase()}
+                      </span>
+                    </div>
                   </div>
-                  <h3 className="font-bold text-[#1C1C1C] mb-3">{dep.firstName} {dep.lastName}</h3>
-                  <div className="space-y-2 text-sm text-[#6b6b6b]">
-                    <div className="flex items-center gap-2">
-                      <Calendar className="w-3.5 h-3.5 text-[#C89B3C]" />
+
+                  {/* Details */}
+                  <div className="space-y-2 text-sm">
+                    <div className="flex items-center gap-2 text-[#6b6b6b]">
+                      <Calendar className="w-3.5 h-3.5 text-[#C89B3C] shrink-0" />
                       <span>{formatDate(dep.dateOfBirth)}</span>
                     </div>
                     {dep.phone && (
-                      <div className="flex items-center gap-2">
-                        <Phone className="w-3.5 h-3.5 text-[#C89B3C]" />
+                      <div className="flex items-center gap-2 text-[#6b6b6b]">
+                        <Phone className="w-3.5 h-3.5 text-[#C89B3C] shrink-0" />
                         <span>{dep.phone}</span>
                       </div>
                     )}
-                    <div className="pt-1">
-                      <span className="text-xs text-[#6b6b6b]">Policy: </span>
-                      <span className="text-xs font-medium text-[#014D4E]">{dep.policy.policyNumber}</span>
+                    <div className="pt-2 border-t border-[#F0EDE6]">
+                      <p className="text-[10px] text-[#9a9a9a] uppercase tracking-wider mb-1">Policy</p>
+                      <p className="text-xs font-semibold text-[#014D4E] font-mono truncate">{dep.policy.policyNumber}</p>
                     </div>
                   </div>
                 </CardContent>
