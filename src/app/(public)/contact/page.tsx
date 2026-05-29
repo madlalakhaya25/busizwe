@@ -37,7 +37,7 @@ export default function ContactPage() {
       />
 
       {/* Content */}
-      <section className="py-24 bg-[#F7F3EA]">
+      <section className="py-24 bg-[#F9FAFB]">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
           <div className="grid lg:grid-cols-3 gap-10 lg:gap-12">
             {/* Contact info */}
@@ -52,7 +52,7 @@ export default function ContactPage() {
                 <a
                   key={item.label}
                   href={item.href}
-                  className="flex items-start gap-4 p-4 bg-white rounded-xl border border-[#e0d9cc] hover:border-[#C89B3C]/40 hover:shadow-[0_4px_12px_rgba(200,155,60,0.1)] transition-all duration-200 group"
+                  className="flex items-start gap-4 p-4 bg-white rounded-xl border border-[#E5E7EB] hover:border-[#C89B3C]/40 hover:shadow-[0_4px_12px_rgba(200,155,60,0.1)] transition-all duration-200 group"
                 >
                   <div className="w-10 h-10 rounded-lg bg-[#014D4E] flex items-center justify-center shrink-0">
                     <item.icon className="w-5 h-5 text-[#C89B3C]" />
@@ -68,7 +68,7 @@ export default function ContactPage() {
 
             {/* Contact form */}
             <div className="lg:col-span-2">
-              <div className="bg-white rounded-2xl border border-[#e0d9cc] shadow-[0_4px_24px_rgba(1,77,78,0.08)] p-8">
+              <div className="bg-white rounded-2xl border border-[#E5E7EB] shadow-sm p-8">
                 {submitted ? (
                   <div className="text-center py-12">
                     <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -146,6 +146,33 @@ export default function ContactPage() {
                 )}
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Banking details */}
+      <section className="py-16 bg-[#014D4E]">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+          <div className="max-w-3xl mx-auto">
+            <p className="text-xs font-semibold text-[#C89B3C] uppercase tracking-widest mb-3 text-center">EFT / Bank Transfer</p>
+            <h2 className="font-serif font-semibold text-white text-2xl sm:text-3xl text-center mb-10">Banking Details</h2>
+            <div className="bg-white/[0.07] border border-white/10 rounded-2xl p-7 grid sm:grid-cols-2 gap-x-12 gap-y-4">
+              {[
+                ['Bank',         'Capitec Bank'],
+                ['Account Name', 'Busizwe Burial Society'],
+                ['Account No',   '2542026544'],
+                ['Branch Code',  '470010'],
+                ['Account Type', 'Entrepreneur'],
+              ].map(([label, value]) => (
+                <div key={label} className="flex justify-between items-center border-b border-white/10 pb-4 last:border-0 last:pb-0 sm:last:border-b sm:last:pb-4 sm:[&:nth-last-child(2)]:border-0 sm:[&:nth-last-child(2)]:pb-0">
+                  <span className="text-white/50 text-sm">{label}</span>
+                  <span className="text-white font-semibold font-mono text-sm">{value}</span>
+                </div>
+              ))}
+            </div>
+            <p className="text-white/50 text-sm text-center mt-6">
+              Use your <span className="text-[#C89B3C] font-semibold">policy number</span> as the payment reference when making an EFT.
+            </p>
           </div>
         </div>
       </section>

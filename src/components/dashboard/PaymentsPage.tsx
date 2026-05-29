@@ -153,17 +153,25 @@ export default function PaymentsPage({ payments }: { payments: unknown[] }) {
       <div className="bg-[#014D4E] rounded-2xl p-6 text-white">
         <h3 className="font-serif font-semibold text-lg mb-4">Payment Information</h3>
         <div className="grid sm:grid-cols-2 gap-6 text-sm text-white/75">
-          <div className="space-y-1">
-            <p className="text-[#C89B3C] font-semibold text-xs uppercase tracking-wider mb-2">Bank Details (EFT)</p>
-            <p>Bank: First National Bank</p>
-            <p>Account: Busizwe Burial Society</p>
-            <p>Account No: 62XXXXXXXX</p>
-            <p>Branch Code: 250655</p>
+          <div className="space-y-2">
+            <p className="text-[#C89B3C] font-semibold text-xs uppercase tracking-wider mb-3">Bank Details (EFT)</p>
+            {[
+              ['Bank',         'Capitec Bank'],
+              ['Account Name', 'Busizwe Burial Society'],
+              ['Account No',   '2542026544'],
+              ['Branch Code',  '470010'],
+              ['Account Type', 'Entrepreneur'],
+            ].map(([label, value]) => (
+              <div key={label} className="flex justify-between gap-4">
+                <span className="text-white/50 shrink-0">{label}</span>
+                <span className="text-white font-semibold text-right font-mono">{value}</span>
+              </div>
+            ))}
           </div>
           <div className="space-y-1">
-            <p className="text-[#C89B3C] font-semibold text-xs uppercase tracking-wider mb-2">Payment Reference</p>
-            <p>Always use your policy number as reference to ensure correct allocation of your payment.</p>
-            <p className="mt-2">Call <span className="text-white font-semibold">0800 000 000</span> to set up a debit order.</p>
+            <p className="text-[#C89B3C] font-semibold text-xs uppercase tracking-wider mb-3">Payment Reference</p>
+            <p>Always use your <span className="text-white font-semibold">policy number</span> as your payment reference to ensure correct allocation.</p>
+            <p className="mt-3">Call <span className="text-white font-semibold">0800 000 000</span> to set up a debit order.</p>
           </div>
         </div>
       </div>
