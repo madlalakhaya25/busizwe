@@ -141,7 +141,7 @@ export default function AdminClaimsPage({ claims }: { claims: unknown[] }) {
   const filtered = filter === 'ALL' ? typedClaims : typedClaims.filter((c) => c.status === filter)
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-5xl">
       {/* Filter tabs */}
       <div className="flex flex-wrap gap-2">
         {FILTER_OPTIONS.map((f) => {
@@ -150,7 +150,7 @@ export default function AdminClaimsPage({ claims }: { claims: unknown[] }) {
             <button
               key={f}
               onClick={() => setFilter(f)}
-              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
+              className={`px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
                 filter === f
                   ? 'bg-[#014D4E] text-white'
                   : 'bg-white text-[#6b6b6b] border border-[#e0d9cc] hover:border-[#014D4E] hover:text-[#014D4E]'
@@ -164,7 +164,9 @@ export default function AdminClaimsPage({ claims }: { claims: unknown[] }) {
 
       {filtered.length === 0 && (
         <div className="text-center py-20 bg-white rounded-2xl border border-[#e0d9cc]">
-          <FileSearch className="w-16 h-16 text-[#e0d9cc] mx-auto mb-4" />
+          <div className="w-16 h-16 rounded-2xl bg-[#F7F3EA] flex items-center justify-center mx-auto mb-4">
+            <FileSearch className="w-8 h-8 text-[#d0c9bc]" />
+          </div>
           <h3 className="text-xl font-bold text-[#014D4E] mb-2 font-serif">
             No Claims
           </h3>

@@ -34,14 +34,16 @@ export default function AdminProductsPage({ products }: { products: unknown[] })
   const typedProducts = products as Product[]
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-5xl">
       <div className="flex items-center justify-between">
         <p className="text-[#6b6b6b] text-sm">{typedProducts.length} products</p>
       </div>
 
       {typedProducts.length === 0 ? (
         <div className="text-center py-20 bg-white rounded-2xl border border-[#e0d9cc]">
-          <Package className="w-16 h-16 text-[#e0d9cc] mx-auto mb-4" />
+          <div className="w-16 h-16 rounded-2xl bg-[#F7F3EA] flex items-center justify-center mx-auto mb-4">
+            <Package className="w-8 h-8 text-[#d0c9bc]" />
+          </div>
           <h3 className="text-xl font-bold text-[#014D4E] mb-2 font-serif">No Products</h3>
           <p className="text-[#6b6b6b] text-sm mb-4">Run the database seed to populate products.</p>
           <code className="text-xs bg-[#F7F3EA] px-3 py-1.5 rounded-lg border border-[#e0d9cc]">
@@ -80,9 +82,9 @@ export default function AdminProductsPage({ products }: { products: unknown[] })
                     <table className="w-full text-sm">
                       <thead>
                         <tr className="border-b border-[#e0d9cc]">
-                          <th className="py-2 text-left text-[#6b6b6b] font-medium">Age Group</th>
-                          <th className="py-2 text-center text-[#6b6b6b] font-medium">Cover Amount</th>
-                          <th className="py-2 text-center text-[#6b6b6b] font-medium">Monthly Premium</th>
+                          <th className="py-2 text-left text-[#9a9a9a] text-xs font-semibold uppercase tracking-wide">Age Group</th>
+                          <th className="py-2 text-center text-[#9a9a9a] text-xs font-semibold uppercase tracking-wide">Cover Amount</th>
+                          <th className="py-2 text-center text-[#9a9a9a] text-xs font-semibold uppercase tracking-wide">Monthly Premium</th>
                         </tr>
                       </thead>
                       <tbody>

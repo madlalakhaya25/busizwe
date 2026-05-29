@@ -51,7 +51,7 @@ export default function AdminMembersPage({ members }: { members: unknown[] }) {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-6xl">
       {/* Search */}
       <div className="flex gap-3">
         <div className="relative flex-1 max-w-sm">
@@ -73,20 +73,22 @@ export default function AdminMembersPage({ members }: { members: unknown[] }) {
         <CardContent className="p-0">
           {filtered.length === 0 ? (
             <div className="text-center py-16">
-              <Users className="w-16 h-16 text-[#e0d9cc] mx-auto mb-4" />
+              <div className="w-16 h-16 rounded-2xl bg-[#F7F3EA] flex items-center justify-center mx-auto mb-4">
+                <Users className="w-8 h-8 text-[#d0c9bc]" />
+              </div>
               <p className="text-[#6b6b6b]">{search ? 'No members match your search.' : 'No members yet.'}</p>
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full text-sm">
+              <table className="w-full text-sm min-w-[700px]">
                 <thead>
                   <tr className="border-b border-[#e0d9cc] bg-[#F7F3EA]">
-                    <th className="py-3 px-6 text-left text-[#6b6b6b] font-medium">Member</th>
-                    <th className="py-3 px-4 text-left text-[#6b6b6b] font-medium">ID Number</th>
-                    <th className="py-3 px-4 text-left text-[#6b6b6b] font-medium">Policies</th>
-                    <th className="py-3 px-4 text-left text-[#6b6b6b] font-medium">Documents</th>
-                    <th className="py-3 px-4 text-left text-[#6b6b6b] font-medium">Joined</th>
-                    <th className="py-3 px-4 text-left text-[#6b6b6b] font-medium">Actions</th>
+                    <th className="py-3 px-6 text-left text-[#9a9a9a] text-xs font-semibold uppercase tracking-wide">Member</th>
+                    <th className="py-3 px-4 text-left text-[#9a9a9a] text-xs font-semibold uppercase tracking-wide">ID Number</th>
+                    <th className="py-3 px-4 text-left text-[#9a9a9a] text-xs font-semibold uppercase tracking-wide">Policies</th>
+                    <th className="py-3 px-4 text-left text-[#9a9a9a] text-xs font-semibold uppercase tracking-wide">Documents</th>
+                    <th className="py-3 px-4 text-left text-[#9a9a9a] text-xs font-semibold uppercase tracking-wide">Joined</th>
+                    <th className="py-3 px-4 text-left text-[#9a9a9a] text-xs font-semibold uppercase tracking-wide">Actions</th>
                   </tr>
                 </thead>
                 <tbody>

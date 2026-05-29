@@ -158,7 +158,7 @@ export default function ProductsPage() {
 
       {/* Joining ages note */}
       <section className="py-10 bg-white border-t border-[#e0d9cc]">
-        <div className="max-w-3xl mx-auto px-4 text-center">
+        <div className="max-w-3xl mx-auto px-6 sm:px-8 text-center">
           <p className="text-sm text-[#6b6b6b]">
             <strong className="text-[#014D4E]">Joining ages:</strong> 16 to 84 years. All premiums are monthly.
             Policies are subject to Busizwe Burial Society terms and conditions.

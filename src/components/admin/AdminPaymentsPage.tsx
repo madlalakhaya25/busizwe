@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { CreditCard, CheckCircle2, Search } from 'lucide-react'
+import { CreditCard, CheckCircle2, Search, TrendingUp, AlertCircle, Clock } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -55,22 +55,29 @@ export default function AdminPaymentsPage({ payments }: { payments: unknown[] })
     .filter((p) => p.status === 'PAID')
     .reduce((sum, p) => sum + Number(p.amount), 0)
 
+  const STAT_CARDS = [
+    { icon: TrendingUp,   label: 'Total Collected', value: formatCurrency(totalCollected),                              color: '#16a34a', bg: '#16a34a12' },
+    { icon: CheckCircle2, label: 'Paid',             value: typedPayments.filter((p) => p.status === 'PAID').length,    color: '#16a34a', bg: '#16a34a12' },
+    { icon: AlertCircle,  label: 'Overdue',          value: typedPayments.filter((p) => p.status === 'OVERDUE').length, color: '#dc2626', bg: '#dc262610' },
+    { icon: Clock,        label: 'Pending',          value: typedPayments.filter((p) => p.status === 'PENDING').length, color: '#C89B3C', bg: '#C89B3C12' },
+  ]
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-6xl">
       {/* Summary */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        {[
-          { label: 'Total Collected', value: formatCurrency(totalCollected), color: '#16a34a' },
-          { label: 'Paid', value: typedPayments.filter((p) => p.status === 'PAID').length, color: '#16a34a' },
-          { label: 'Overdue', value: typedPayments.filter((p) => p.status === 'OVERDUE').length, color: '#dc2626' },
-          { label: 'Pending', value: typedPayments.filter((p) => p.status === 'PENDING').length, color: '#C89B3C' },
-        ].map((stat) => (
-          <Card key={stat.label}>
-            <CardContent className="p-4">
-              <p className="text-2xl font-bold text-[#1C1C1C]">{stat.value}</p>
-              <p className="text-xs text-[#6b6b6b]">{stat.label}</p>
-            </CardContent>
-          </Card>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+        {STAT_CARDS.map((stat, i) => (
+          <motion.div key={stat.label} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.06 + i * 0.07 }}>
+            <Card className="h-full">
+              <CardContent className="p-4 sm:p-5">
+                <div className="w-9 h-9 rounded-xl flex items-center justify-center mb-4" style={{ background: stat.bg }}>
+                  <stat.icon className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: stat.color }} />
+                </div>
+                <p className="text-2xl sm:text-3xl font-bold text-[#1C1C1C] leading-none tabular-nums">{stat.value}</p>
+                <p className="text-xs sm:text-sm font-medium text-[#6b6b6b] mt-2 truncate">{stat.label}</p>
+              </CardContent>
+            </Card>
+          </motion.div>
         ))}
       </div>
 
@@ -93,20 +100,22 @@ export default function AdminPaymentsPage({ payments }: { payments: unknown[] })
         <CardContent className="p-0">
           {filtered.length === 0 ? (
             <div className="text-center py-16">
-              <CreditCard className="w-16 h-16 text-[#e0d9cc] mx-auto mb-4" />
+              <div className="w-16 h-16 rounded-2xl bg-[#F7F3EA] flex items-center justify-center mx-auto mb-4">
+                <CreditCard className="w-8 h-8 text-[#d0c9bc]" />
+              </div>
               <p className="text-[#6b6b6b]">No payments found.</p>
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full text-sm">
+              <table className="w-full text-sm min-w-[650px]">
                 <thead>
                   <tr className="border-b border-[#e0d9cc] bg-[#F7F3EA]">
-                    <th className="py-3 px-6 text-left text-[#6b6b6b] font-medium">Member</th>
-                    <th className="py-3 px-4 text-left text-[#6b6b6b] font-medium">Policy</th>
-                    <th className="py-3 px-4 text-left text-[#6b6b6b] font-medium">Amount</th>
-                    <th className="py-3 px-4 text-left text-[#6b6b6b] font-medium">Due Date</th>
-                    <th className="py-3 px-4 text-left text-[#6b6b6b] font-medium">Status</th>
-                    <th className="py-3 px-4 text-left text-[#6b6b6b] font-medium">Actions</th>
+                    <th className="py-3 px-6 text-left text-[#9a9a9a] text-xs font-semibold uppercase tracking-wide">Member</th>
+                    <th className="py-3 px-4 text-left text-[#9a9a9a] text-xs font-semibold uppercase tracking-wide">Policy</th>
+                    <th className="py-3 px-4 text-left text-[#9a9a9a] text-xs font-semibold uppercase tracking-wide">Amount</th>
+                    <th className="py-3 px-4 text-left text-[#9a9a9a] text-xs font-semibold uppercase tracking-wide">Due Date</th>
+                    <th className="py-3 px-4 text-left text-[#9a9a9a] text-xs font-semibold uppercase tracking-wide">Status</th>
+                    <th className="py-3 px-4 text-left text-[#9a9a9a] text-xs font-semibold uppercase tracking-wide">Actions</th>
                   </tr>
                 </thead>
                 <tbody>

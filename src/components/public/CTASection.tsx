@@ -21,8 +21,7 @@ export default function CTASection() {
           <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-white/5 translate-y-1/2 -translate-x-1/2 pointer-events-none" />
 
           <div className="relative">
-            <span className="eyebrow mb-5">Get Started Today</span>
-            <h2 className="font-serif font-semibold text-white text-3xl sm:text-4xl lg:text-[2.75rem] leading-[1.1] mt-5 mb-5">
+            <h2 className="font-serif font-semibold text-white text-3xl sm:text-4xl lg:text-[2.75rem] leading-[1.1] mb-5">
               Protect Your Family Today
             </h2>
             <p className="text-white/70 text-base sm:text-lg leading-relaxed mb-10 max-w-xl mx-auto">
