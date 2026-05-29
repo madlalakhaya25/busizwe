@@ -6,7 +6,6 @@ import { motion } from 'framer-motion'
 import { Users, FileText, FolderOpen, CreditCard, TrendingUp, Clock, AlertCircle, ArrowRight, Shield } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 import { formatCurrency, formatDate, getStatusColor } from '@/lib/utils'
 
 interface Stats {
@@ -120,9 +119,7 @@ export default function AdminDashboard({ stats, recentMembers }: { stats: Stats;
               </div>
               <CardTitle className="text-sm font-semibold text-[#014D4E]">Recent Members</CardTitle>
             </div>
-            <Button variant="ghost" size="sm" asChild className="h-7 px-2 text-xs text-[#9a9a9a] hover:text-[#014D4E]">
-              <Link href="/admin/members" className="flex items-center gap-1">View all <ArrowRight className="w-3 h-3" /></Link>
-            </Button>
+            <Link href="/admin/members" className="flex items-center gap-1 h-7 px-2 rounded-lg text-xs font-medium text-[#9a9a9a] hover:text-[#014D4E] hover:bg-[#014D4E]/10 transition-colors">View all <ArrowRight className="w-3 h-3" /></Link>
           </CardHeader>
           <CardContent className="pt-0 px-0 pb-0">
             {members.length === 0 ? (

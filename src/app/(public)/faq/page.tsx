@@ -4,7 +4,6 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown, ArrowRight } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import PageHero from '@/components/public/PageHero'
 
 const FAQS = [
@@ -158,14 +157,18 @@ export default function FAQPage() {
               Our team is ready to help you find the right cover for your family.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center relative">
-              <Button variant="gold" asChild className="w-full sm:w-auto">
-                <Link href="/contact">
-                  Contact Us <ArrowRight className="w-4 h-4" />
-                </Link>
-              </Button>
-              <Button className="w-full sm:w-auto bg-white/10 text-white border border-white/25 hover:bg-white/20" asChild>
-                <a href="tel:+27800000000">Call 0800 000 000</a>
-              </Button>
+              <Link
+                href="/contact"
+                className="flex items-center justify-center h-14 px-10 rounded-xl text-base font-semibold bg-[#C89B3C] text-white hover:bg-[#A8832A] shadow-md hover:shadow-lg transition-all duration-200 gap-2 w-full sm:w-auto"
+              >
+                Contact Us <ArrowRight className="w-4 h-4" />
+              </Link>
+              <a
+                href="tel:+27800000000"
+                className="flex items-center justify-center h-14 px-10 rounded-xl text-base font-semibold bg-white/10 text-white border border-white/25 hover:bg-white/20 transition-all duration-200 w-full sm:w-auto"
+              >
+                Call 0800 000 000
+              </a>
             </div>
           </div>
         </div>

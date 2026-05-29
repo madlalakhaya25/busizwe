@@ -2,7 +2,6 @@ import React from 'react'
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { CheckCircle2, ArrowRight } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import CTASection from '@/components/public/CTASection'
 import PageHero from '@/components/public/PageHero'
 import { formatCurrency } from '@/lib/utils'
@@ -102,11 +101,16 @@ export default function ProductsPage() {
                       ))}
                     </ul>
                     <div className="mt-6">
-                      <Button variant={product.popular ? 'gold' : 'default'} asChild>
-                        <Link href="/sign-up">
-                          Apply Now <ArrowRight className="w-4 h-4" />
-                        </Link>
-                      </Button>
+                      <Link
+                        href="/sign-up"
+                        className={`flex items-center justify-center h-12 px-8 rounded-lg text-sm font-semibold shadow-sm hover:shadow-md transition-all duration-200 gap-2 ${
+                          product.popular
+                            ? 'bg-[#C89B3C] text-white hover:bg-[#A8832A]'
+                            : 'bg-[#014D4E] text-white hover:bg-[#013638]'
+                        }`}
+                      >
+                        Apply Now <ArrowRight className="w-4 h-4" />
+                      </Link>
                     </div>
                   </div>
 

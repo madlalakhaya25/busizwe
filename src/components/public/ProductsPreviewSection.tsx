@@ -4,7 +4,6 @@ import React from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowRight, User, Users, Baby, UserPlus } from 'lucide-react'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import SectionHeading from '@/components/public/SectionHeading'
 import { formatCurrency } from '@/lib/utils'
 
@@ -17,6 +16,7 @@ const PRODUCTS = [
     maxCover: 10000,
     popular: false,
     color: '#014D4E',
+    colorBg: '#014D4E15',
   },
   {
     icon: Users,
@@ -26,6 +26,7 @@ const PRODUCTS = [
     maxCover: 10000,
     popular: true,
     color: '#C89B3C',
+    colorBg: '#C89B3C15',
   },
   {
     icon: Baby,
@@ -35,6 +36,7 @@ const PRODUCTS = [
     maxCover: 10000,
     popular: false,
     color: '#014D4E',
+    colorBg: '#014D4E15',
   },
   {
     icon: UserPlus,
@@ -44,12 +46,13 @@ const PRODUCTS = [
     maxCover: 10000,
     popular: false,
     color: '#014D4E',
+    colorBg: '#014D4E15',
   },
 ]
 
 export default function ProductsPreviewSection() {
   return (
-    <section className="py-24 bg-[#F7F3EA]" id="products">
+    <section className="bg-[#F9FAFB] py-24 lg:py-32" id="products">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <SectionHeading
           eyebrow="Our Plans"
@@ -74,30 +77,37 @@ export default function ProductsPreviewSection() {
                   Most Popular
                 </div>
               )}
-              <Card
-                className={`h-full flex flex-col transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(1,77,78,0.14)] ${
-                  product.popular ? 'border-[#C89B3C] ring-1 ring-[#C89B3C]' : ''
+              <div
+                className={`h-full flex flex-col bg-white rounded-2xl border shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 overflow-hidden ${
+                  product.popular
+                    ? 'border-[#C89B3C] ring-1 ring-[#C89B3C]'
+                    : 'border-[#E5E7EB]'
                 }`}
               >
-                <CardHeader className="pb-3">
+                <div className="p-6 pb-3">
                   <div
                     className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
-                    style={{ background: `${product.color}15` }}
+                    style={{ background: product.colorBg }}
                   >
                     <product.icon className="w-6 h-6" style={{ color: product.color }} />
                   </div>
-                  <CardTitle className="text-base leading-snug">{product.title}</CardTitle>
-                  <CardDescription className="text-sm leading-relaxed mt-1">{product.description}</CardDescription>
-                </CardHeader>
-                <CardContent className="flex flex-col flex-1 justify-end gap-5 pt-2">
+                  <h3 className="text-base font-semibold text-[#111827] leading-snug mb-1">
+                    {product.title}
+                  </h3>
+                  <p className="text-sm text-[#6B7280] leading-relaxed">{product.description}</p>
+                </div>
+
+                <div className="flex flex-col flex-1 justify-end gap-5 p-6 pt-2">
                   <div>
-                    <p className="text-xs text-[#6b6b6b] mb-1.5">From per month</p>
+                    <p className="text-xs text-[#6B7280] mb-1.5">From per month</p>
                     <p className="font-serif font-semibold text-3xl text-[#014D4E]">
                       {formatCurrency(product.startFrom)}
                     </p>
                   </div>
-                  <div className="text-sm text-[#6b6b6b] leading-relaxed">
-                    Up to <strong className="text-[#1C1C1C]">{formatCurrency(product.maxCover)}</strong> cover
+                  <div className="text-sm text-[#6B7280] leading-relaxed">
+                    Up to{' '}
+                    <strong className="text-[#111827]">{formatCurrency(product.maxCover)}</strong>{' '}
+                    cover
                   </div>
                   <Link
                     href="/products"
@@ -109,8 +119,8 @@ export default function ProductsPreviewSection() {
                   >
                     View Details
                   </Link>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -118,7 +128,7 @@ export default function ProductsPreviewSection() {
         <div className="text-center">
           <Link
             href="/products"
-            className="inline-flex items-center justify-center gap-2 h-12 px-8 rounded-xl text-sm font-semibold bg-[#014D4E] text-white hover:bg-[#013638] shadow-md hover:shadow-lg transition-all duration-200"
+            className="inline-flex items-center justify-center gap-2 h-12 px-8 rounded-lg text-sm font-semibold bg-[#014D4E] text-white hover:bg-[#013638] transition-all duration-200"
           >
             View Full Pricing Tables
             <ArrowRight className="w-4 h-4 shrink-0" />

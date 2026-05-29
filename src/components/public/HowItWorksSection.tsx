@@ -10,31 +10,35 @@ const STEPS = [
     icon: UserPlus,
     step: '01',
     title: 'Register Online',
-    description: 'Create your account in minutes. Fill in your personal details and choose your cover plan.',
+    description:
+      'Create your account in minutes. Fill in your personal details and choose your cover plan.',
   },
   {
     icon: FileText,
     step: '02',
     title: 'Upload Documents',
-    description: 'Submit your ID document and proof of residence. Our team reviews within 24 hours.',
+    description:
+      'Submit your ID document and proof of residence. Our team reviews within 24 hours.',
   },
   {
     icon: CreditCard,
     step: '03',
     title: 'Make Your Payment',
-    description: 'Pay your first monthly premium via EFT, debit order, or cash at selected outlets.',
+    description:
+      'Pay your first monthly premium via EFT, debit order, or cash at selected outlets.',
   },
   {
     icon: Shield,
     step: '04',
     title: 'You Are Covered',
-    description: 'Your policy is activated. You and your family are now protected with funeral cover.',
+    description:
+      'Your policy is activated. You and your family are now protected with funeral cover.',
   },
 ]
 
 export default function HowItWorksSection() {
   return (
-    <section className="py-24 bg-white">
+    <section className="bg-white py-24 lg:py-32">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <SectionHeading
           eyebrow="How It Works"
@@ -58,17 +62,24 @@ export default function HowItWorksSection() {
                 className="flex flex-col items-center text-center"
               >
                 <div className="relative mb-7">
-                  <div className="w-[104px] h-[104px] rounded-full bg-[#F7F3EA] border-2 border-[#e0d9cc] flex items-center justify-center">
+                  {/* Outer ring */}
+                  <div className="w-[104px] h-[104px] rounded-full bg-[#F9FAFB] border-2 border-[#E5E7EB] flex items-center justify-center">
+                    {/* Inner dark green circle */}
                     <div className="w-[80px] h-[80px] rounded-full bg-[#014D4E] flex items-center justify-center">
                       <step.icon className="w-8 h-8 text-[#C89B3C]" />
                     </div>
                   </div>
+                  {/* Numbered badge */}
                   <div className="absolute -top-1 -right-1 w-8 h-8 rounded-full bg-[#C89B3C] text-white text-xs font-bold flex items-center justify-center ring-4 ring-white">
                     {step.step}
                   </div>
                 </div>
-                <h3 className="font-serif font-semibold text-xl text-[#014D4E] mb-2.5">{step.title}</h3>
-                <p className="text-sm text-[#6b6b6b] leading-relaxed max-w-[16rem]">{step.description}</p>
+                <h3 className="font-serif font-semibold text-xl text-[#014D4E] mb-2.5">
+                  {step.title}
+                </h3>
+                <p className="text-sm text-[#6B7280] leading-relaxed max-w-[16rem]">
+                  {step.description}
+                </p>
               </motion.div>
             ))}
           </div>

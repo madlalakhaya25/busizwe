@@ -21,26 +21,20 @@ const BENEFITS = [
 
 const STATS = [
   { value: '5,000+', label: 'Families covered' },
-  { value: '48 hrs', label: 'Pay out time'     },
-  { value: 'R10k',   label: 'Max cover'        },
+  { value: '48 hrs', label: 'Pay out time' },
+  { value: 'R10k', label: 'Max cover' },
 ]
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center bg-[#014D4E]">
-      {/* Background */}
+    <section className="relative bg-[#014D4E] pt-36 pb-28 lg:pt-40 lg:pb-32">
+      {/* Subtle background glows only — no SVG pattern, no wave */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-white/[0.03] blur-3xl" />
         <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full bg-[#C89B3C]/[0.08] blur-3xl" />
-        <div
-          className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23C89B3C' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E")`,
-          }}
-        />
       </div>
 
-      <div className="relative w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-36 pb-28">
+      <div className="relative w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="grid lg:grid-cols-2 gap-12 xl:gap-20 items-center">
 
           {/* ── Left ── */}
@@ -99,13 +93,13 @@ export default function HeroSection() {
             >
               <Link
                 href="/sign-up"
-                className="flex items-center justify-center h-14 px-10 rounded-xl text-base font-semibold bg-[#C89B3C] text-white hover:bg-[#A8832A] shadow-lg hover:shadow-xl transition-all duration-200 w-full sm:w-auto"
+                className="flex items-center justify-center h-14 px-10 rounded-xl text-base font-semibold bg-[#C89B3C] text-white hover:bg-[#A8832A] shadow-md hover:shadow-lg transition-all duration-200"
               >
                 Apply for Cover
               </Link>
               <Link
                 href="/products"
-                className="flex items-center justify-center h-14 px-10 rounded-xl text-base font-semibold text-white border border-white/30 hover:bg-white/10 transition-all duration-200 w-full sm:w-auto"
+                className="flex items-center justify-center h-14 px-10 rounded-xl text-base font-semibold text-white border border-white/30 hover:bg-white/10 transition-all duration-200"
               >
                 View Plans
               </Link>
@@ -120,7 +114,7 @@ export default function HeroSection() {
             className="hidden lg:block"
           >
             <div className="bg-white rounded-3xl shadow-[0_24px_80px_rgba(0,0,0,0.25)] overflow-hidden">
-              {/* Gold accent line */}
+              {/* Gold accent bar */}
               <div className="h-1 bg-gradient-to-r from-[#C89B3C]/40 via-[#C89B3C] to-[#C89B3C]/40" />
 
               <div className="p-10">
@@ -128,7 +122,9 @@ export default function HeroSection() {
                 <div className="flex items-center justify-between mb-10">
                   <div className="flex items-center gap-2">
                     <Shield className="w-4 h-4 text-[#C89B3C]" />
-                    <span className="text-xs font-semibold text-[#9a9a9a] uppercase tracking-widest">FSCA Authorised</span>
+                    <span className="text-xs font-semibold text-[#6B7280] uppercase tracking-widest">
+                      FSCA Authorised
+                    </span>
                   </div>
                   <div className="flex items-center gap-1.5 bg-green-50 border border-green-200 rounded-full px-3 py-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse shrink-0" />
@@ -138,10 +134,14 @@ export default function HeroSection() {
 
                 {/* Pricing */}
                 <div className="mb-10">
-                  <p className="text-sm text-[#9a9a9a] font-medium mb-3">Cover your family from as little as</p>
+                  <p className="text-sm text-[#6B7280] font-medium mb-3">
+                    Cover your family from as little as
+                  </p>
                   <div className="flex items-baseline gap-2">
-                    <span className="text-5xl font-bold text-[#014D4E] leading-none">R19.60</span>
-                    <span className="text-xl text-[#9a9a9a] font-medium">/ month</span>
+                    <span className="font-serif font-semibold text-5xl text-[#014D4E] leading-none">
+                      R19.60
+                    </span>
+                    <span className="text-xl text-[#6B7280] font-medium">/ month</span>
                   </div>
                 </div>
 
@@ -149,10 +149,10 @@ export default function HeroSection() {
                 <div className="space-y-4">
                   {BENEFITS.map((b) => (
                     <div key={b} className="flex items-center gap-3.5">
-                      <div className="w-6 h-6 rounded-full bg-[#014D4E]/8 flex items-center justify-center shrink-0">
+                      <div className="w-6 h-6 rounded-full bg-[#014D4E]/[0.08] flex items-center justify-center shrink-0">
                         <CheckCircle2 className="w-3.5 h-3.5 text-[#014D4E]" />
                       </div>
-                      <span className="text-sm font-medium text-[#1C1C1C]">{b}</span>
+                      <span className="text-sm font-medium text-[#111827]">{b}</span>
                     </div>
                   ))}
                 </div>
@@ -171,13 +171,6 @@ export default function HeroSection() {
           </motion.div>
 
         </div>
-      </div>
-
-      {/* Wave separator */}
-      <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
-        <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-          <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#F7F3EA" />
-        </svg>
       </div>
     </section>
   )

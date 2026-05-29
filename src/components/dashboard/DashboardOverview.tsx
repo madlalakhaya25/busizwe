@@ -8,7 +8,6 @@ import {
   AlertCircle, CheckCircle2, Clock, Shield, TrendingUp,
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
 import { formatCurrency, formatDate, getStatusColor } from '@/lib/utils'
 
 interface Props {
@@ -115,11 +114,9 @@ export default function DashboardOverview({ displayName, stats, recentPolicies, 
             </p>
           </div>
           {stats.activePolicies === 0 && (
-            <Button variant="gold" size="sm" asChild className="shrink-0 self-start sm:self-auto">
-              <Link href="/products">
-                Browse Plans <ArrowRight className="w-4 h-4" />
-              </Link>
-            </Button>
+            <Link href="/products" className="flex items-center justify-center h-9 px-4 rounded-lg text-sm font-semibold bg-[#C89B3C] text-white hover:bg-[#A8832A] shadow-sm hover:shadow-md transition-all duration-200 shrink-0 self-start sm:self-auto">
+              Browse Plans <ArrowRight className="w-4 h-4" />
+            </Link>
           )}
         </div>
       </motion.div>
@@ -183,11 +180,9 @@ export default function DashboardOverview({ displayName, stats, recentPolicies, 
                 </div>
                 <CardTitle className="text-sm font-semibold text-[#014D4E]">Recent Policies</CardTitle>
               </div>
-              <Button variant="ghost" size="sm" asChild className="h-7 px-2 text-xs text-[#9a9a9a] hover:text-[#014D4E]">
-                <Link href="/dashboard/policies" className="flex items-center gap-1">
-                  View all <ArrowRight className="w-3 h-3" />
-                </Link>
-              </Button>
+              <Link href="/dashboard/policies" className="flex items-center gap-1 h-7 px-2 rounded-lg text-xs font-medium text-[#9a9a9a] hover:text-[#014D4E] hover:bg-[#014D4E]/10 transition-colors">
+                View all <ArrowRight className="w-3 h-3" />
+              </Link>
             </CardHeader>
             <CardContent className="pt-0 px-5 pb-5">
               {recentPolicies.length === 0 ? (
@@ -196,9 +191,7 @@ export default function DashboardOverview({ displayName, stats, recentPolicies, 
                     <FileText className="w-5 h-5 text-[#d0c9bc]" />
                   </div>
                   <p className="text-sm text-[#9a9a9a] mb-4">No policies yet</p>
-                  <Button variant="default" size="sm" asChild>
-                    <Link href="/products">Browse Plans</Link>
-                  </Button>
+                  <Link href="/products" className="flex items-center justify-center h-9 px-4 rounded-lg text-sm font-semibold bg-[#014D4E] text-white hover:bg-[#013638] shadow-sm transition-all duration-200">Browse Plans</Link>
                 </div>
               ) : (
                 <div className="space-y-2">
@@ -238,11 +231,9 @@ export default function DashboardOverview({ displayName, stats, recentPolicies, 
                 </div>
                 <CardTitle className="text-sm font-semibold text-[#014D4E]">Recent Payments</CardTitle>
               </div>
-              <Button variant="ghost" size="sm" asChild className="h-7 px-2 text-xs text-[#9a9a9a] hover:text-[#014D4E]">
-                <Link href="/dashboard/payments" className="flex items-center gap-1">
-                  View all <ArrowRight className="w-3 h-3" />
-                </Link>
-              </Button>
+              <Link href="/dashboard/payments" className="flex items-center gap-1 h-7 px-2 rounded-lg text-xs font-medium text-[#9a9a9a] hover:text-[#014D4E] hover:bg-[#014D4E]/10 transition-colors">
+                View all <ArrowRight className="w-3 h-3" />
+              </Link>
             </CardHeader>
             <CardContent className="pt-0 px-5 pb-5">
               {recentPayments.length === 0 ? (

@@ -227,11 +227,9 @@ export default function ClaimsPage({ claims, policies }: { claims: unknown[]; po
             <Button variant="default" onClick={() => { setView('list'); window.location.reload() }}>
               View My Claims
             </Button>
-            <Button variant="ghost" asChild>
-              <a href={`https://wa.me/?text=${waText}`} target="_blank" rel="noopener noreferrer">
-                <Share2 className="w-4 h-4" /> Share on WhatsApp
-              </a>
-            </Button>
+            <a href={`https://wa.me/?text=${waText}`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium text-[#014D4E] hover:bg-[#014D4E]/10 transition-colors">
+              <Share2 className="w-4 h-4" /> Share on WhatsApp
+            </a>
           </div>
         </motion.div>
       </div>
@@ -378,22 +376,19 @@ export default function ClaimsPage({ claims, policies }: { claims: unknown[]; po
                                   <Heart className="w-4 h-4 text-rose-400 shrink-0" />
                                   <p className="text-sm text-[#1C1C1C] flex-1 font-medium">Memorial page created</p>
                                   <div className="flex gap-2">
-                                    <Button size="sm" variant="ghost" asChild>
-                                      <a href={`/memorial/${memorialTokens[claim.id]}`} target="_blank" rel="noopener noreferrer">
-                                        View
-                                      </a>
-                                    </Button>
-                                    <Button size="sm" variant="ghost" asChild>
-                                      <a
-                                        href={`https://wa.me/?text=${encodeURIComponent(
-                                          `Please light a candle in memory of ${claim.deceasedFirstName} ${claim.deceasedLastName}: ${APP_URL}/memorial/${memorialTokens[claim.id]}`
-                                        )}`}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                      >
-                                        <Share2 className="w-3.5 h-3.5" /> Share
-                                      </a>
-                                    </Button>
+                                    <a href={`/memorial/${memorialTokens[claim.id]}`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium text-[#014D4E] hover:bg-[#014D4E]/10 transition-colors">
+                                      View
+                                    </a>
+                                    <a
+                                      href={`https://wa.me/?text=${encodeURIComponent(
+                                        `Please light a candle in memory of ${claim.deceasedFirstName} ${claim.deceasedLastName}: ${APP_URL}/memorial/${memorialTokens[claim.id]}`
+                                      )}`}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium text-[#014D4E] hover:bg-[#014D4E]/10 transition-colors"
+                                    >
+                                      <Share2 className="w-3.5 h-3.5" /> Share
+                                    </a>
                                   </div>
                                 </div>
                               ) : (

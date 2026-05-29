@@ -6,7 +6,6 @@ import { motion } from 'framer-motion'
 import { FileText, ArrowRight, Calendar, Users, CreditCard, Shield, Download, Plus } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 import { formatCurrency, formatDate, getStatusColor } from '@/lib/utils'
 
 interface Policy {
@@ -51,11 +50,9 @@ export default function PoliciesPage({ policies }: { policies: unknown[] }) {
           <span className="font-bold text-[#1C1C1C]">{typedPolicies.length}</span>{' '}
           {typedPolicies.length === 1 ? 'policy' : 'policies'} found
         </p>
-        <Button variant="gold" size="sm" asChild>
-          <Link href="/products">
-            <Plus className="w-4 h-4" /> Browse Plans
-          </Link>
-        </Button>
+        <Link href="/products" className="flex items-center justify-center h-9 px-4 rounded-lg text-sm font-semibold bg-[#C89B3C] text-white hover:bg-[#A8832A] shadow-sm hover:shadow-md transition-all duration-200">
+          <Plus className="w-4 h-4" /> Browse Plans
+        </Link>
       </div>
 
       {/* Empty state */}
@@ -72,9 +69,7 @@ export default function PoliciesPage({ policies }: { policies: unknown[] }) {
           <p className="text-[#9a9a9a] text-sm mb-6 max-w-sm mx-auto">
             You have not applied for any funeral cover yet. Browse our plans and apply today.
           </p>
-          <Button variant="default" asChild>
-            <Link href="/products">Browse Cover Plans</Link>
-          </Button>
+          <Link href="/products" className="flex items-center justify-center h-11 px-6 rounded-lg text-sm font-semibold bg-[#014D4E] text-white hover:bg-[#013638] shadow-sm transition-all duration-200">Browse Cover Plans</Link>
         </motion.div>
       )}
 
@@ -129,22 +124,16 @@ export default function PoliciesPage({ policies }: { policies: unknown[] }) {
 
                 {/* Action buttons */}
                 <div className="flex flex-wrap gap-2 mt-4">
-                  <Button variant="outline" size="sm" asChild>
-                    <Link href={`/dashboard/dependants?policy=${policy.id}`}>
-                      <Users className="w-3.5 h-3.5" /> Dependants
-                    </Link>
-                  </Button>
-                  <Button variant="ghost" size="sm" asChild>
-                    <Link href="/dashboard/payments">
-                      <CreditCard className="w-3.5 h-3.5" /> Payments
-                    </Link>
-                  </Button>
+                  <Link href={`/dashboard/dependants?policy=${policy.id}`} className="flex items-center justify-center h-9 px-4 rounded-lg text-sm font-semibold border-2 border-[#014D4E] text-[#014D4E] hover:bg-[#014D4E] hover:text-white transition-all duration-200">
+                    <Users className="w-3.5 h-3.5" /> Dependants
+                  </Link>
+                  <Link href="/dashboard/payments" className="flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium text-[#014D4E] hover:bg-[#014D4E]/10 transition-colors">
+                    <CreditCard className="w-3.5 h-3.5" /> Payments
+                  </Link>
                   {policy.status === 'ACTIVE' && (
-                    <Button variant="ghost" size="sm" asChild>
-                      <a href={`/api/policies/${policy.id}/certificate`} download>
-                        <Download className="w-3.5 h-3.5" /> Certificate
-                      </a>
-                    </Button>
+                    <a href={`/api/policies/${policy.id}/certificate`} download className="flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium text-[#014D4E] hover:bg-[#014D4E]/10 transition-colors">
+                      <Download className="w-3.5 h-3.5" /> Certificate
+                    </a>
                   )}
                 </div>
               </CardContent>

@@ -48,7 +48,7 @@ export default function Navbar() {
         )}
       >
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
-          <div className="flex items-center justify-between h-[72px] gap-6">
+          <div className="flex items-center justify-between h-[76px] gap-6">
 
             {/* Logo */}
             <Logo size="sm" variant="full" />
@@ -146,7 +146,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.18 }}
-            className="fixed inset-x-0 top-[72px] z-40 bg-white border-b border-[#e0d9cc] shadow-xl lg:hidden"
+            className="fixed inset-x-0 top-[76px] z-40 bg-white border-b border-[#e0d9cc] shadow-xl lg:hidden"
           >
             <div className="max-w-7xl mx-auto px-6 py-5 flex flex-col gap-1">
               {NAV_LINKS.map((link) => (
