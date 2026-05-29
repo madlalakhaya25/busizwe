@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const TEAM_VALUES = [
   { icon: Shield, title: 'FSCA Authorised', description: 'We are fully registered and authorised by the Financial Sector Conduct Authority.' },
   { icon: Heart, title: 'Family First', description: 'We started this society because we know what it costs a family when they are not prepared. That drives everything we do.' },
-  { icon: Users, title: 'Community Built', description: 'Busizwe grew out of a Durban community. We understand the people we serve because we are part of the same communities.' },
+  { icon: Users, title: 'Community Built', description: 'Busizwe grew out of a South African community. We understand the people we serve because we are part of the same communities.' },
   { icon: Award, title: 'Honest and Simple', description: 'No hidden fees. No confusing terms. What you see on your policy is what you get.' },
   { icon: Clock, title: 'Fast Claims', description: 'Claims are processed within 48 hours. Families should not be waiting on paperwork.' },
   { icon: CheckCircle2, title: 'Open to All', description: 'No medical exam needed. Anyone aged 16 to 84 can join, regardless of health history.' },
@@ -49,7 +49,7 @@ export default function AboutPage() {
                   She named the society after her grandson, Busa. In Zulu and Xhosa, <em>busa</em> means to govern or to reign. Busizwe — to govern the nation. It is a name that carries weight, and she chose it deliberately. If a small burial society can bring order and dignity to one of the hardest moments a family faces, then it is doing exactly what its name says.
                 </p>
                 <p>
-                  We are not a large corporation. We are a small, community-rooted burial society based in Durban. We keep premiums low, the process simple, and our people easy to reach — because that is exactly what we would want for our own family.
+                  We are not a large corporation. We are a small, community-rooted burial society serving South African families across all nine provinces. We keep premiums low, the process simple, and our people easy to reach — because that is exactly what we would want for our own family.
                 </p>
               </div>
             </div>
