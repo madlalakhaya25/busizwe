@@ -4,7 +4,6 @@ import React from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowRight, User, Users, Baby, UserPlus } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import SectionHeading from '@/components/public/SectionHeading'
 import { formatCurrency } from '@/lib/utils'
@@ -100,13 +99,16 @@ export default function ProductsPreviewSection() {
                   <div className="text-sm text-[#6b6b6b] leading-relaxed">
                     Up to <strong className="text-[#1C1C1C]">{formatCurrency(product.maxCover)}</strong> cover
                   </div>
-                  <Button
-                    variant={product.popular ? 'gold' : 'outline'}
-                    className="w-full"
-                    asChild
+                  <Link
+                    href="/products"
+                    className={`flex items-center justify-center h-10 px-4 rounded-lg text-sm font-semibold transition-all duration-200 w-full ${
+                      product.popular
+                        ? 'bg-[#C89B3C] text-white hover:bg-[#A8832A] shadow-sm hover:shadow-md'
+                        : 'border-2 border-[#014D4E] text-[#014D4E] hover:bg-[#014D4E] hover:text-white'
+                    }`}
                   >
-                    <Link href="/products">View Details</Link>
-                  </Button>
+                    View Details
+                  </Link>
                 </CardContent>
               </Card>
             </motion.div>
@@ -114,12 +116,13 @@ export default function ProductsPreviewSection() {
         </div>
 
         <div className="text-center">
-          <Button variant="default" size="lg" asChild>
-            <Link href="/products">
-              View Full Pricing Tables
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </Button>
+          <Link
+            href="/products"
+            className="inline-flex items-center justify-center gap-2 h-12 px-8 rounded-xl text-sm font-semibold bg-[#014D4E] text-white hover:bg-[#013638] shadow-md hover:shadow-lg transition-all duration-200"
+          >
+            View Full Pricing Tables
+            <ArrowRight className="w-4 h-4 shrink-0" />
+          </Link>
         </div>
       </div>
     </section>

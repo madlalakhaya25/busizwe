@@ -4,7 +4,6 @@ import React from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Heart, Shield, Users, CheckCircle2, ArrowRight } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 
 const VALUES = [
   {
@@ -70,12 +69,13 @@ export default function AboutSection() {
               ))}
             </ul>
 
-            <Button variant="default" size="lg" asChild>
-              <Link href="/about">
-                Learn More About Us
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </Button>
+            <Link
+              href="/about"
+              className="inline-flex items-center justify-center gap-2 h-12 px-8 rounded-xl text-sm font-semibold bg-[#014D4E] text-white hover:bg-[#013638] shadow-md hover:shadow-lg transition-all duration-200"
+            >
+              Learn More About Us
+              <ArrowRight className="w-4 h-4 shrink-0" />
+            </Link>
           </motion.div>
 
           {/* Right — value cards */}

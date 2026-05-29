@@ -44,7 +44,7 @@ export default function Navbar() {
           'fixed top-0 left-0 right-0 z-50 bg-white transition-shadow duration-300',
           scrolled
             ? 'shadow-[0_2px_24px_rgba(1,77,78,0.10)] border-b border-[#e0d9cc]'
-            : 'border-b border-[#e8e2d8]'
+            : 'border-b border-[#ebe5db]'
         )}
       >
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
@@ -53,8 +53,8 @@ export default function Navbar() {
             {/* Logo */}
             <Logo size="sm" variant="full" />
 
-            {/* Desktop nav links */}
-            <nav className="hidden lg:flex items-center gap-1 flex-1" aria-label="Main navigation">
+            {/* Desktop nav — each link stacks label + gold dot as a column */}
+            <nav className="hidden lg:flex items-center gap-0.5 flex-1" aria-label="Main navigation">
               {NAV_LINKS.map((link) => {
                 const active = isActive(link.href)
                 return (
@@ -62,20 +62,20 @@ export default function Navbar() {
                     key={link.href}
                     href={link.href}
                     className={cn(
-                      'relative flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium transition-colors duration-150 select-none',
+                      'flex flex-col items-center justify-center gap-1 px-4 py-2 rounded-xl text-sm transition-colors duration-150 select-none',
                       active
-                        ? 'text-[#014D4E] font-semibold bg-[#014D4E]/[0.07]'
-                        : 'text-[#4a4a4a] hover:text-[#014D4E] hover:bg-[#014D4E]/[0.05]'
+                        ? 'text-[#014D4E] font-semibold'
+                        : 'text-[#5a5a5a] font-medium hover:text-[#014D4E] hover:bg-[#014D4E]/[0.05]'
                     )}
                   >
-                    {link.label}
-                    {active && (
-                      <motion.span
-                        layoutId="nav-underline"
-                        className="absolute bottom-1 left-1/2 -translate-x-1/2 w-5 h-0.5 bg-[#C89B3C] rounded-full"
-                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                      />
-                    )}
+                    <span>{link.label}</span>
+                    {/* Gold dot sits BELOW the label as a normal flex child — never overlaps */}
+                    <span
+                      className={cn(
+                        'h-0.5 rounded-full transition-all duration-200',
+                        active ? 'w-4 bg-[#C89B3C]' : 'w-0 bg-transparent'
+                      )}
+                    />
                   </Link>
                 )
               })}
@@ -111,13 +111,13 @@ export default function Navbar() {
                 <>
                   <Link
                     href="/sign-in"
-                    className="flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-[#4a4a4a] hover:text-[#014D4E] hover:bg-[#014D4E]/[0.05] transition-colors"
+                    className="flex items-center justify-center px-4 py-2 rounded-xl text-sm font-medium text-[#5a5a5a] hover:text-[#014D4E] hover:bg-[#014D4E]/[0.05] transition-colors"
                   >
                     Sign In
                   </Link>
                   <Link
                     href="/sign-up"
-                    className="flex items-center justify-center gap-1.5 h-9 px-5 rounded-lg text-sm font-semibold bg-[#C89B3C] text-white hover:bg-[#A8832A] shadow-md hover:shadow-lg transition-all"
+                    className="flex items-center justify-center h-9 px-5 rounded-lg text-sm font-semibold bg-[#C89B3C] text-white hover:bg-[#A8832A] shadow-sm hover:shadow-md transition-all"
                   >
                     Apply Now
                   </Link>
