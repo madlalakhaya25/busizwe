@@ -126,8 +126,7 @@ export default function DashboardOverview({ displayName, stats, recentPolicies, 
         {STAT_CARDS.map((stat, i) => (
           <motion.div key={stat.label} {...fade(0.06 + i * 0.07)}>
             <Link href={stat.href}>
-              <Card className="h-full hover:shadow-[0_6px_20px_rgba(1,77,78,0.12)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer group">
-                <CardContent className="p-4 sm:p-5">
+              <Card className="h-full hover:shadow-[0_6px_20px_rgba(1,77,78,0.12)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer group p-4 sm:p-5">
                   <div
                     className="w-9 h-9 rounded-xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110"
                     style={{ background: stat.bg }}
@@ -137,7 +136,6 @@ export default function DashboardOverview({ displayName, stats, recentPolicies, 
                   <p className="text-2xl sm:text-3xl font-bold text-[#1C1C1C] leading-none tabular-nums">{stat.value}</p>
                   <p className="text-xs sm:text-sm font-semibold text-[#1C1C1C] mt-2 leading-tight">{stat.label}</p>
                   <p className="text-xs text-[#9a9a9a] mt-0.5 truncate">{stat.sub}</p>
-                </CardContent>
               </Card>
             </Link>
           </motion.div>
@@ -191,7 +189,7 @@ export default function DashboardOverview({ displayName, stats, recentPolicies, 
                     <FileText className="w-5 h-5 text-[#d0c9bc]" />
                   </div>
                   <p className="text-sm text-[#9a9a9a] mb-4">No policies yet</p>
-                  <Link href="/products" className="flex items-center justify-center h-9 px-4 rounded-lg text-sm font-semibold bg-[#014D4E] text-white hover:bg-[#013638] shadow-sm transition-all duration-200">Browse Plans</Link>
+                  <Link href="/products" className="inline-flex items-center justify-center h-9 px-4 rounded-lg text-sm font-semibold bg-[#014D4E] text-white hover:bg-[#013638] shadow-sm transition-all duration-200">Browse Plans</Link>
                 </div>
               ) : (
                 <div className="space-y-2">
