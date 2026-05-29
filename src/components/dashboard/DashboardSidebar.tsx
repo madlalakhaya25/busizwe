@@ -73,7 +73,6 @@ export default function DashboardSidebar() {
             width={collapsed ? 44 : 96}
             height={collapsed ? 28 : 61}
             className="object-contain transition-all duration-200"
-            style={{ mixBlendMode: 'screen' }}
           />
         </Link>
 
