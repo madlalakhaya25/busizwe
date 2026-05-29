@@ -13,10 +13,17 @@ const FEATURES = [
   'Ages 16 to 84 eligible',
 ]
 
+const POLICY_DETAILS = [
+  { label: 'Cover Amount',    value: 'R10,000' },
+  { label: 'Age Group',       value: '16 – 64 years' },
+  { label: 'Members Covered', value: 'Whole Family' },
+  { label: 'Policy Type',     value: 'Immediate Family' },
+]
+
 export default function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center bg-[#014D4E]">
-      {/* Decorative background — clipped to its own layer, not the section */}
+      {/* Decorative background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-white/[0.03] blur-3xl" />
         <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full bg-[#C89B3C]/[0.08] blur-3xl" />
@@ -79,90 +86,99 @@ export default function HeroSection() {
               ))}
             </motion.ul>
 
-            {/* CTAs — stack on mobile, side by side on sm+ */}
+            {/* CTAs */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="flex flex-col sm:flex-row gap-4"
+              className="flex flex-col sm:flex-row gap-3"
             >
               <Button variant="gold" size="lg" asChild className="w-full sm:w-auto">
-                <Link href="/sign-up">
+                <Link href="/sign-up" className="flex items-center justify-center gap-2">
                   Apply for Cover
-                  <ArrowRight className="w-5 h-5" />
+                  <ArrowRight className="w-5 h-5 shrink-0" />
                 </Link>
               </Button>
-              <Button
-                variant="ghost"
-                size="lg"
-                asChild
-                className="w-full sm:w-auto text-white hover:text-white hover:bg-white/10 border border-white/25"
+              {/* Direct Link avoids Slot alignment quirks on the ghost style */}
+              <Link
+                href="/products"
+                className="inline-flex items-center justify-center h-12 px-8 rounded-lg text-base font-semibold text-white border border-white/30 hover:bg-white/10 transition-all duration-200 w-full sm:w-auto"
               >
-                <Link href="/products">View Plans</Link>
-              </Button>
+                View Plans
+              </Link>
             </motion.div>
           </div>
 
-          {/* ── Right side – hero card ── */}
+          {/* ── Right side – policy card ── */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
             className="hidden lg:block"
           >
-            {/* Extra padding to ensure floating badges are never clipped */}
-            <div className="relative pt-8 pb-10 pl-10 pr-6">
+            <div className="space-y-4">
               {/* Main card */}
-              <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-8 shadow-[0_24px_80px_rgba(0,0,0,0.3)]">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-full bg-[#014D4E] flex items-center justify-center shrink-0">
-                    <Heart className="w-6 h-6 text-[#C89B3C]" />
+              <div className="bg-white rounded-3xl shadow-[0_24px_80px_rgba(0,0,0,0.35)] overflow-hidden">
+                {/* Card header */}
+                <div className="bg-[#014D4E] px-6 py-5 flex items-center justify-between border-b border-white/10">
+                  <div className="flex items-center gap-3.5">
+                    <div className="w-11 h-11 rounded-xl bg-[#C89B3C]/20 flex items-center justify-center shrink-0">
+                      <Heart className="w-5 h-5 text-[#C89B3C]" />
+                    </div>
+                    <div>
+                      <p className="text-[10px] text-white/50 uppercase tracking-widest font-semibold">Sample Policy</p>
+                      <p className="font-bold text-white leading-tight">Immediate Family Cover</p>
+                    </div>
                   </div>
-                  <div className="min-w-0">
-                    <p className="text-xs text-[#6b6b6b] uppercase tracking-widest">Sample Policy</p>
-                    <p className="font-bold text-[#014D4E] truncate">Immediate Family Cover</p>
+                  <div className="flex items-center gap-1.5 bg-green-500/15 border border-green-500/25 rounded-full px-3 py-1.5 shrink-0">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse shrink-0" />
+                    <span className="text-xs text-green-300 font-semibold">Active</span>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  {[
-                    { label: 'Cover Amount', value: 'R10,000' },
-                    { label: 'Monthly Premium', value: 'R59.25' },
-                    { label: 'Age Group', value: '16 – 64 years' },
-                    { label: 'Members Covered', value: 'Whole Family' },
-                  ].map((item) => (
+                {/* Details grid */}
+                <div className="p-5 grid grid-cols-2 gap-3">
+                  {POLICY_DETAILS.map((item) => (
                     <div key={item.label} className="bg-[#F7F3EA] rounded-xl p-3.5">
-                      <p className="text-xs text-[#6b6b6b] mb-1.5 truncate">{item.label}</p>
+                      <p className="text-[10px] text-[#9a9a9a] uppercase tracking-wide font-medium mb-1.5">{item.label}</p>
                       <p className="font-bold text-[#014D4E] text-sm">{item.value}</p>
                     </div>
                   ))}
                 </div>
 
-                <div className="flex items-center gap-2.5 px-4 py-3 bg-green-50 rounded-xl border border-green-200">
-                  <CheckCircle2 className="w-5 h-5 text-green-600 shrink-0" />
-                  <span className="text-sm text-green-700 font-medium">Policy Active – Fully Covered</span>
+                {/* Premium footer bar */}
+                <div className="mx-5 mb-5 bg-[#014D4E] rounded-2xl px-5 py-4 flex items-center justify-between">
+                  <div>
+                    <p className="text-[10px] text-white/50 uppercase tracking-wide font-semibold">Monthly Premium</p>
+                    <p className="text-2xl font-bold text-[#C89B3C] leading-none mt-1.5">R59.25</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-[10px] text-white/50 uppercase tracking-wide font-semibold">Cover Starts From</p>
+                    <p className="text-xl font-bold text-white leading-none mt-1.5">R19.60</p>
+                    <p className="text-[10px] text-white/40 mt-0.5">per month</p>
+                  </div>
                 </div>
               </div>
 
-              {/* Floating badge – top right */}
-              <motion.div
-                animate={{ y: [0, -6, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute top-0 right-0 bg-[#C89B3C] text-white rounded-2xl px-5 py-4 shadow-xl"
-              >
-                <p className="text-2xl font-bold leading-none">5,000+</p>
-                <p className="text-xs text-white/85 mt-1 whitespace-nowrap">Families Covered</p>
-              </motion.div>
-
-              {/* Floating badge – bottom left */}
-              <motion.div
-                animate={{ y: [0, 6, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-                className="absolute bottom-0 left-0 bg-white rounded-2xl px-5 py-4 shadow-xl border border-[#e0d9cc]"
-              >
-                <p className="text-2xl font-bold text-[#014D4E] leading-none">R19.60</p>
-                <p className="text-xs text-[#6b6b6b] mt-1 whitespace-nowrap">From per month</p>
-              </motion.div>
+              {/* Stats row — clean, no overlap */}
+              <div className="grid grid-cols-2 gap-3">
+                <motion.div
+                  animate={{ y: [0, -4, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                  className="bg-white/8 backdrop-blur-sm border border-white/12 rounded-2xl px-5 py-4"
+                >
+                  <p className="text-2xl font-bold text-white leading-none">5,000+</p>
+                  <p className="text-xs text-white/55 mt-1.5">Families Covered</p>
+                </motion.div>
+                <motion.div
+                  animate={{ y: [0, -4, 0] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+                  className="bg-[#C89B3C]/12 backdrop-blur-sm border border-[#C89B3C]/20 rounded-2xl px-5 py-4"
+                >
+                  <p className="text-2xl font-bold text-[#C89B3C] leading-none">R5k–R10k</p>
+                  <p className="text-xs text-white/55 mt-1.5">Cover Options</p>
+                </motion.div>
+              </div>
             </div>
           </motion.div>
 

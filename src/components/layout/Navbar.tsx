@@ -19,15 +19,15 @@ const NAV_LINKS = [
 ]
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen]   = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const pathname = usePathname()
+  const pathname  = usePathname()
   const { isSignedIn } = useAuth()
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+    const onScroll = () => setScrolled(window.scrollY > 20)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   useEffect(() => { setIsOpen(false) }, [pathname])
@@ -49,13 +49,21 @@ export default function Navbar() {
         )}
       >
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
-          <div className="flex items-center justify-between h-20">
+          <div className="flex items-center justify-between h-20 gap-8">
 
             {/* Logo */}
             <Logo size="sm" variant="full" />
 
-            {/* Desktop nav links — more spacing, gold underline active indicator below text */}
-            <nav className="hidden lg:flex items-center gap-1" aria-label="Main navigation">
+            {/* Desktop nav — pill container */}
+            <nav
+              className={cn(
+                'hidden lg:flex items-center gap-0.5 rounded-2xl p-1.5 transition-all duration-300',
+                scrolled
+                  ? 'bg-[#014D4E]/6 border border-[#014D4E]/10'
+                  : 'bg-white/10 border border-white/15 backdrop-blur-sm'
+              )}
+              aria-label="Main navigation"
+            >
               {NAV_LINKS.map((link) => {
                 const active = isActive(link.href)
                 return (
@@ -63,41 +71,53 @@ export default function Navbar() {
                     key={link.href}
                     href={link.href}
                     className={cn(
-                      'relative px-5 py-2.5 text-sm font-medium rounded-xl transition-all duration-200',
+                      'relative px-4 py-2 text-sm font-medium rounded-xl transition-all duration-200 select-none',
                       scrolled
                         ? active
-                          ? 'text-[#014D4E] bg-[#014D4E]/[0.07]'
-                          : 'text-[#4a4a4a] hover:text-[#014D4E] hover:bg-[#014D4E]/[0.05]'
+                          ? 'text-[#014D4E] font-semibold'
+                          : 'text-[#4a4a4a] hover:text-[#014D4E] hover:bg-[#014D4E]/6'
                         : active
-                          ? 'text-white bg-white/[0.15]'
-                          : 'text-white/85 hover:text-white hover:bg-white/[0.12]'
+                          ? 'text-white font-semibold'
+                          : 'text-white/75 hover:text-white hover:bg-white/10'
                     )}
                   >
-                    {link.label}
-                    {/* Gold underline beneath the label — inside padding so never clipped */}
                     {active && (
                       <motion.span
-                        layoutId="nav-underline"
-                        className="absolute bottom-1.5 left-1/2 -translate-x-1/2 h-0.5 w-5 bg-[#C89B3C] rounded-full"
+                        layoutId="nav-pill"
+                        className={cn(
+                          'absolute inset-0 rounded-xl',
+                          scrolled ? 'bg-[#014D4E]/10' : 'bg-white/15'
+                        )}
+                        transition={{ type: 'spring', stiffness: 400, damping: 32 }}
                       />
                     )}
+                    <span className="relative">
+                      {link.label}
+                      {active && (
+                        <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-[#C89B3C] rounded-full block" />
+                      )}
+                    </span>
                   </Link>
                 )
               })}
             </nav>
 
             {/* Right side */}
-            <div className="hidden lg:flex items-center gap-4">
+            <div className="hidden lg:flex items-center gap-3">
               <a
                 href="tel:+27800000000"
                 className={cn(
-                  'flex items-center gap-2 text-sm font-medium transition-colors',
-                  scrolled ? 'text-[#6b6b6b] hover:text-[#014D4E]' : 'text-white/80 hover:text-white'
+                  'flex items-center gap-1.5 text-sm font-medium transition-colors px-3 py-2 rounded-xl',
+                  scrolled
+                    ? 'text-[#6b6b6b] hover:text-[#014D4E] hover:bg-[#014D4E]/6'
+                    : 'text-white/75 hover:text-white hover:bg-white/10'
                 )}
               >
-                <Phone className="w-4 h-4 text-[#C89B3C] shrink-0" />
+                <Phone className="w-3.5 h-3.5 text-[#C89B3C] shrink-0" />
                 <span>0800 000 000</span>
               </a>
+
+              <div className={cn('w-px h-5', scrolled ? 'bg-[#e0d9cc]' : 'bg-white/20')} />
 
               {isSignedIn ? (
                 <>
@@ -105,7 +125,7 @@ export default function Navbar() {
                     variant={scrolled ? 'outline' : 'ghost'}
                     size="sm"
                     asChild
-                    className={!scrolled ? 'text-white border-white/30 hover:bg-white/10 hover:text-white' : ''}
+                    className={!scrolled ? 'text-white border border-white/30 hover:bg-white/10 hover:text-white' : ''}
                   >
                     <Link href="/dashboard">Dashboard</Link>
                   </Button>
@@ -117,17 +137,20 @@ export default function Navbar() {
                 </>
               ) : (
                 <>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    asChild
-                    className={!scrolled ? 'text-white hover:text-white hover:bg-white/10' : ''}
+                  <Link
+                    href="/sign-in"
+                    className={cn(
+                      'text-sm font-medium px-4 py-2 rounded-xl transition-colors',
+                      scrolled
+                        ? 'text-[#4a4a4a] hover:text-[#014D4E] hover:bg-[#014D4E]/6'
+                        : 'text-white/80 hover:text-white hover:bg-white/10'
+                    )}
                   >
-                    <Link href="/sign-in">Sign In</Link>
-                  </Button>
+                    Sign In
+                  </Link>
                   <Button variant="gold" size="sm" asChild>
-                    <Link href="/sign-up">
-                      Apply Now <ChevronRight className="w-4 h-4" />
+                    <Link href="/sign-up" className="flex items-center gap-1.5">
+                      Apply Now <ChevronRight className="w-3.5 h-3.5 shrink-0" />
                     </Link>
                   </Button>
                 </>
