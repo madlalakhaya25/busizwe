@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 
 const TEAM_VALUES = [
   { icon: Shield, title: 'FSCA Authorised', description: 'We are fully registered and authorised by the Financial Sector Conduct Authority.' },
-  { icon: Heart, title: 'Family First', description: 'We started this society because we know what it costs a family when they are not prepared. That drives everything we do.' },
-  { icon: Users, title: 'Community Built', description: 'Busizwe grew out of a South African community. We understand the people we serve because we are part of the same communities.' },
+  { icon: Heart, title: 'Family First', description: 'This started because of family. It stays true to that. Every member is someone\'s mother, father, grandchild.' },
+  { icon: Users, title: 'Community Built', description: 'Not built in a boardroom. Built by someone who had seen enough families struggle and decided to do something about it.' },
   { icon: Award, title: 'Honest and Simple', description: 'No hidden fees. No confusing terms. What you see on your policy is what you get.' },
   { icon: Clock, title: 'Fast Claims', description: 'Claims are processed within 48 hours. Families should not be waiting on paperwork.' },
   { icon: CheckCircle2, title: 'Open to All', description: 'No medical exam needed. Anyone aged 16 to 84 can join, regardless of health history.' },
@@ -24,7 +24,7 @@ export default function AboutPage() {
       <PageHero
         eyebrow="About Us"
         title="Our Story & Mission"
-        subtitle="Named after her grandson Busa — a Zulu word meaning to govern or reign. A retirement idea carried by a name with real weight behind it."
+        subtitle="Started during retirement. Named after a grandson. Built for every South African family that should never have to worry about the cost of a funeral."
       />
 
       {/* Mission */}
@@ -43,13 +43,13 @@ export default function AboutPage() {
             <div className="lg:col-span-2">
               <div className="space-y-5 text-[#6B7280] text-lg leading-relaxed">
                 <p>
-                  Busizwe started as an idea during retirement. With more time to sit and think, our founder began turning over something that had troubled her for years — families in our communities left scrambling to cover funeral costs at the very moment they should be grieving. She decided to do something about it.
+                  When she retired, she finally had time to act on something she had seen for years. Families losing someone they love, then turning around to face a funeral bill they could not afford. She started Busizwe to change that.
                 </p>
                 <p>
-                  She named the society after her grandson, Busa. In Zulu and Xhosa, <em>busa</em> means to govern or to reign. Busizwe — to govern the nation. It is a name that carries weight, and she chose it deliberately. If a small burial society can bring order and dignity to one of the hardest moments a family faces, then it is doing exactly what its name says.
+                  She named it after her grandson, Busa. In Zulu, <em>busa</em> means to govern or to reign. Busizwe is to govern the nation. She gave a small burial society a big name, and she meant it.
                 </p>
                 <p>
-                  We are not a large corporation. We are a small, community-rooted burial society serving South African families across all nine provinces. We keep premiums low, the process simple, and our people easy to reach — because that is exactly what we would want for our own family.
+                  We cover all nine provinces. Premiums from R19.60 a month. No medical exam. Just straightforward cover for South African families who deserve to grieve without the added stress.
                 </p>
               </div>
             </div>
