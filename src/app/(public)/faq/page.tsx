@@ -164,10 +164,10 @@ export default function FAQPage() {
                 Contact Us <ArrowRight className="w-4 h-4" />
               </Link>
               <a
-                href="tel:+27800000000"
+                href="tel:+27614631973"
                 className="flex items-center justify-center h-14 px-10 rounded-xl text-base font-semibold bg-white/10 text-white border border-white/25 hover:bg-white/20 transition-all duration-200 w-full sm:w-auto"
               >
-                Call 0800 000 000
+                Call 061 463 1973
               </a>
             </div>
           </div>

@@ -54,7 +54,7 @@ export async function POST(req: Request) {
       })
 
       if (!profile) {
-        reply = `Hi there! We couldn't find your account. Please log in at ${APP_URL} or call us on 0800 000 000.`
+        reply = `Hi there! We couldn't find your account. Please log in at ${APP_URL} or call us on 061 463 1973.`
       } else {
         const active = profile.user?.policies ?? []
         reply = active.length === 0
@@ -62,14 +62,14 @@ export async function POST(req: Request) {
           : `Hi ${profile.firstName}! Your active ${active.length === 1 ? 'policy' : 'policies'}: ${active.map((p) => p.policyNumber).join(', ')}. View: ${APP_URL}/dashboard`
       }
     } else if (body === 'CLAIM') {
-      reply = `To submit a funeral claim, please visit: ${APP_URL}/dashboard/claims\n\nFor urgent help, call 0800 000 000. We are sorry for your loss. 💛`
+      reply = `To submit a funeral claim, please visit: ${APP_URL}/dashboard/claims\n\nFor urgent help, call 061 463 1973. We are sorry for your loss. 💛`
     } else if (body === 'HELP' || body === 'HI' || body === 'HELLO') {
-      reply = `Welcome to Busizwe Burial Society 🌿\n\nReply with:\n• STATUS – your policy status\n• CLAIM – how to submit a claim\n\nVisit: ${APP_URL}\nCall: 0800 000 000\n\nWe are here for you.`
+      reply = `Welcome to Busizwe Burial Society 🌿\n\nReply with:\n• STATUS – your policy status\n• CLAIM – how to submit a claim\n\nVisit: ${APP_URL}\nCall: 061 463 1973\n\nWe are here for you.`
     } else {
-      reply = `Hello 👋 For help, reply HELP or visit ${APP_URL}. For urgent matters, call 0800 000 000.`
+      reply = `Hello 👋 For help, reply HELP or visit ${APP_URL}. For urgent matters, call 061 463 1973.`
     }
   } catch {
-    reply = `We're experiencing a brief issue. Please try again or call 0800 000 000.`
+    reply = `We're experiencing a brief issue. Please try again or call 061 463 1973.`
   }
 
   await sendWhatsApp(from, reply)

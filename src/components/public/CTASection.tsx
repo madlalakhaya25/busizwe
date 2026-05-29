@@ -40,11 +40,11 @@ export default function CTASection() {
               Apply for Cover Now
             </Link>
             <a
-              href="tel:+27800000000"
+              href="tel:+27614631973"
               className="flex items-center justify-center gap-2 h-14 px-10 rounded-xl text-base font-semibold text-[#014D4E] border-2 border-[#014D4E]/20 hover:bg-[#014D4E] hover:text-white transition-all duration-200"
             >
               <Phone className="w-4 h-4 shrink-0" />
-              Call 0800 000 000
+              Call 061 463 1973
             </a>
           </div>
 

@@ -48,7 +48,7 @@ export default async function AdminSettingsPage() {
       items: [
         { label: 'WhatsApp Alerts', value: 'Configured' },
         { label: 'Email Notifications', value: 'info@busizwe.co.za' },
-        { label: 'Support Line', value: '0800 000 000' },
+        { label: 'Support Line', value: '061 463 1973' },
       ],
     },
   ]

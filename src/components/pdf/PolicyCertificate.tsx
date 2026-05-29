@@ -370,10 +370,10 @@ export function PolicyCertificatePDF({ policy, user }: Props) {
         <View style={styles.footer}>
           <View style={styles.footerLeft}>
             <Text style={styles.footerText}>
-              Busizwe Burial Society | FSP Reg. No. XXXXXXX | FSCA Authorised
+              Busizwe Burial Society | Scheme No. MG0003500 | FSCA Authorised
             </Text>
             <Text style={styles.footerText}>
-              123 Main Street, Johannesburg, 2000 | info@busizwe.co.za | 0800 000 000
+              52 Wembley Road, Kenville, Durban, 4051 | busizwebs@gmail.com | 061 463 1973
             </Text>
             <Text style={[styles.footerText, { marginTop: 6 }]}>
               This certificate is valid proof of funeral cover. Present this document when lodging a claim.

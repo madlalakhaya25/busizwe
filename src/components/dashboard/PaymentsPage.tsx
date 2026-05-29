@@ -163,7 +163,7 @@ export default function PaymentsPage({ payments }: { payments: unknown[] }) {
           <div className="space-y-1">
             <p className="text-[#C89B3C] font-semibold text-xs uppercase tracking-wider mb-2">Payment Reference</p>
             <p>Always use your policy number as reference to ensure correct allocation of your payment.</p>
-            <p className="mt-2">Call <span className="text-white font-semibold">0800 000 000</span> to set up a debit order.</p>
+            <p className="mt-2">Call <span className="text-white font-semibold">061 463 1973</span> to set up a debit order.</p>
           </div>
         </div>
       </div>

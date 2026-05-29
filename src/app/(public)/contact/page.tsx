@@ -10,9 +10,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import PageHero from '@/components/public/PageHero'
 
 const CONTACT_INFO = [
-  { icon: Phone, label: 'Phone', value: '0800 000 000', sub: 'Mon–Fri 8am–5pm', href: 'tel:+27800000000' },
-  { icon: Mail, label: 'Email', value: 'info@busizwe.co.za', sub: 'We reply within 24hrs', href: 'mailto:info@busizwe.co.za' },
-  { icon: MapPin, label: 'Address', value: '123 Main Street, Johannesburg', sub: 'Gauteng, 2000', href: '#' },
+  { icon: Phone, label: 'Phone', value: '061 463 1973 / 076 380 1555', sub: 'Mon–Fri 8am–5pm', href: 'tel:+27614631973' },
+  { icon: Mail, label: 'Email', value: 'busizwebs@gmail.com', sub: 'We reply within 24hrs', href: 'mailto:busizwebs@gmail.com' },
+  { icon: MapPin, label: 'Address', value: '52 Wembley Road, Kenville', sub: 'Durban, 4051', href: '#' },
   { icon: Clock, label: 'Office Hours', value: 'Mon – Fri: 8am – 5pm', sub: 'Sat: 9am – 1pm', href: '#' },
 ]
 

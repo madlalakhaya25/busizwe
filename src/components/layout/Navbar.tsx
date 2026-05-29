@@ -84,11 +84,11 @@ export default function Navbar() {
             {/* Right — phone + auth */}
             <div className="hidden lg:flex items-center gap-2 shrink-0">
               <a
-                href="tel:+27800000000"
+                href="tel:+27614631973"
                 className="flex items-center gap-1.5 text-sm font-medium text-[#6b6b6b] hover:text-[#014D4E] hover:bg-[#014D4E]/[0.05] px-3 py-2 rounded-xl transition-colors"
               >
                 <Phone className="w-3.5 h-3.5 text-[#C89B3C] shrink-0" />
-                0800 000 000
+                061 463 1973
               </a>
 
               <div className="w-px h-5 bg-[#e0d9cc] mx-1" />

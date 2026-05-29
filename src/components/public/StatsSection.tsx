@@ -23,18 +23,18 @@ export default function StatsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="bg-white rounded-2xl border border-[#E5E7EB] p-8 text-center shadow-sm hover:shadow-md transition-all"
+              className="bg-white rounded-2xl border border-[#E5E7EB] p-4 sm:p-6 lg:p-8 text-center shadow-sm hover:shadow-md transition-all"
             >
               <div
-                className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-5"
+                className="w-10 h-10 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-5"
                 style={{ background: stat.bg }}
               >
-                <stat.icon className="w-6 h-6" style={{ color: stat.color }} />
+                <stat.icon className="w-5 h-5 sm:w-6 sm:h-6" style={{ color: stat.color }} />
               </div>
-              <p className="font-serif font-semibold text-4xl sm:text-5xl text-[#111827] mb-1">
+              <p className="font-serif font-semibold text-2xl sm:text-4xl lg:text-5xl text-[#111827] mb-1 leading-tight">
                 {stat.value}
               </p>
-              <p className="text-sm text-[#6B7280]">{stat.label}</p>
+              <p className="text-xs sm:text-sm text-[#6B7280]">{stat.label}</p>
             </motion.div>
           ))}
         </div>

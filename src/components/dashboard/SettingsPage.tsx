@@ -270,7 +270,7 @@ export default function SettingsPage({ email, profile }: { email: string; profil
           <div className="min-w-0">
             <p className="text-sm font-semibold">Need help updating your details?</p>
             <p className="text-xs text-white/60 mt-0.5">
-              Call us on <span className="text-[#C89B3C] font-semibold">0800 000 000</span> between 08:00 – 17:00 Mon–Fri.
+              Call us on <span className="text-[#C89B3C] font-semibold">061 463 1973</span> between 08:00 – 17:00 Mon–Fri.
             </p>
           </div>
         </div>
