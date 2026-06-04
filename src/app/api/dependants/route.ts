@@ -12,6 +12,7 @@ const createSchema = z.object({
   relationship: z.enum(['SPOUSE', 'CHILD', 'PARENT', 'SIBLING', 'GRANDPARENT', 'GRANDCHILD', 'OTHER']),
   idNumber: z.string().optional(),
   phone: z.string().optional(),
+  startDate: z.string().refine((d) => !isNaN(Date.parse(d))).optional(),
 })
 
 export async function GET() {
@@ -57,6 +58,7 @@ export async function POST(req: Request) {
       relationship: data.relationship,
       idNumber: data.idNumber,
       phone: data.phone,
+      startDate: data.startDate ? new Date(data.startDate) : null,
     },
   })
 

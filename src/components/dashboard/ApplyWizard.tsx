@@ -31,10 +31,11 @@ interface DependantForm {
   dateOfBirth: string
   relationship: string
   idNumber: string
+  startDate: string
 }
 
 const EMPTY_DEP: DependantForm = {
-  firstName: '', lastName: '', dateOfBirth: '', relationship: 'SPOUSE', idNumber: '',
+  firstName: '', lastName: '', dateOfBirth: '', relationship: 'SPOUSE', idNumber: '', startDate: '',
 }
 
 const RELATIONSHIPS = [
@@ -136,7 +137,11 @@ export default function ApplyWizard({ products }: { products: Product[] }) {
         await fetch('/api/dependants', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ policyId: policy.id, ...dep }),
+          body: JSON.stringify({
+            policyId: policy.id,
+            ...dep,
+            startDate: dep.startDate || undefined,
+          }),
         })
       }
 
@@ -347,9 +352,13 @@ export default function ApplyWizard({ products }: { products: Product[] }) {
                           {RELATIONSHIPS.map(r => <option key={r.value} value={r.value}>{r.label}</option>)}
                         </select>
                       </div>
-                      <div className="space-y-1.5 sm:col-span-2">
+                      <div className="space-y-1.5">
                         <Label className="text-xs font-medium text-[#6B7280]">SA ID Number (optional)</Label>
                         <Input value={dep.idNumber} onChange={e => updateDep(i, 'idNumber', e.target.value)} placeholder="7601015800087" className="h-10" />
+                      </div>
+                      <div className="space-y-1.5">
+                        <Label className="text-xs font-medium text-[#6B7280]">Cover Start Date (optional)</Label>
+                        <Input type="date" value={dep.startDate} onChange={e => updateDep(i, 'startDate', e.target.value)} className="h-10" />
                       </div>
                     </div>
                   </div>
