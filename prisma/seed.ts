@@ -1,6 +1,10 @@
 import { PrismaClient, ProductCategory, AgeGroup } from '@prisma/client'
+import { PrismaPg } from '@prisma/adapter-pg'
+import { Pool } from 'pg'
 
-const prisma = new PrismaClient()
+const pool = new Pool({ connectionString: process.env.DATABASE_URL })
+const adapter = new PrismaPg(pool)
+const prisma = new PrismaClient({ adapter })
 
 const PRODUCTS = [
   {
@@ -63,26 +67,38 @@ async function main() {
   for (const productData of PRODUCTS) {
     const { tiers, ...product } = productData
 
-    const created = await prisma.product.upsert({
-      where: { id: product.name },
-      create: {
-        name: product.name,
-        description: product.description,
-        category: product.category,
-        pricingTiers: {
-          create: tiers.map((t) => ({
-            ageGroup: t.ageGroup,
-            coverAmount: t.coverAmount,
-            premium: t.premium,
-          })),
-        },
-      },
-      update: {
-        description: product.description,
-      },
-    })
+    // Find existing product by category (unique business key) or create new
+    const existing = await prisma.product.findFirst({ where: { category: product.category } })
 
-    console.log(`  ✓ Product: ${created.name}`)
+    let productId: string
+
+    if (existing) {
+      await prisma.product.update({
+        where: { id: existing.id },
+        data: { name: product.name, description: product.description },
+      })
+      productId = existing.id
+      console.log(`  ~ Updated: ${product.name}`)
+    } else {
+      const created = await prisma.product.create({
+        data: {
+          name: product.name,
+          description: product.description,
+          category: product.category,
+        },
+      })
+      productId = created.id
+      console.log(`  + Created: ${product.name}`)
+    }
+
+    // Upsert tiers by unique constraint (productId + ageGroup + coverAmount)
+    for (const t of tiers) {
+      await prisma.pricingTier.upsert({
+        where: { productId_ageGroup_coverAmount: { productId, ageGroup: t.ageGroup, coverAmount: t.coverAmount } },
+        create: { productId, ageGroup: t.ageGroup, coverAmount: t.coverAmount, premium: t.premium },
+        update: { premium: t.premium },
+      })
+    }
   }
 
   console.log('Seeding complete.')
