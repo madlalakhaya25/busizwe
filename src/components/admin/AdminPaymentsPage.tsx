@@ -27,7 +27,10 @@ export default function AdminPaymentsPage({ payments: initial }: { payments: unk
   const [payments, setPayments] = useState(initial as Payment[])
   const [search, setSearch]     = useState('')
   const [markingId, setMarkingId] = useState<string | null>(null)
-  const [refs, setRefs]         = useState<Record<string, string>>({})
+  // Pre-fill refs with each payment's policy number (members use it as their reference)
+  const [refs, setRefs] = useState<Record<string, string>>(
+    () => Object.fromEntries((initial as Payment[]).map((p) => [p.id, p.policy.policyNumber]))
+  )
   const [showAdd, setShowAdd]   = useState(false)
   const [adding, setAdding]     = useState(false)
   const [addError, setAddError] = useState('')

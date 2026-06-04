@@ -199,7 +199,7 @@ export default function DependantsPage({ dependants, policies }: { dependants: u
           <h3 className="text-lg font-bold text-[#014D4E] mb-2 font-serif">No Dependants Added</h3>
           <p className="text-[#9a9a9a] text-sm max-w-xs mx-auto mb-6">
             {typedPolicies.length === 0
-              ? 'You need an active policy before adding dependants.'
+              ? 'Your policy must be approved and active before you can add dependants. Once an admin approves your application, you can add family members here.'
               : 'Add family members to include them in your funeral cover.'}
           </p>
           {typedPolicies.length > 0 && (
