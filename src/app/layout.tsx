@@ -47,8 +47,8 @@ export const metadata: Metadata = {
     description: 'Affordable funeral cover for South African families.',
   },
   icons: {
-    icon: '/favicon.svg',
-    apple: '/apple-icon.svg',
+    icon: '/favicon.png',
+    apple: '/favicon.png',
   },
   manifest: '/manifest.webmanifest',
 }
@@ -67,7 +67,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
     >
       <head>
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="icon" href="/favicon.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/favicon.png" />
       </head>
       <body className="min-h-full flex flex-col antialiased bg-[#F7F3EA] text-[#1C1C1C]">
         <ClerkProvider>
