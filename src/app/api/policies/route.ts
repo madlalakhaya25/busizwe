@@ -4,6 +4,7 @@ import { z } from 'zod'
 import { prisma } from '@/lib/prisma'
 import { getOrCreateUser } from '@/lib/getOrCreateUser'
 import { generatePolicyNumber } from '@/lib/utils'
+import { appendPolicyRow } from '@/lib/googleSheets'
 
 const createSchema = z.object({
   productId: z.string().min(1),
@@ -50,17 +51,36 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Invalid product/pricing tier' }, { status: 400 })
   }
 
-  const policy = await prisma.policy.create({
-    data: {
-      userId: user.id,
-      productId,
-      pricingTierId,
-      policyNumber: generatePolicyNumber(),
-      status: 'PENDING',
-      monthlyPremium: pricingTier.premium,
-      coverAmount: pricingTier.coverAmount,
-    },
-    include: { product: true, pricingTier: true },
+  const [policy, profile] = await Promise.all([
+    prisma.policy.create({
+      data: {
+        userId: user.id,
+        productId,
+        pricingTierId,
+        policyNumber: generatePolicyNumber(),
+        status: 'PENDING',
+        monthlyPremium: pricingTier.premium,
+        coverAmount: pricingTier.coverAmount,
+      },
+      include: { product: true, pricingTier: true },
+    }),
+    prisma.profile.findUnique({ where: { userId: user.id } }),
+  ])
+
+  // Best-effort — runs in background, never blocks the response
+  appendPolicyRow({
+    timestamp:        new Date().toISOString(),
+    policyNumber:     policy.policyNumber,
+    status:           'PENDING',
+    memberName:       profile ? `${profile.firstName} ${profile.lastName}`.trim() : '',
+    email:            user.email,
+    phone:            profile?.phone ?? '',
+    idNumber:         profile?.idNumber ?? '',
+    product:          policy.product.name,
+    ageGroup:         policy.pricingTier.ageGroup,
+    coverAmount:      Number(policy.coverAmount).toFixed(2),
+    monthlyPremium:   Number(policy.monthlyPremium).toFixed(2),
+    applicationDate:  new Date().toLocaleDateString('en-ZA'),
   })
 
   return NextResponse.json(policy, { status: 201 })
