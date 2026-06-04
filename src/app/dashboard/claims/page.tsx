@@ -28,8 +28,8 @@ export default async function DashboardClaimsPage() {
       where: { userId: user.id, status: 'ACTIVE', deletedAt: null },
       select: { id: true, policyNumber: true, coverAmount: true, product: { select: { name: true } } },
     })
-  } catch {
-    // DB not configured
+  } catch (error) {
+    console.error('[dashboard/claims] Failed to fetch:', error)
   }
 
   return <ClaimsPage claims={claims} policies={policies} />

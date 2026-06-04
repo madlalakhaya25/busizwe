@@ -17,7 +17,8 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     if (!user || (user.role !== 'ADMIN' && user.role !== 'SUPER_ADMIN')) {
       redirect('/dashboard')
     }
-  } catch {
+  } catch (error) {
+    console.error('[admin/layout] Role check failed:', error)
     // Allow access if DB not configured (dev mode)
   }
 

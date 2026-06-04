@@ -24,8 +24,8 @@ export default async function DashboardSettingsPage() {
       include: { profile: true },
     })
     profile = user?.profile ?? null
-  } catch {
-    // DB unavailable — show empty form
+  } catch (error) {
+    console.error('[dashboard/settings] Failed to fetch profile:', error)
   }
 
   return (

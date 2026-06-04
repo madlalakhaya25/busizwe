@@ -2,6 +2,7 @@ import { auth } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
 import { prisma } from '@/lib/prisma'
+import { getAdminUser } from '@/lib/requireAdmin'
 
 const createSchema = z.object({
   policyNumber: z.string().min(1),
@@ -16,13 +17,8 @@ export async function POST(req: Request) {
   const { userId } = await auth()
   if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const admin = await prisma.user.findUnique({
-    where: { clerkId: userId },
-    select: { role: true, id: true },
-  })
-  if (!admin || (admin.role !== 'ADMIN' && admin.role !== 'SUPER_ADMIN')) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
-  }
+  const admin = await getAdminUser(userId)
+  if (!admin) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
 
   const body = await req.json()
   const parsed = createSchema.safeParse(body)

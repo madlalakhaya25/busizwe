@@ -1,7 +1,9 @@
 import { auth } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
+import { ClaimStatus } from '@prisma/client'
 import { prisma } from '@/lib/prisma'
+import { getAdminUser } from '@/lib/requireAdmin'
 import { sendWhatsApp, claimStatusMessage } from '@/lib/whatsapp'
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://busizwe.co.za'
@@ -12,17 +14,23 @@ const reviewSchema = z.object({
   rejectionReason: z.string().optional(),
 })
 
+type ClaimUpdateData = {
+  adminNotes?: string
+  reviewedBy: string
+  reviewedAt: Date
+  status?: ClaimStatus
+  approvedAt?: Date
+  paidAt?: Date
+  rejectedAt?: Date
+  rejectionReason?: string
+}
+
 export async function POST(req: Request, { params }: { params: Promise<{ id: string }> }) {
   const { userId } = await auth()
   if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const admin = await prisma.user.findUnique({
-    where: { clerkId: userId },
-    select: { role: true, id: true },
-  })
-  if (!admin || (admin.role !== 'ADMIN' && admin.role !== 'SUPER_ADMIN')) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
-  }
+  const admin = await getAdminUser(userId)
+  if (!admin) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
 
   const { id } = await params
   const body = await req.json()
@@ -31,17 +39,17 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
 
   const { action, adminNotes, rejectionReason } = parsed.data
 
-  const updateData: Record<string, unknown> = {
+  const updateData: ClaimUpdateData = {
     adminNotes,
     reviewedBy: admin.id,
     reviewedAt: new Date(),
   }
 
-  if (action === 'UNDER_REVIEW') updateData.status = 'UNDER_REVIEW'
-  if (action === 'APPROVE') { updateData.status = 'APPROVED'; updateData.approvedAt = new Date() }
-  if (action === 'MARK_PAID') { updateData.status = 'PAID'; updateData.paidAt = new Date() }
+  if (action === 'UNDER_REVIEW') updateData.status = ClaimStatus.UNDER_REVIEW
+  if (action === 'APPROVE') { updateData.status = ClaimStatus.APPROVED; updateData.approvedAt = new Date() }
+  if (action === 'MARK_PAID') { updateData.status = ClaimStatus.PAID; updateData.paidAt = new Date() }
   if (action === 'REJECT') {
-    updateData.status = 'REJECTED'
+    updateData.status = ClaimStatus.REJECTED
     updateData.rejectedAt = new Date()
     updateData.rejectionReason = rejectionReason
   }

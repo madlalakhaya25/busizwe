@@ -20,8 +20,8 @@ export default async function DashboardDocumentsPage() {
         orderBy: { createdAt: 'desc' },
       })
     }
-  } catch {
-    // DB not configured
+  } catch (error) {
+    console.error('[dashboard/documents] Failed to fetch:', error)
   }
 
   return <DocumentsPage documents={documents} />

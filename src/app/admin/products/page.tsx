@@ -13,8 +13,8 @@ export default async function AdminProductsPageRoute() {
       include: { pricingTiers: { orderBy: [{ ageGroup: 'asc' }, { coverAmount: 'asc' }] } },
       orderBy: { createdAt: 'asc' },
     })
-  } catch {
-    // DB not configured
+  } catch (error) {
+    console.error('[admin/products] Failed to fetch products:', error)
   }
 
   return <AdminProductsPage products={products} />

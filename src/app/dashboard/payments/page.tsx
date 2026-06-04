@@ -21,8 +21,8 @@ export default async function DashboardPaymentsPage() {
         orderBy: { dueDate: 'desc' },
       })
     }
-  } catch {
-    // DB not configured
+  } catch (error) {
+    console.error('[dashboard/payments] Failed to fetch:', error)
   }
 
   return <PaymentsPage payments={payments} />

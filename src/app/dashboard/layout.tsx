@@ -16,7 +16,9 @@ export default async function DashboardLayout({ children }: { children: React.Re
       select: { role: true },
     })
     isAdmin = user?.role === 'ADMIN' || user?.role === 'SUPER_ADMIN'
-  } catch {}
+  } catch (error) {
+    console.error('[dashboard/layout] Role check failed:', error)
+  }
 
   return (
     <div className="h-screen overflow-hidden bg-[#F9FAFB] flex">

@@ -19,13 +19,37 @@ const CONTACT_INFO = [
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+  const [subject, setSubject] = useState('')
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setLoading(true)
-    await new Promise((r) => setTimeout(r, 1200))
-    setLoading(false)
-    setSubmitted(true)
+    setError('')
+
+    const form = e.currentTarget
+    const data = {
+      firstName: (form.elements.namedItem('firstName') as HTMLInputElement).value,
+      lastName:  (form.elements.namedItem('lastName')  as HTMLInputElement).value,
+      email:     (form.elements.namedItem('email')     as HTMLInputElement).value,
+      phone:     (form.elements.namedItem('phone')     as HTMLInputElement).value || undefined,
+      subject:   subject || undefined,
+      message:   (form.elements.namedItem('message')   as HTMLTextAreaElement).value,
+    }
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+      if (!res.ok) throw new Error('Failed to send')
+      setSubmitted(true)
+    } catch {
+      setError('Something went wrong. Please try again or email us directly at busizwebs@gmail.com')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -89,34 +113,34 @@ export default function ContactPage() {
                     <div className="grid sm:grid-cols-2 gap-5">
                       <div className="space-y-1.5">
                         <Label htmlFor="firstName">First Name</Label>
-                        <Input id="firstName" placeholder="Nomsa" required />
+                        <Input id="firstName" name="firstName" placeholder="Nomsa" required />
                       </div>
                       <div className="space-y-1.5">
                         <Label htmlFor="lastName">Last Name</Label>
-                        <Input id="lastName" placeholder="Dlamini" required />
+                        <Input id="lastName" name="lastName" placeholder="Dlamini" required />
                       </div>
                     </div>
                     <div className="space-y-1.5">
                       <Label htmlFor="email">Email Address</Label>
-                      <Input id="email" type="email" placeholder="nomsa@example.com" required />
+                      <Input id="email" name="email" type="email" placeholder="nomsa@example.com" required />
                     </div>
                     <div className="space-y-1.5">
                       <Label htmlFor="phone">Phone Number</Label>
-                      <Input id="phone" type="tel" placeholder="0821234567" />
+                      <Input id="phone" name="phone" type="tel" placeholder="0821234567" />
                     </div>
                     <div className="space-y-1.5">
                       <Label htmlFor="subject">Subject</Label>
-                      <Select>
+                      <Select value={subject} onValueChange={setSubject}>
                         <SelectTrigger>
                           <SelectValue placeholder="Select a topic" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="membership">New Membership Enquiry</SelectItem>
-                          <SelectItem value="policy">Policy Questions</SelectItem>
-                          <SelectItem value="claims">Claims Assistance</SelectItem>
-                          <SelectItem value="payments">Payment Issues</SelectItem>
-                          <SelectItem value="documents">Documents</SelectItem>
-                          <SelectItem value="other">Other</SelectItem>
+                          <SelectItem value="New Membership Enquiry">New Membership Enquiry</SelectItem>
+                          <SelectItem value="Policy Questions">Policy Questions</SelectItem>
+                          <SelectItem value="Claims Assistance">Claims Assistance</SelectItem>
+                          <SelectItem value="Payment Issues">Payment Issues</SelectItem>
+                          <SelectItem value="Documents">Documents</SelectItem>
+                          <SelectItem value="Other">Other</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -124,11 +148,17 @@ export default function ContactPage() {
                       <Label htmlFor="message">Message</Label>
                       <Textarea
                         id="message"
+                        name="message"
                         placeholder="How can we help you?"
                         className="min-h-[120px]"
                         required
                       />
                     </div>
+                    {error && (
+                      <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-4 py-3">
+                        {error}
+                      </p>
+                    )}
                     <Button variant="default" size="lg" className="w-full" type="submit" disabled={loading}>
                       {loading ? (
                         <span className="flex items-center gap-2">

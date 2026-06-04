@@ -45,8 +45,8 @@ export default async function DashboardPage() {
         where: { userId: user.id, deletedAt: null },
       })
     }
-  } catch {
-    // Database not yet configured — show empty state
+  } catch (error) {
+    console.error('[dashboard] Failed to fetch user data:', error)
   }
 
   // Resolve display name: DB profile → Clerk → fallback

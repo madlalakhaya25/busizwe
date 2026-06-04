@@ -45,8 +45,8 @@ export default async function AdminPage() {
     }
 
     recentMembers = members
-  } catch {
-    // DB not configured
+  } catch (error) {
+    console.error('[admin/dashboard] Failed to fetch stats:', error)
   }
 
   return <AdminDashboard stats={stats} recentMembers={recentMembers} />

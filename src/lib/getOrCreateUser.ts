@@ -11,7 +11,8 @@ export async function getOrCreateUser(clerkId: string) {
 
   const clerk = await clerkClient()
   const clerkUser = await clerk.users.getUser(clerkId)
-  const email = clerkUser.emailAddresses[0]?.emailAddress ?? ''
+  const email = clerkUser.emailAddresses[0]?.emailAddress
+  if (!email) throw new Error(`Clerk user ${clerkId} has no verified email address`)
   const firstName = clerkUser.firstName ?? ''
   const lastName = clerkUser.lastName ?? ''
 

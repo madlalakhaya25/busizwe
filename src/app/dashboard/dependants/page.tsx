@@ -25,8 +25,8 @@ export default async function DashboardDependantsPage() {
       include: { policy: { select: { policyNumber: true, product: { select: { name: true } } } } },
       orderBy: { createdAt: 'desc' },
     })
-  } catch {
-    // DB not configured
+  } catch (error) {
+    console.error('[dashboard/dependants] Failed to fetch:', error)
   }
 
   return <DependantsPage dependants={dependants} policies={policies} />

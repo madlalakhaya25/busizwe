@@ -26,8 +26,8 @@ export default async function DashboardPoliciesPage() {
         orderBy: { createdAt: 'desc' },
       })
     }
-  } catch {
-    // DB not configured
+  } catch (error) {
+    console.error('[dashboard/policies] Failed to fetch:', error)
   }
 
   return <PoliciesPage policies={policies} />

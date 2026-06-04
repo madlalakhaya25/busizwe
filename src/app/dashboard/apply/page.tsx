@@ -21,9 +21,10 @@ export default async function ApplyPage() {
       },
       orderBy: { createdAt: 'asc' },
     })
-  } catch {
-    // DB not configured
+  } catch (error) {
+    console.error('[dashboard/apply] Failed to fetch products:', error)
   }
 
+  // products shape is validated by Prisma — safe cast at server/client boundary
   return <ApplyWizard products={products as any} />
 }
