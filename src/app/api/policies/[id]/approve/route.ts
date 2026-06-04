@@ -17,13 +17,26 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
 
   const { id } = await params
 
+  const startDate = new Date()
+
   const policy = await prisma.policy.update({
     where: { id },
     data: {
       status: 'ACTIVE',
-      approvedAt: new Date(),
+      approvedAt: startDate,
       approvedBy: admin.id,
-      startDate: new Date(),
+      startDate,
+    },
+  })
+
+  // Auto-create the first month's payment record
+  await prisma.payment.create({
+    data: {
+      userId: policy.userId,
+      policyId: policy.id,
+      amount: policy.monthlyPremium,
+      status: 'PENDING',
+      dueDate: startDate,
     },
   })
 
