@@ -413,7 +413,7 @@ export default function ApplyWizard({ products }: { products: Product[] }) {
 
               <p className="text-xs text-[#9a9a9a] leading-relaxed mb-5">
                 Your application will be reviewed and you will be notified once your policy is activated.
-                A 3-month waiting period applies for natural death claims. Accidental death is covered from day one.
+                A 6-month waiting period applies for natural death claims. Accidental death is covered from day one.
               </p>
 
               {error && (

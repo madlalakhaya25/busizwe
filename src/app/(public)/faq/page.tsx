@@ -24,7 +24,7 @@ const FAQS = [
       },
       {
         q: 'Is there a waiting period?',
-        a: 'There is a standard 3-month waiting period for natural causes of death. Accidental death is covered from the date your policy is activated.',
+        a: 'There is a standard 6-month waiting period for natural causes of death. Accidental death is covered from the date your policy is activated.',
       },
     ],
   },
