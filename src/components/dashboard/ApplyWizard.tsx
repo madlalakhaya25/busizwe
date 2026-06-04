@@ -50,6 +50,12 @@ const RELATIONSHIPS = [
 
 const STEPS = ['Choose Plan', 'Select Cover', 'Dependants', 'Review']
 
+const AGE_LABELS: Record<string, string> = {
+  AGE_16_64: '16 – 64 years',
+  AGE_65_75: '65 – 75 years',
+  AGE_75_84: '75 – 84 years',
+}
+
 function getIcon(name: string) {
   const n = name.toLowerCase()
   if (n.includes('single parent')) return Heart
@@ -257,7 +263,7 @@ export default function ApplyWizard({ products }: { products: Product[] }) {
                           : 'border-[#E5E7EB] text-[#6B7280] hover:border-[#014D4E]/40'
                       }`}
                     >
-                      {ag} yrs
+                      {AGE_LABELS[ag] ?? ag}
                     </button>
                   ))}
                 </div>
@@ -393,7 +399,7 @@ export default function ApplyWizard({ products }: { products: Product[] }) {
               <div className="bg-[#F9FAFB] rounded-2xl border border-[#E5E7EB] divide-y divide-[#E5E7EB] mb-5">
                 {[
                   ['Plan',            product.name],
-                  ['Age Group',       `${tier.ageGroup} years`],
+                  ['Age Group',       AGE_LABELS[tier.ageGroup] ?? tier.ageGroup],
                   ['Cover Amount',    formatCurrency(Number(tier.coverAmount))],
                   ['Monthly Premium', formatCurrency(Number(tier.premium))],
                   ['Dependants',      deps.length > 0 ? `${deps.length} added` : 'None added'],
