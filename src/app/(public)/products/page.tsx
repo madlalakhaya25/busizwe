@@ -101,7 +101,7 @@ export default function ProductsPage() {
                     </ul>
                     <div className="mt-6">
                       <Link
-                        href="/sign-up"
+                        href="/dashboard/apply"
                         className={`flex items-center justify-center h-12 px-8 rounded-lg text-sm font-semibold shadow-sm hover:shadow-md transition-all duration-200 gap-2 print:shadow-none print:border-2 ${
                           product.popular
                             ? 'bg-[#C89B3C] text-white hover:bg-[#A8832A] print:border-[#C89B3C] print:text-[#C89B3C] print:bg-transparent'

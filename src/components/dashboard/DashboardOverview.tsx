@@ -114,8 +114,8 @@ export default function DashboardOverview({ displayName, stats, recentPolicies, 
             </p>
           </div>
           {stats.activePolicies === 0 && (
-            <Link href="/products" className="flex items-center justify-center gap-2 h-9 px-4 rounded-lg text-sm font-semibold bg-[#C89B3C] text-white hover:bg-[#A8832A] shadow-sm hover:shadow-md transition-all duration-200 shrink-0 self-start sm:self-auto">
-              Browse Plans <ArrowRight className="w-4 h-4" />
+            <Link href="/dashboard/apply" className="flex items-center justify-center gap-2 h-9 px-4 rounded-lg text-sm font-semibold bg-[#C89B3C] text-white hover:bg-[#A8832A] shadow-sm hover:shadow-md transition-all duration-200 shrink-0 self-start sm:self-auto">
+              Apply for Cover <ArrowRight className="w-4 h-4" />
             </Link>
           )}
         </div>
@@ -189,7 +189,7 @@ export default function DashboardOverview({ displayName, stats, recentPolicies, 
                     <FileText className="w-5 h-5 text-[#d0c9bc]" />
                   </div>
                   <p className="text-sm text-[#9a9a9a] mb-4">No policies yet</p>
-                  <Link href="/products" className="inline-flex items-center justify-center h-9 px-4 rounded-lg text-sm font-semibold bg-[#014D4E] text-white hover:bg-[#013638] shadow-sm transition-all duration-200">Browse Plans</Link>
+                  <Link href="/dashboard/apply" className="inline-flex items-center justify-center h-9 px-4 rounded-lg text-sm font-semibold bg-[#014D4E] text-white hover:bg-[#013638] shadow-sm transition-all duration-200">Apply for Cover</Link>
                 </div>
               ) : (
                 <div className="space-y-2">

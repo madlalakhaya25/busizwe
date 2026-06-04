@@ -50,8 +50,8 @@ export default function PoliciesPage({ policies }: { policies: unknown[] }) {
           <span className="font-bold text-[#1C1C1C]">{typedPolicies.length}</span>{' '}
           {typedPolicies.length === 1 ? 'policy' : 'policies'} found
         </p>
-        <Link href="/products" className="flex items-center justify-center h-9 px-4 rounded-lg text-sm font-semibold bg-[#C89B3C] text-white hover:bg-[#A8832A] shadow-sm hover:shadow-md transition-all duration-200">
-          <Plus className="w-4 h-4" /> Browse Plans
+        <Link href="/dashboard/apply" className="flex items-center justify-center h-9 px-4 rounded-lg text-sm font-semibold bg-[#C89B3C] text-white hover:bg-[#A8832A] shadow-sm hover:shadow-md transition-all duration-200">
+          <Plus className="w-4 h-4" /> Apply for Cover
         </Link>
       </div>
 
@@ -69,7 +69,7 @@ export default function PoliciesPage({ policies }: { policies: unknown[] }) {
           <p className="text-[#9a9a9a] text-sm mb-6 max-w-sm mx-auto">
             You have not applied for any funeral cover yet. Browse our plans and apply today.
           </p>
-          <Link href="/products" className="flex items-center justify-center h-11 px-6 rounded-lg text-sm font-semibold bg-[#014D4E] text-white hover:bg-[#013638] shadow-sm transition-all duration-200">Browse Cover Plans</Link>
+          <Link href="/dashboard/apply" className="inline-flex items-center justify-center h-11 px-6 rounded-lg text-sm font-semibold bg-[#014D4E] text-white hover:bg-[#013638] shadow-sm transition-all duration-200">Apply for Cover</Link>
         </motion.div>
       )}
 
