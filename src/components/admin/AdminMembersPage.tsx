@@ -7,13 +7,35 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { formatDate, getStatusColor } from '@/lib/utils'
+import { formatCurrency, formatDate, getStatusColor } from '@/lib/utils'
+
+const AGE_LABELS: Record<string, string> = {
+  AGE_16_64: '16 – 64 yrs',
+  AGE_65_75: '65 – 75 yrs',
+  AGE_75_84: '75 – 84 yrs',
+}
+
+interface Dependant {
+  id: string
+  firstName: string
+  lastName: string
+  relationship: string
+  dateOfBirth: Date
+}
 
 interface Policy {
   id: string
   policyNumber: string
   status: string
-  product: { name: string }
+  monthlyPremium: unknown
+  coverAmount: unknown
+  startDate: Date | null
+  endDate: Date | null
+  approvedAt: Date | null
+  createdAt: Date
+  product: { name: string; category: string }
+  pricingTier: { ageGroup: string }
+  dependants: Dependant[]
 }
 
 interface Member {
@@ -154,35 +176,67 @@ export default function AdminMembersPage({ members }: { members: unknown[] }) {
                         </td>
                       </tr>
                       {expandedId === member.id && (
-                        <tr className="bg-[#F7F3EA]">
-                          <td colSpan={6} className="p-4">
-                            <div className="space-y-3">
-                              <h4 className="font-bold text-[#014D4E] text-sm">Policies for {member.profile?.firstName ?? member.email}</h4>
+                        <tr className="bg-[#F9FAFB]">
+                          <td colSpan={6} className="p-5">
+                            <div className="space-y-4">
+                              <h4 className="font-bold text-[#014D4E] text-sm">
+                                Policies — {member.profile ? `${member.profile.firstName} ${member.profile.lastName}` : member.email}
+                              </h4>
                               {member.policies.length === 0 ? (
-                                <p className="text-sm text-[#6b6b6b]">No policies.</p>
+                                <p className="text-sm text-[#6b6b6b]">No policies on record.</p>
                               ) : (
                                 member.policies.map((p) => (
-                                  <div key={p.id} className="flex items-center justify-between bg-white rounded-xl p-4 border border-[#e0d9cc]">
-                                    <div>
-                                      <p className="font-semibold text-[#1C1C1C] text-sm">{p.product.name}</p>
-                                      <p className="text-xs font-mono text-[#6b6b6b]">{p.policyNumber}</p>
+                                  <div key={p.id} className="bg-white rounded-2xl border border-[#E5E7EB] overflow-hidden">
+                                    {/* Policy header */}
+                                    <div className="flex items-center justify-between px-5 py-3.5 border-b border-[#E5E7EB]">
+                                      <div>
+                                        <p className="font-semibold text-[#014D4E] text-sm">{p.product.name}</p>
+                                        <p className="text-xs font-mono text-[#9a9a9a] mt-0.5">{p.policyNumber}</p>
+                                      </div>
+                                      <div className="flex items-center gap-2">
+                                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ${getStatusColor(p.status)}`}>
+                                          {p.status}
+                                        </span>
+                                        {p.status === 'PENDING' && (
+                                          <Button variant="default" size="sm" onClick={() => approvePolicy(p.id)} disabled={approvingId === p.id}>
+                                            <CheckCircle2 className="w-3.5 h-3.5" />
+                                            {approvingId === p.id ? 'Approving...' : 'Approve'}
+                                          </Button>
+                                        )}
+                                      </div>
                                     </div>
-                                    <div className="flex items-center gap-2">
-                                      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ${getStatusColor(p.status)}`}>
-                                        {p.status}
-                                      </span>
-                                      {p.status === 'PENDING' && (
-                                        <Button
-                                          variant="default"
-                                          size="sm"
-                                          onClick={() => approvePolicy(p.id)}
-                                          disabled={approvingId === p.id}
-                                        >
-                                          <CheckCircle2 className="w-3.5 h-3.5" />
-                                          {approvingId === p.id ? 'Approving...' : 'Approve'}
-                                        </Button>
-                                      )}
+                                    {/* Policy details grid */}
+                                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-[#E5E7EB]">
+                                      {[
+                                        { label: 'Monthly Premium', value: formatCurrency(Number(p.monthlyPremium)) },
+                                        { label: 'Cover Amount',    value: formatCurrency(Number(p.coverAmount)) },
+                                        { label: 'Age Group',       value: AGE_LABELS[p.pricingTier?.ageGroup] ?? p.pricingTier?.ageGroup ?? '–' },
+                                        { label: 'Start Date',      value: p.startDate ? formatDate(p.startDate) : 'Pending' },
+                                        { label: 'Applied',         value: formatDate(p.createdAt) },
+                                        { label: 'Approved',        value: p.approvedAt ? formatDate(p.approvedAt) : '–' },
+                                        { label: 'Dependants',      value: `${p.dependants.length}` },
+                                        { label: 'End Date',        value: p.endDate ? formatDate(p.endDate) : 'Ongoing' },
+                                      ].map(({ label, value }) => (
+                                        <div key={label} className="bg-white px-4 py-3">
+                                          <p className="text-[10px] text-[#9a9a9a] uppercase tracking-wider font-medium">{label}</p>
+                                          <p className="text-sm font-semibold text-[#1C1C1C] mt-0.5">{value}</p>
+                                        </div>
+                                      ))}
                                     </div>
+                                    {/* Dependants list */}
+                                    {p.dependants.length > 0 && (
+                                      <div className="px-5 py-3 border-t border-[#E5E7EB]">
+                                        <p className="text-[10px] text-[#9a9a9a] uppercase tracking-wider font-medium mb-2">Dependants</p>
+                                        <div className="flex flex-wrap gap-2">
+                                          {p.dependants.map((d) => (
+                                            <span key={d.id} className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#F9FAFB] border border-[#E5E7EB] rounded-full text-xs font-medium text-[#374151]">
+                                              {d.firstName} {d.lastName}
+                                              <span className="text-[#9a9a9a]">· {d.relationship.toLowerCase()}</span>
+                                            </span>
+                                          ))}
+                                        </div>
+                                      </div>
+                                    )}
                                   </div>
                                 ))
                               )}

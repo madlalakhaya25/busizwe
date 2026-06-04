@@ -1,8 +1,9 @@
 'use client'
 
+import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { UserButton } from '@clerk/nextjs'
-import { Shield, ChevronRight } from 'lucide-react'
+import { Shield, ChevronRight, ArrowLeft } from 'lucide-react'
 
 const PAGE_TITLES: Record<string, { title: string; sub?: string }> = {
   '/admin':          { title: 'Dashboard',  sub: 'Overview of platform activity' },
@@ -40,6 +41,12 @@ export default function AdminHeader() {
         {page.sub && <p className="text-xs text-[#9a9a9a] hidden sm:block leading-none mt-0.5">{page.sub}</p>}
       </div>
 
+      <Link
+        href="/dashboard"
+        className="hidden sm:flex items-center gap-1.5 text-xs font-medium text-[#6B7280] hover:text-[#014D4E] transition-colors shrink-0"
+      >
+        <ArrowLeft className="w-3.5 h-3.5" /> Dashboard
+      </Link>
       <UserButton appearance={{ elements: { avatarBox: 'w-8 h-8 ring-2 ring-[#C89B3C]/60 ring-offset-1' } }} />
     </header>
   )

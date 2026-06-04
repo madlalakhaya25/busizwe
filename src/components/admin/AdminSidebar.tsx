@@ -3,17 +3,16 @@
 import React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { LayoutDashboard, Users, Package, CreditCard, Settings, LogOut, FileSearch } from 'lucide-react'
+import { LayoutDashboard, Users, Package, CreditCard, Settings, LogOut, FileSearch, ArrowLeft } from 'lucide-react'
 import { useClerk } from '@clerk/nextjs'
-import Logo from '@/components/layout/Logo'
 import { cn } from '@/lib/utils'
 
 const NAV_ITEMS = [
   { icon: LayoutDashboard, label: 'Dashboard', href: '/admin' },
-  { icon: Users, label: 'Members', href: '/admin/members' },
-  { icon: Package, label: 'Products', href: '/admin/products' },
-  { icon: FileSearch, label: 'Claims', href: '/admin/claims' },
-  { icon: CreditCard, label: 'Payments', href: '/admin/payments' },
+  { icon: Users,           label: 'Members',   href: '/admin/members' },
+  { icon: Package,         label: 'Products',  href: '/admin/products' },
+  { icon: FileSearch,      label: 'Claims',    href: '/admin/claims' },
+  { icon: CreditCard,      label: 'Payments',  href: '/admin/payments' },
 ]
 
 export default function AdminSidebar() {
@@ -27,8 +26,10 @@ export default function AdminSidebar() {
 
   return (
     <aside className="hidden lg:flex flex-col w-64 bg-[#1C1C1C] text-white h-screen sticky top-0 z-30">
-      <div className="p-4 h-[72px] flex items-center border-b border-white/10">
-        <Logo size="sm" variant="full" href="/admin" />
+      {/* Logo */}
+      <div className="h-[72px] flex items-center justify-center border-b border-white/10 px-4">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/busizwe-badge.png" alt="Busizwe" width={96} height={61} className="object-contain" />
       </div>
 
       <div className="px-3 py-2 mt-2">
@@ -54,6 +55,13 @@ export default function AdminSidebar() {
       </nav>
 
       <div className="p-4 border-t border-white/10 space-y-1">
+        {/* Back to member dashboard */}
+        <Link
+          href="/dashboard"
+          className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-[#C89B3C] hover:text-white hover:bg-[#C89B3C]/20 transition-colors"
+        >
+          <ArrowLeft className="w-5 h-5" /> Member Dashboard
+        </Link>
         <Link
           href="/admin/settings"
           className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-white/60 hover:text-white hover:bg-white/10 transition-colors"

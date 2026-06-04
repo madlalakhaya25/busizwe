@@ -67,9 +67,13 @@ export default function SettingsPage({ email, profile }: { email: string; profil
   const [error,  setError]  = useState('')
 
   const [form, setForm] = useState({
-    firstName:  profile?.firstName  ?? '',
-    lastName:   profile?.lastName   ?? '',
-    phone:      profile?.phone      ?? '',
+    firstName:   profile?.firstName   ?? '',
+    lastName:    profile?.lastName    ?? '',
+    phone:       profile?.phone       ?? '',
+    idNumber:    profile?.idNumber    ?? '',
+    dateOfBirth: profile?.dateOfBirth
+      ? new Date(profile.dateOfBirth).toISOString().slice(0, 10)
+      : '',
     address:    profile?.address    ?? '',
     city:       profile?.city       ?? '',
     province:   profile?.province   ?? '',
@@ -150,7 +154,7 @@ export default function SettingsPage({ email, profile }: { email: string; profil
               />
             </div>
 
-            {/* Phone */}
+            {/* Phone + ID */}
             <div className="grid sm:grid-cols-2 gap-4">
               <InputField
                 id="phone"
@@ -160,17 +164,27 @@ export default function SettingsPage({ email, profile }: { email: string; profil
                 onChange={set('phone')}
                 placeholder="0821234567"
               />
-              {profile?.idNumber && (
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium text-[#1C1C1C]">SA ID Number</Label>
-                  <Input
-                    value={profile.idNumber}
-                    disabled
-                    className="h-11 bg-[#F9FAFB] text-[#9a9a9a] font-mono cursor-not-allowed"
-                  />
-                  <p className="text-xs text-[#9a9a9a]">Contact support to correct your ID.</p>
-                </div>
-              )}
+              <InputField
+                id="idNumber"
+                label="SA ID Number"
+                value={form.idNumber}
+                onChange={set('idNumber')}
+                placeholder="7601015800087"
+                maxLength={13}
+                className="h-11 font-mono"
+                hint="13-digit South African ID number"
+              />
+            </div>
+
+            {/* Date of birth */}
+            <div className="sm:max-w-[240px]">
+              <InputField
+                id="dateOfBirth"
+                label="Date of Birth"
+                type="date"
+                value={form.dateOfBirth}
+                onChange={set('dateOfBirth')}
+              />
             </div>
 
             {/* Address section */}

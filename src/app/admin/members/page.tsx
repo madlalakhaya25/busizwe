@@ -14,7 +14,11 @@ export default async function AdminMembersPageRoute() {
         profile: true,
         policies: {
           where: { deletedAt: null },
-          include: { product: { select: { name: true } } },
+          include: {
+            product: true,
+            pricingTier: true,
+            dependants: { where: { deletedAt: null }, select: { id: true, firstName: true, lastName: true, relationship: true, dateOfBirth: true } },
+          },
           orderBy: { createdAt: 'desc' },
         },
         documents: { where: { deletedAt: null }, select: { id: true, status: true, type: true } },
