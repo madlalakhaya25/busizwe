@@ -43,7 +43,14 @@ interface Member {
   email: string
   role: string
   createdAt: Date
-  profile: { firstName: string; lastName: string; phone: string | null; idNumber: string | null } | null
+  profile: {
+    firstName: string; lastName: string
+    phone: string | null; alternativePhone: string | null
+    idNumber: string | null; dateOfBirth: Date | null; gender: string | null
+    address: string | null; city: string | null; province: string | null
+    bankName: string | null; bankAccount: string | null; bankBranch: string | null
+    nextOfKinName: string | null; nextOfKinPhone: string | null; nextOfKinRelationship: string | null
+  } | null
   policies: Policy[]
   documents: { id: string; status: string; type: string }[]
 }
@@ -180,8 +187,35 @@ export default function AdminMembersPage({ members }: { members: unknown[] }) {
                           <td colSpan={6} className="p-5">
                             <div className="space-y-4">
                               <h4 className="font-bold text-[#014D4E] text-sm">
-                                Policies — {member.profile ? `${member.profile.firstName} ${member.profile.lastName}` : member.email}
+                                {member.profile ? `${member.profile.firstName} ${member.profile.lastName}` : member.email}
                               </h4>
+
+                              {/* Member detail grid */}
+                              {member.profile && (
+                                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 bg-white rounded-2xl border border-[#E5E7EB] p-4">
+                                  {[
+                                    { label: 'ID Number',     value: member.profile.idNumber },
+                                    { label: 'Date of Birth', value: member.profile.dateOfBirth ? formatDate(member.profile.dateOfBirth) : null },
+                                    { label: 'Gender',        value: member.profile.gender },
+                                    { label: 'Phone',         value: member.profile.phone },
+                                    { label: 'Alt Phone',     value: member.profile.alternativePhone },
+                                    { label: 'City',          value: member.profile.city },
+                                    { label: 'Province',      value: member.profile.province },
+                                    { label: 'Bank',          value: member.profile.bankName },
+                                    { label: 'Account No.',   value: member.profile.bankAccount },
+                                    { label: 'Branch Code',   value: member.profile.bankBranch },
+                                    { label: 'Next of Kin',   value: member.profile.nextOfKinName },
+                                    { label: 'NOK Phone',     value: member.profile.nextOfKinPhone },
+                                  ].filter(f => f.value).map(({ label, value }) => (
+                                    <div key={label}>
+                                      <p className="text-[10px] text-[#9a9a9a] uppercase tracking-wider">{label}</p>
+                                      <p className="text-sm font-medium text-[#1C1C1C] mt-0.5 font-mono">{value}</p>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+
+                              <p className="text-xs font-semibold text-[#9a9a9a] uppercase tracking-widest">Policies</p>
                               {member.policies.length === 0 ? (
                                 <p className="text-sm text-[#6b6b6b]">No policies on record.</p>
                               ) : (

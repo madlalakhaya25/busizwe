@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { User, MapPin, Phone, Save, CheckCircle2, Loader2, Mail } from 'lucide-react'
+import { User, MapPin, Phone, Save, CheckCircle2, Loader2, Mail, Building2, HeartHandshake } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -18,6 +18,14 @@ interface ProfileData {
   postalCode: string | null
   idNumber: string | null
   dateOfBirth: Date | null
+  gender: string | null
+  alternativePhone: string | null
+  bankName: string | null
+  bankAccount: string | null
+  bankBranch: string | null
+  nextOfKinName: string | null
+  nextOfKinPhone: string | null
+  nextOfKinRelationship: string | null
 }
 
 const SA_PROVINCES = [
@@ -74,10 +82,18 @@ export default function SettingsPage({ email, profile }: { email: string; profil
     dateOfBirth: profile?.dateOfBirth
       ? new Date(profile.dateOfBirth).toISOString().slice(0, 10)
       : '',
+    gender:           profile?.gender           ?? '',
+    alternativePhone: profile?.alternativePhone ?? '',
     address:    profile?.address    ?? '',
     city:       profile?.city       ?? '',
     province:   profile?.province   ?? '',
     postalCode: profile?.postalCode ?? '',
+    bankName:    profile?.bankName    ?? '',
+    bankAccount: profile?.bankAccount ?? '',
+    bankBranch:  profile?.bankBranch  ?? '',
+    nextOfKinName:         profile?.nextOfKinName         ?? '',
+    nextOfKinPhone:        profile?.nextOfKinPhone        ?? '',
+    nextOfKinRelationship: profile?.nextOfKinRelationship ?? '',
   })
 
   const set = (key: keyof typeof form) => (
@@ -176,14 +192,41 @@ export default function SettingsPage({ email, profile }: { email: string; profil
               />
             </div>
 
-            {/* Date of birth */}
-            <div className="sm:max-w-[240px]">
+            {/* Date of birth + gender */}
+            <div className="grid sm:grid-cols-2 gap-4">
               <InputField
                 id="dateOfBirth"
                 label="Date of Birth"
                 type="date"
                 value={form.dateOfBirth}
                 onChange={set('dateOfBirth')}
+              />
+              <div className="space-y-2">
+                <Label htmlFor="gender" className="text-sm font-medium text-[#1C1C1C]">Gender</Label>
+                <select
+                  id="gender"
+                  value={form.gender}
+                  onChange={set('gender')}
+                  className="flex h-11 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring"
+                >
+                  <option value="">Select…</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Alternative phone */}
+            <div className="sm:max-w-[280px]">
+              <InputField
+                id="alternativePhone"
+                label="Alternative Phone"
+                type="tel"
+                value={form.alternativePhone}
+                onChange={set('alternativePhone')}
+                placeholder="0731234567"
+                hint="A second number we can reach you on"
               />
             </div>
 
@@ -277,8 +320,58 @@ export default function SettingsPage({ email, profile }: { email: string; profil
         </SectionCard>
       </motion.div>
 
-      {/* Phone info block */}
+      {/* Banking details */}
+      <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, delay: 0.12 }}>
+        <SectionCard icon={Building2} title="Banking Details" subtitle="Used for claim payouts — your premium payments go to our account, not this one">
+          <div className="grid sm:grid-cols-2 gap-4">
+            <div className="sm:col-span-2">
+              <div className="space-y-2">
+                <Label htmlFor="bankName" className="text-sm font-medium text-[#1C1C1C]">Bank Name</Label>
+                <select
+                  id="bankName"
+                  value={form.bankName}
+                  onChange={set('bankName')}
+                  className="flex h-11 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring"
+                >
+                  <option value="">Select bank…</option>
+                  {['Absa', 'Capitec', 'FNB', 'Nedbank', 'Standard Bank', 'African Bank', 'Bidvest', 'Discovery Bank', 'TymeBank', 'Other'].map(b => (
+                    <option key={b} value={b}>{b}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <InputField id="bankAccount" label="Account Number" value={form.bankAccount} onChange={set('bankAccount')} placeholder="1234567890" className="h-11 font-mono" />
+            <InputField id="bankBranch" label="Branch Code" value={form.bankBranch} onChange={set('bankBranch')} placeholder="470010" maxLength={6} className="h-11 font-mono" />
+          </div>
+        </SectionCard>
+      </motion.div>
+
+      {/* Next of kin */}
       <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, delay: 0.16 }}>
+        <SectionCard icon={HeartHandshake} title="Next of Kin" subtitle="Who we contact and notify in the event of a claim">
+          <div className="grid sm:grid-cols-2 gap-4">
+            <InputField id="nextOfKinName" label="Full Name" value={form.nextOfKinName} onChange={set('nextOfKinName')} placeholder="Nomvula Dlamini" />
+            <InputField id="nextOfKinPhone" label="Phone Number" type="tel" value={form.nextOfKinPhone} onChange={set('nextOfKinPhone')} placeholder="0821234567" />
+            <div className="space-y-2">
+              <Label htmlFor="nextOfKinRelationship" className="text-sm font-medium text-[#1C1C1C]">Relationship</Label>
+              <select
+                id="nextOfKinRelationship"
+                value={form.nextOfKinRelationship}
+                onChange={set('nextOfKinRelationship')}
+                className="flex h-11 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring"
+              >
+                <option value="">Select…</option>
+                {['Spouse', 'Child', 'Parent', 'Sibling', 'Grandparent', 'Friend', 'Other'].map(r => (
+                  <option key={r} value={r}>{r}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </SectionCard>
+      </motion.div>
+
+      {/* Phone info block */}
+      <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, delay: 0.2 }}>
         <div className="flex items-center gap-3 p-4 bg-[#014D4E] rounded-2xl text-white">
           <Phone className="w-5 h-5 text-[#C89B3C] shrink-0" />
           <div className="min-w-0">
