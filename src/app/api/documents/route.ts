@@ -1,6 +1,7 @@
 import { auth } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { getOrCreateUser } from '@/lib/getOrCreateUser'
 
 const ALLOWED_TYPES = ['ID_DOCUMENT', 'PROOF_OF_RESIDENCE', 'BANK_STATEMENT', 'DEATH_CERTIFICATE', 'BIRTH_CERTIFICATE', 'MARRIAGE_CERTIFICATE', 'OTHER'] as const
 type DocType = typeof ALLOWED_TYPES[number]
@@ -9,8 +10,7 @@ export async function GET() {
   const { userId } = await auth()
   if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const user = await prisma.user.findUnique({ where: { clerkId: userId } })
-  if (!user) return NextResponse.json({ error: 'User not found' }, { status: 404 })
+  const user = await getOrCreateUser(userId)
 
   const documents = await prisma.document.findMany({
     where: { userId: user.id, deletedAt: null },
@@ -24,8 +24,7 @@ export async function POST(req: Request) {
   const { userId } = await auth()
   if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const user = await prisma.user.findUnique({ where: { clerkId: userId } })
-  if (!user) return NextResponse.json({ error: 'User not found' }, { status: 404 })
+  const user = await getOrCreateUser(userId)
 
   const formData = await req.formData()
   const file = formData.get('file') as File | null

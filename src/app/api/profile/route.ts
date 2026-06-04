@@ -1,6 +1,7 @@
 import { auth } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { getOrCreateUser } from '@/lib/getOrCreateUser'
 
 export async function PUT(request: Request) {
   const { userId } = await auth()
@@ -14,8 +15,7 @@ export async function PUT(request: Request) {
   }
 
   try {
-    const user = await prisma.user.findUnique({ where: { clerkId: userId } })
-    if (!user) return NextResponse.json({ error: 'User not found' }, { status: 404 })
+    const user = await getOrCreateUser(userId)
 
     await prisma.profile.upsert({
       where: { userId: user.id },
